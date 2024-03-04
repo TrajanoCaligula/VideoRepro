@@ -8,4 +8,8 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+    <servlet>
+      <servlet-name>ServUser</servlet-name>
+      <servlet-class>/ServUser</servlet-class>
+    </servlet>
 </web-app>
