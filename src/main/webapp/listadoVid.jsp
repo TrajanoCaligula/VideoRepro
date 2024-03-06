@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Listado Dinámico de Datos</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bodyList">
     <!--<div id="navbarContainer"></div>-->
