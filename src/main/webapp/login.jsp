@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Iniciar Sesión</title>
-        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <form class="login-form" action="procesar_login.php" method="post">
@@ -20,11 +20,11 @@
             <table>
                 <tr>
                     <td><p>Usuario:</p></td>
-                    <td><input type="text" name="usuario" placeholder="Usuario" required></td>
+                    <td><input type="text" name="user" placeholder="Usuario" required></td>
                 </tr>
                 <tr>
                     <td><p>Password:</p></td>
-                    <td><input type="password" id="password" name="contraseña" placeholder="Contraseña" required></td>
+                    <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
                     <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>
                     
                 </tr>
