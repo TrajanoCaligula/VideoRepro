@@ -56,6 +56,10 @@
                 </select>
             </td>
             </tr>
+            <tr>
+                <td><p>Video:</p></td>
+                <td><input type="file" id="videoFile" name="videoFile" accept="video/*" required></td>
+            </tr>
         </table>
         <input type="submit" value="Enviar Registro">
     </form>
