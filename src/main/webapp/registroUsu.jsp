@@ -4,14 +4,14 @@
     Author     : alumne
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="es">
  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Regitro Usuario</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <form class= "reg-usu-form"action="procesar_login.php" method="post">
@@ -19,28 +19,28 @@
         <table>
             <tr>
                 <td><p>Nombre:</p></td>
-                <td><input type="text" name="sombre" placeholder="Maria" required></td>
+                <td><input type="text" id="name" name="name" placeholder="Maria" required></td>
             </tr>
             <tr>
                 <td><p>Apellidos:</p></td>
-                <td><input type="text" name="apellidos" placeholder="Ramírez Sierra" required></td>
+                <td><input type="text" id="surename" name="surename" placeholder="Ramírez Sierra" required></td>
             </tr>
             <tr>
                 <td><p>Correo electrónico:</p></td>
-                <td><input type="text" name="corre electrónico" placeholder="maria@example.com" required></td>
+                <td><input type="text" id="email" name="email" placeholder="maria@example.com" required></td>
             </tr>
             <tr>
                 <td><p>Nombre de usuario:</p></td>
-                <td><input type="text" name="usuario" placeholder="maria123" required></td>
+                <td><input type="text" id="userName" name="userName" placeholder="maria123" required></td>
             </tr>
             <tr>
                 <td><label for="password">Contraseña:</label></td>
-                <td><input type="password" id="password" name="contraseña" placeholder="Contraseña" required></td>
+                <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
                 <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseña"></td>          
             </tr>
             <tr>
                 <td><p>Repetir contraseña:</p></td>
-                <td><input type="password" id="repassword" name="recontraseña" placeholder="Contraseña" required></td>
+                <td><input type="password" id="repassword" name="repassword" placeholder="Contraseña" required></td>
                 <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseña"></td>
                
             </tr>
