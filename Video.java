@@ -1,3 +1,11 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author name
@@ -8,52 +16,44 @@ public class Video {
     private String title;
     private String author;
     private Date creationDate;
-    private Date uploadDate;
     private Time duration;
     private long views;
     private String description;
-    private String mime;
-    private URL videoUrl;
-    private URL imageUrl;
-    private String language;
+    //private URL videoUrl;
+    //private URL imageUrl;
+    private String format;
 
-    public Video(int id, String title, String author, Date creationDate, 
-            Date uploadDate, Time duration, long views, String description, 
-            String mime, URL videoUrl, URL imageUrl, String language) {
+    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
-        this.uploadDate = uploadDate;
         this.duration = duration;
         this.views = views;
         this.description = description;
-        this.mime = mime;
-        this.videoUrl = videoUrl;
-        this.imageUrl = imageUrl;
-        this.language = language;
+        this.format = format;
     }
-    
-    public Video(String title, String author, Date creationDate, Time duration, 
-                String description, String mime, URL videoUrl, URL imageUrl, 
-                String language ) {
+
+    public Video(String title, String author, Date creationDate, Time duration, long views, String description, String format) {
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
         this.duration = duration;
+        this.views = views;
         this.description = description;
-        this.mime = mime;
-        this.videoUrl = videoUrl;
-        this.imageUrl = imageUrl;
-        this.language = language;
+        this.format = format;
     }
 
     public int getId() {
-        return this.id;
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(String title) {
@@ -61,7 +61,7 @@ public class Video {
     }
 
     public String getAuthor() {
-        return this.author;
+        return author;
     }
 
     public void setAuthor(String author) {
@@ -69,23 +69,15 @@ public class Video {
     }
 
     public Date getCreationDate() {
-        return this.creationDate;
+        return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getUploadDate() {
-        return this.uploadDate;
-    }
-
-    public void setUploadDate(Date uploadDate) {
-        this.uploadDate = uploadDate;
-    }
-
-    public Time getDuration() {        
-        return this.duration;
+    public Time getDuration() {
+        return duration;
     }
 
     public void setDuration(Time duration) {
@@ -93,7 +85,7 @@ public class Video {
     }
 
     public long getViews() {
-        return this.views;
+        return views;
     }
 
     public void setViews(long views) {
@@ -101,44 +93,18 @@ public class Video {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getMime() {
-        return this.mime;
+    public String getFormat() {
+        return format;
     }
 
-    public void setMime(String mime) {
-        this.mime = mime;
+    public void setFormat(String format) {
+        this.format = format;
     }
-
-    public URL getVideoUrl() {
-        return this.videoUrl;
-    }
-
-    public void setVideoUrl(URL url) {
-        this.videoUrl = url;
-    }
-    
-    public URL getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(URL url) {
-        this.imageUrl = url;
-    }
-    
-    public String getLanguage() {
-        return this.language.substring(0,1).toUpperCase() + this.language.substring(1);
-    }
-    
-    public void setLanguage( String language ) {
-        this.language = language;
-    }
-    
-    
 }

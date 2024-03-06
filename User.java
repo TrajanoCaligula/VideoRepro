@@ -1,6 +1,4 @@
-
-
-
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,31 +15,40 @@ public class User {
 
     private int id;
     private String name;
+    private String surename;
     private String email;
+    private String userName;
     private String password;
 
     private static final String DB_HOST = "";
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
-    private static final String TABLENAME = "USUARIO";
+    private static final String TABLENAME = "USERS";
 
     public User() {
         this.id = -1;
         this.name = null;
+        this.surename = null;
         this.email = null;
+        this.userName = null;
         this.password = null;
     }
 
-    public User(int id, String name, String email, String password) {
+    public User(int id, String name, String surename, String email, String userName, String password) {
         this.id = id;
         this.name = name;
+        this.surename = surename;
         this.email = email;
+        this.userName = userName;
         this.password = password;
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String surename, String email, String userName, String password) {
+        this.id = -1;
         this.name = name;
+        this.surename = surename;
         this.email = email;
+        this.userName = userName;
         this.password = password;
     }
 
@@ -53,12 +60,20 @@ public class User {
         this.id = id;
     }
 
-    public String getname() {
+    public String getName() {
         return name;
     }
 
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSurename() {
+        return surename;
+    }
+
+    public void setSurename(String surename) {
+        this.surename = surename;
     }
 
     public String getEmail() {
@@ -69,11 +84,19 @@ public class User {
         this.email = email;
     }
 
-    public String getpassword() {
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
         return password;
     }
 
-    public void setpassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -82,7 +105,9 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", surename='" + surename + '\'' +
                 ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -93,7 +118,7 @@ public class User {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + this.email + "'";
+            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + this.userName + "' OR email=" + this.email;
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 existsUser = (rs.getInt("COUNT") > 0);
@@ -104,10 +129,8 @@ public class User {
             System.out.println(err.getMessage());       
         }
         return existsUser;
-    }   
+    }
 
-
-    //TOCHECK TODO: son del github
     public boolean createUser(){
         boolean result = false;
         try {
@@ -116,8 +139,8 @@ public class User {
             
             String sql = "INSERT INTO " + TABLENAME
                     + "(NAME, SURNAME, EMAIL, USERNAME, PASSWORD)"
-                   + " VALUES ('" + this.nombre + "', '" + this.apellidos + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
-            System.out.println("Sentencia SQL: " + sql);
+                   + " VALUES ('" + this.name + "', '" + this.surename + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
+            System.out.println("Createuser SQL: " + sql);
             stmt.executeUpdate(sql);
             
             result = true;
@@ -127,28 +150,28 @@ public class User {
         return result;
     }
     
-    public Usuario getUser(){
-        Usuario usuario = null;
+    public User getUser(){
+        User user = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
             String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + this.userName + "' AND password='" + this.password + "'";
-            System.out.println("Sentencia SQL: " + sql);
+            System.out.println("Getuser SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                int ID = rs.getInt("ID");
+                int id = rs.getInt("ID");
                 String name = rs.getString("NAME");
                 String surname = rs.getString("SURNAME");
                 String email = rs.getString("EMAIL");
                 String userName = rs.getString("USERNAME");
                 String password = rs.getString("PASSWORD");
                                 
-                usuario = new Usuario(ID, name, surname, email, userName, password);
+                user = new User(id, name, surname, email, userName, password);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-        return usuario;
+        return user;
     }
 }
