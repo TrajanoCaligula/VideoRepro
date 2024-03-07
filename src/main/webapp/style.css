@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 260px;
+    display: flex;
+    flex-direction: column; /* Apila los elementos uno encima del otro */
+}
+.reg-usu-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    display: flex;
+    flex-direction: column; /* Apila los elementos uno encima del otro */
+}
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+input[type="submit"] {
+    width: auto; /* Tamaño automático según el contenido */
+    background-color: #8ea7a7;
+    color: #fff;
+    padding: 6px 12px; /* Ajusta el espaciado interno */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px; /* Espacio superior */
+    align-self: flex-end; /* Alinea el botón a la derecha */
+}
+input[type="submit"]:hover {
+    background-color: #6fa1a1;
+}
+.Loginform {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column; /* Apila los elementos uno encima del otro */
+}
+.reg-vid-form {
+    width: 700px; /* Ancho específico para el formulario especial */
+}
+
+.reg-vid-textarea {
+    width: 100%; /* El campo de texto ocupa todo el ancho del formulario */
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    resize: vertical; /* Evita que el usuario pueda redimensionar el campo de texto */
+}
+.columna1 {
+    width: 150px; /* Ancho para la primera columna */
+}
+.textarealabel-celda {
+    vertical-align: top; /* Alinea el texto en la parte superior de la celda */
+}
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+    align-items: center; /* Centra verticalmente los elementos */
+}
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px;
+}
+.navbar .separador {
+    color: #fff;
+    margin-right: 10px; /* Ajusta el espaciado entre los separadores y los enlaces */
+}
+.video {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fefefe;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    word-wrap: break-word;
+}
+.titulo {
+    font-weight: bold;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+.autor {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 5px;
+}
+.fecha {
+    color: #666;
+    margin-bottom: 10px;
+}
+.descripcion {
+    color: #333;
+    margin-bottom: 5px;
+}
+.formato {
+    color: #666;
+    margin-bottom: 5px;
+}
+.duracion {
+    color: #666;
+    margin-bottom: 5px;
+}
+.numRep {
+    color: #666;
+    margin-bottom: 5px;
+}
+.bodyList {
+    /* Eliminando la declaración display: flex; */
+    font-family: Arial, sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #ecf5ecf5;
+    position: relative;
+}
+.h1List {
+    position: relative; /* Establecer posición relativa */
+    z-index: 1; /* Colocar el encabezado por encima del rectángulo */
+    background-color: transparent; /* Establecer el fondo del encabezado como transparente */
+    color: #fff; /* Color del texto del encabezado */
+    padding: 20px; /* Ajustar el relleno del encabezado */
+    margin: 0; /* Eliminar el margen del encabezado */
+}
+.rectangulo-detras-h1 {
+    position: absolute; /* Establecer posición absoluta */
+    top: 0; /* Alinear el rectángulo con la parte superior del cuerpo */
+    left: 0; /* Alinear el rectángulo con el lado izquierdo del cuerpo */
+    width: 100%; /* Ancho completo */
+    height: 70px; /* Altura del rectángulo */
+    background-color: #8ea7a7; /* Color del rectángulo */
+}

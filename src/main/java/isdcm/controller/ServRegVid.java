@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Servlets;
+package isdcm.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,16 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author alumne
  */
-@WebServlet(name = "ServUser", urlPatterns = {"/ServUser"})
-
-public class ServUser extends HttpServlet {
-
-    public static String attributeErrorInvalidName = "ERROR_INVALID_NAME";         
-    public static String attributeErrorInvalidEmail = "ERROR_INVALID_EMAIL";      
-    public static String attributeErrorInvalidPassword = "ERROR_INVALID_PASSWORD";    
-    public static String attributeUserExists = "ERROR_USER_AlREADY_EXISTS";
-    public static String attributeUserRegisteredOK = "REGISTERED_OK";
-
+public class ServRegVid extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,61 +28,32 @@ public class ServUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
+
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String creationDate = request.getParameter("creationDate");
+        String duration = request.getParameter("duration");
+        String views = request.getParameter("views");
+        String description = request.getParameter("description");
+        String format = request.getParameter("format");
+
+
+
+
+
         try (PrintWriter out = response.getWriter()) {
-        
-        // Read form
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        boolean nameOK = name.isEmpty();
-        boolean emailOK = email.isEmpty();
-        boolean passwordOK = password.isEmpty();
-        // Validate not empty
-
-        request.setAttribute(attributeErrorInvalidName, name.isEmpty());
-        request.setAttribute(attributeErrorInvalidEmail, email.isEmpty());
-        request.setAttribute(attributeErrorInvalidPassword, password.isEmpty());
-
-        //Validate correctness?
-
-        if (nameOK && emailOK && passwordOK) {
-            User user = new User(name, email, password); 
-
-            if(user.existsUser()){
-
-                request.setAttribute(attributeUserExists, true);
-                request.getRequestDispatcher("/RegistroUsu.jsp").forward(request, response);
-                return;
-
-            } else{
-                //DB?
-                System.out.println("Usuario registrado OK");
-                boolean registered = user.createUser();
-                request.getRequestDispatcher("/RegistroUsu.jsp").forward(request, response);
-                return;
-            }
-        }
-
-        else{
-            request.setAttribute("error", "Fill all feilds");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-
-        response.sendRedirect("/login.jsp");
-
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
+            out.println("<title>Servlet ServRegVid</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServRegVid at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
         }
     }
 
@@ -134,4 +95,5 @@ public class ServUser extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

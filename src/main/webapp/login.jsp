@@ -1,6 +1,6 @@
 <%-- 
     Document   : login
-    Created on : 22 feb 2024, 15:48:15
+    Created on : 12 feb 2024, 15:48:15
     Author     : alumne
 --%>
 
@@ -12,20 +12,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Iniciar Sesión</title>
-        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <form class="login-form" action="procesar_login.php" method="post">
+        <form class="login-form" action="ServLogUser" method="post">
             <h2>Iniciar Sesión</h2>
+            <p style="color: red;">
+                ${requestScope.errorUserNameInvalid}
+            </p>
             <table>
                 <tr>
                     <td><p>Usuario:</p></td>
-                    <td><input type="text" name="usuario" placeholder="Usuario" required></td>
+                    <td><input type="text" id="userName" name="userName" placeholder="Usuario" required></td>
                 </tr>
                 <tr>
                     <td><p>Password:</p></td>
-                    <td><input type="password" id="password" name="contraseña" placeholder="Contraseña" required></td>
-                    <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>
+                    <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
+                    <td><img width="19" height="15" id="eyeIcon" src="/eye_slash.png" alt="Ver contraseña"></td>
                     
                 </tr>
             </table>

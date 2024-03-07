@@ -1,2 +1,6 @@
-/home/alumne/NetBeansProjects/VideoRepro/src/main/java/isdcm/videorepro/resources/JakartaEE91Resource.java
-/home/alumne/NetBeansProjects/VideoRepro/src/main/java/isdcm/videorepro/JakartaRestConfiguration.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/model/Video.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/controller/ServRegUser.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/model/User.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/videorepro/JakartaRestConfiguration.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/controller/ServLogUser.java
+/home/alumne/Descargas/VideoRepro-main/src/main/java/isdcm/videorepro/resources/JakartaEE91Resource.java
