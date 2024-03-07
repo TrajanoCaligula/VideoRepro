@@ -41,28 +41,28 @@ public class ServRegUser extends HttpServlet {
 
         //Attributes validation
         boolean validName = !name.isEmpty();
-        request.getSession().setAttribute("NAME FIELD IS EMPTY", !validName);
+        request.setAttribute("NAME FIELD IS EMPTY", !validName);
         boolean validSurname = !username.isEmpty();
-        request.getSession().setAttribute("SURENAME FIELD IS EMPTY", !validSurname);
+        request.setAttribute("SURENAME FIELD IS EMPTY", !validSurname);
         boolean validEmail = !email.isEmpty();
-        request.getSession().setAttribute("EMAIL FIELD IS EMPTY", !validEmail);
+        request.setAttribute("EMAIL FIELD IS EMPTY", !validEmail);
         boolean validUsername = !userName.isEmpty();
-        request.getSession().setAttribute("USERNAME IS EMPTY", !validUsername);
+        request.setAttribute("USERNAME IS EMPTY", !validUsername);
         boolean validPassword = !password.isEmpty() && !passwordConfirm.isEmpty();
-        request.getSession().setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
+        request.setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
         validPassword = password.equals(passwordConfirm);
-        request.getSession().setAttribute("PASSWORDS DO NOT MATCH", !validPassword);
+        request.setAttribute("PASSWORDS DO NOT MATCH", !validPassword);
 
         if (validName && validSurname && validEmail && validUsername && validPassword){
             User user = new User(name, username, email, userName, password);
 
             boolean existsUser = user.existsUser();
             if(existsUser) {
-                request.getSession().setAttribute("ALREADY EXISTING USER", existsUser);
+                request.setAttribute("ALREADY EXISTING USER", existsUser);
                 request.getRequestDispatcher("/registro.jsp").forward(request, response);
             } else {
                 boolean created = user.addUser();
-                request.getSession().setAttribute("USER REGISTERED", created);
+                request.setAttribute("USER REGISTERED", created);
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
 

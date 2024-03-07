@@ -36,18 +36,13 @@ public class ServListVid extends HttpServlet {
         listVideos = video.getAllVideos();
 
         if(listVideos.size() != 0){
-
+            request.setAttribute("videoList", listVideos);
+            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
         } else {
             request.setAttribute("errorEmptyListVideos", "There are no videos");
         }
 
-
-
-
-
-
-
-
+        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);     //TODO: comprovar si va be
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

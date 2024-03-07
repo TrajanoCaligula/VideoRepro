@@ -12,6 +12,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import isdcm.model.*;
 
+
+
+//HttpSession session = request.getSession();
+//session.invalidate();
+
 /**
  *
  * @author alumne
@@ -32,8 +37,9 @@ public class ServLogUser extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
+        String userName = request.getParameter("USERNAME");
+        String password = request.getParameter("PASSWORD");
+
         request.setAttribute("errorUserNameInvalid", "");
         //Attributes validation
         boolean validUsername = !userName.isEmpty();
@@ -55,22 +61,25 @@ public class ServLogUser extends HttpServlet {
 
             if (existsUser) {
                 user = user.getUser();
-                if(user == null) request.getSession().setAttribute("DB ERROR", true);
+                if(user == null) request.setAttribute("DB ERROR", true);
                 else {
-                    request.getSession().setAttribute("name", user.getName());
-                    request.getSession().setAttribute("surname", user.getSurename());
-                    request.getSession().setAttribute("email", user.getEmail());
-                    request.getSession().setAttribute("userName", user.getUserName());
-                    request.getSession().setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
+                    if(user.getPassword() == password){
+                        request.setAttribute("name", user.getName());
+                        request.setAttribute("surname", user.getSurename());
+                        request.setAttribute("email", user.getEmail());
+                        request.setAttribute("userName", user.getUserName());
+                        request.setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
 
-                    request.getSession().setAttribute("USER_LOGGED", true);
-                    request.getSession().setAttribute("USERID", user.getId());
-                    request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+                        request.setAttribute("USER_LOGGED", true);
+                        request.setAttribute("USERID", user.getId());
+                        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+                    }
+                    else request.setAttribute("errorUserNameInvalid", "PASSWORD OR USERNAME INCORRECT");
                 }
             } else {
-                request.getSession().setAttribute("USER NOT EXISTS", existsUser);
+                request.setAttribute("errorUserNameInvalid", existsUser);
             }
-                //request.getSession().setAttribute(attributeUserExists, true);  //Check
+
         }
         request.getRequestDispatcher("/login.jsp").forward(request, response);
 
@@ -100,7 +109,7 @@ public class ServLogUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(request.getSession(false) != null) request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
     }
 
     /**

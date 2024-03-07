@@ -31,17 +31,39 @@ public class ServRegVid extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String creationDate = request.getParameter("creationDate");
-        String duration = request.getParameter("duration");
-        String views = request.getParameter("views");
-        String description = request.getParameter("description");
-        String format = request.getParameter("format");
+        if(request.getSession(false) != null && request.getAttribute("USER_LOGGED")){
+            String title = request.getParameter("title");
+            String author = request.getParameter("author");
+            String creationDate = request.getParameter("creationDate");
+            String duration = request.getParameter("duration");
+            String views = request.getParameter("views");
+            String description = request.getParameter("description");
+            String format = request.getParameter("format");
+            String userName = request.getAttribute("userName");
 
+            boolean validTitle= !title.isEmpty();
+            if(!validTitle)request.setAttribute("errorUserNameInvalid", "TITLE IS EMPTY");
+            boolean validAuthor = !author.isEmpty();
+            if(!validAuthor)request.setAttribute("errorUserNameInvalid", "AUTHOR IS EMPTY");
+            boolean validCreationDate = !creationDate.isEmpty();
+            if(!validCreationDate)request.setAttribute("errorUserNameInvalid", "CREATIONDATE IS EMPTY");
+            boolean validDuration = !duration.isEmpty();
+            if(!validDuration)request.setAttribute("errorUserNameInvalid", "DURATION IS EMPTY");
+            boolean validDescription = !description.isEmpty();
+            if(!validDescription)request.setAttribute("errorUserNameInvalid", "DESCRIPTION IS EMPTY");
+            boolean validFormat = !format.isEmpty();
+            if(!validFormat)request.setAttribute("errorUserNameInvalid", "FORMAT IS EMPTY");
 
+            Video video = new Video(title, author, creationDate, duration, 0, description, format, request.getAttribute("userName"));
 
+            video.addVideo();
+            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
 
+        } else{
+            request.setAttribute("errorUserNotLogged", "MUST LOG IN TO UPLOAD A VIDEO");
+        }
+
+        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

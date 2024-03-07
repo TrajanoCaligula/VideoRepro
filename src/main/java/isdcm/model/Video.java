@@ -29,11 +29,24 @@ public class Video {
     //private URL videoUrl;
     //private URL imageUrl;
     private String format;
+    private String userName;
 
     private static final String DB_HOST = "jdbc:derby://localhost:1527/VideosRepository";
     private static final String DB_USER = "JAUVARO";
     private static final String DB_PASSWORD = "AJ1234";
     private static final String TABLENAME = "VIDEOS";
+
+    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.creationDate = creationDate;
+        this.duration = duration;
+        this.views = views;
+        this.description = description;
+        this.format = format;
+        this.userName = userName;
+    }
 
     public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format) {
         this.id = id;
@@ -131,16 +144,17 @@ public class Video {
                 ", views='" + views + '\'' +
                 ", description='" + description + '\'' +
                 ", format='" + format + '\'' +
+                ", userName='" + userName+ '\'' +
                 '}';
     }
 
-    public Video getVideo() {
+    public Video getVideo(int id) {
         Video video = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + this.userName + "' AND password='" + this.password + "'"; // TODO: quin es lidentificador de video?
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID='" + id "'"; 
             System.out.println("Getvideo SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -152,8 +166,9 @@ public class Video {
                 String views = rs.getString("VIEWS");
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
+                String userName = rs.getString("USERNAME");
                                 
-                video = new User(id, title, author, creationDate, duration, views, description, format);
+                video = new Video(id, title, author, creationDate, duration, views, description, format, userName);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -180,8 +195,9 @@ public class Video {
                 String views = rs.getString("VIEWS");
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
+                String userName = rs.getString("USERNAME");
                                 
-                video = new User(id, title, author, creationDate, duration, views, description, format);
+                video = new Video(id, title, author, creationDate, duration, views, description, format, userName);
                 listVideos.add(video);
             }            
         } catch (SQLException err) {
@@ -197,8 +213,8 @@ public class Video {
             Statement stmt = conn.createStatement();
             
             String sql = "INSERT INTO " + TABLENAME
-                    + "(TITLE, AUTHOR, CREATIONDATE, DURATION, VIEWS, DESCRIPTION, FORMAT)"
-                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + this.creationDate + "', '" + this.duration + "', '" + this.views + "', '" + this.description + "', '" + this.format + "')";
+                    + "(TITLE, AUTHOR, CREATIONDATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME)"
+                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + this.creationDate + "', '" + this.duration + "', '" + this.views + "', '" + this.description + "', '" + this.format + "', '" + this.userName + "')";
             System.out.println("addVideo SQL: " + sql);
             stmt.executeUpdate(sql);
             
