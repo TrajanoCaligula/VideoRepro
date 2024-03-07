@@ -28,7 +28,11 @@
                 <tr>
                     <td><p>Password:</p></td>
                     <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
+<<<<<<< HEAD
                     <td><img width="19" height="15" id="eyeIcon" src="/eye_slash.png" alt="Ver contraseña"></td>
+=======
+                    <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>
+>>>>>>> 617ef801a8cfd9ce6bea84b31bcea9d98fdd4013
                     
                 </tr>
             </table>
