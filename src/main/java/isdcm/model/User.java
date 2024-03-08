@@ -121,13 +121,13 @@ public class User {
                 '}';
     }
 
-    public boolean existsUser(){
-        boolean existsUser = true;
+    public boolean existsUser(String userName){
+        boolean existsUser = false;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + this.userName + "' OR email=" + this.email;
+            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName;
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 existsUser = (rs.getInt("COUNT") > 0);
@@ -139,14 +139,33 @@ public class User {
         }
         return existsUser;
     }
+    public boolean passwordIsCorrect(String userName, String password){
+        boolean passwordCorrect = false;
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName + "' AND password='" + this.password + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                passwordCorrect = (rs.getInt("COUNT") > 0);
+            }
+            
+            return passwordCorrect;            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());       
+        }
+        return passwordCorrect;
+    }
     
-    public User getUser(){
+    
+    public User getUser(String userN){
         User user = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + this.userName + "' AND password='" + this.password + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userN ;
             System.out.println("Getuser SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {

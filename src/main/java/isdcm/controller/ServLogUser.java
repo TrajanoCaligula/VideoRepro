@@ -46,9 +46,10 @@ public class ServLogUser extends HttpServlet {
         if(!validUsername)request.setAttribute("errorUserNameInvalid", "USERNAME IS EMPTY");
         boolean validPassword = !password.isEmpty();
         if(!validPassword)request.setAttribute("errorUserNameInvalid", "PASSWORD IS EMPTY");
+        
 
         if (validUsername && validPassword) {
-            User user = new User(userName, password);
+            User user = new User();
             request.getSession().setAttribute("USER_LOGGED", false);
             request.getSession().setAttribute("attributeUserExists", false); //TODO:REVISAAARRR
             request.getSession().setAttribute("NAME", "");
@@ -57,8 +58,8 @@ public class ServLogUser extends HttpServlet {
             request.getSession().setAttribute("EMAIL", "");
             request.getSession().setAttribute("USERNAME", userName);
 
-            if (user.existsUser()) {
-                user = user.getUser();
+            if (user.existsUser(userName)) {
+                user = user.getUser(userName);
                 if(user == null) request.setAttribute("DB ERROR", true);
                 else {
                     if(user.getPassword().equals(password)){

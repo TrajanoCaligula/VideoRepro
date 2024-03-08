@@ -14,8 +14,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <jsp:include page="navbar.jsp"/>
     <form class= "reg-usu-form"action="ServRegUser" method="post">
         <h2>Registro de Usuario</h2>
+        <label id = "error" style="color: red;">
+            ${requestScope.errorRegUsuFail}
+        </label>
+        <label id = "error" style="color: greenyellow;">
+            ${requestScope.userRegistered}
+        </label>
         <table>
             <tr>
                 <td><p>Nombre:</p></td>
@@ -23,10 +30,10 @@
             </tr>
             <tr>
                 <td><p>Apellidos:</p></td>
-                <td><input type="text" id="surename" name="surename" placeholder="RamÃ­rez Sierra" required></td>
+                <td><input type="text" id="surname" name="surname" placeholder="Ramí­rez Sierra" required></td>
             </tr>
             <tr>
-                <td><p>Correo electrÃ³nico:</p></td>
+                <td><p>Correo electrónico:</p></td>
                 <td><input type="text" id="email" name="email" placeholder="maria@example.com" required></td>
             </tr>
             <tr>
@@ -34,14 +41,14 @@
                 <td><input type="text" id="userName" name="userName" placeholder="maria123" required></td>
             </tr>
             <tr>
-                <td><label for="password">ContraseÃ±a:</label></td>
-                <td><input type="password" id="password" name="password" placeholder="ContraseÃ±a" required></td>
-                <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseÃ±a"></td>          
+                <td><label for="password">Contraseña:</label></td>
+                <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
+                <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseña"></td>          
             </tr>
             <tr>
-                <td><p>Repetir contraseÃ±a:</p></td>
-                <td><input type="password" id="repassword" name="repassword" placeholder="ContraseÃ±a" required></td>
-                <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseÃ±a"></td>
+                <td><p>Repetir contraseña:</p></td>
+                <td><input type="password" id="repassword" name="repassword" placeholder="Contraseña" required></td>
+                <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseña"></td>
                
             </tr>
         </table>

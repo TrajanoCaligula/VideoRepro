@@ -15,11 +15,12 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <jsp:include page="navbar.jsp"/>
         <form class="login-form" action="ServLogUser" method="post">
             <h2>Iniciar Sesión</h2>
-            <p style="color: red;">
+            <label id = "error" style="color: red;">
                 ${requestScope.errorUserNameInvalid}
-            </p>
+            </label>
             <table>
                 <tr>
                     <td><p>Usuario:</p></td>
@@ -37,6 +38,7 @@
     <script>
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eyeIcon');
+        const error = document.getElementById('error');
 
         eyeIcon.addEventListener('click', function() {
             if (passwordInput.type === 'password') {
@@ -47,5 +49,7 @@
                 eyeIcon.src = 'eye_slash.png';
             }
         });
+        
+
     </script>
 </html>

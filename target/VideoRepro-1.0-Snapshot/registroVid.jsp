@@ -5,11 +5,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <jsp:include page="navbar.jsp"/>
     <form class="reg-vid-form" action="procesar_login.php" method="post">
         <h2>Registro de Usuario</h2>
+        <label id = "error" style="color: red;">
+            ${requestScope.errorRegVidFail}
+        </label>
         <table>
             <tr>
-                <td class="columna1"><p>TÃ­tulo:</p></td>
+                <td class="columna1"><p>Tí­tulo:</p></td>
                 <td><input type="text" id="title" name="title" placeholder="El mejor video" required></td>
             </tr>
             <tr>
@@ -17,15 +21,15 @@
                 <td><input type="text" id="author" name="author" placeholder="Sara" required></td>
             </tr>
             <tr>
-                <td><p>Fecha de creaciÃ³n:</p></td>
+                <td><p>Fecha de creación:</p></td>
                 <td><input type="date" id = "creationDate" name="creationDate"  required></td>
             </tr>
             <tr>
-                <td><p>DuraciÃ³n:</p></td>
+                <td><p>Duración:</p></td>
                 <td><input type="time" min="00:00:00" max="99:59:59" step="1" id="duration" name="duration" required></td>
             </tr>
             <tr>
-                <td class="textarealabel-celda"><p>DescripciÃ³n:</p></td>
+                <td class="textarealabel-celda"><p>Descripción:</p></td>
                 <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" required></textarea></td>               
             </tr>
             <tr>

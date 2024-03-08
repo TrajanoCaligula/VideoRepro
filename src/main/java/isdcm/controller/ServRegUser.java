@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.regex.*;
 import isdcm.model.User;
 
 /**
@@ -33,7 +34,7 @@ public class ServRegUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String name = request.getParameter("name");
-        String username = request.getParameter("surename");
+        String username = request.getParameter("surname");
         String email = request.getParameter("email");
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
@@ -41,28 +42,54 @@ public class ServRegUser extends HttpServlet {
 
         //Attributes validation
         boolean validName = !name.isEmpty();
-        request.setAttribute("NAME FIELD IS EMPTY", !validName);
+        if(!validName)request.setAttribute("errorRegUsuFail","NAME FIELD IS EMPTY");
         boolean validSurname = !username.isEmpty();
-        request.setAttribute("SURENAME FIELD IS EMPTY", !validSurname);
+        if(!validSurname)request.setAttribute("errorRegUsuFail","SURNAME FIELD IS EMPTY");
         boolean validEmail = !email.isEmpty();
-        request.setAttribute("EMAIL FIELD IS EMPTY", !validEmail);
+        if(validEmail)request.setAttribute("errorRegUsuFail","EMAIL FIELD IS EMPTY");
         boolean validUsername = !userName.isEmpty();
-        request.setAttribute("USERNAME IS EMPTY", !validUsername);
-        boolean validPassword = !password.isEmpty() && !passwordConfirm.isEmpty();
-        request.setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
-        validPassword = password.equals(passwordConfirm);
-        request.setAttribute("PASSWORDS DO NOT MATCH", !validPassword);
+        if(!validUsername)request.setAttribute("errorRegUsuFail", "USERNAME IS EMPTY");
+        boolean validPassword = !password.isEmpty();
+        
+        if(validPassword){
+            //Pasword confirmation
+            String regexNum = ".*\\d.*";
+            String regexYUppercase = ".*[A-Z].*";
+            String regexSpecial = ".*[!@#$%^&*()].*";
+
+            // Comprobar si la contraseña cumple con los requisitos
+            boolean haveNumbers = Pattern.matches(regexNum, password);
+            boolean haveUppercase = Pattern.matches(regexYUppercase, password);
+            boolean haveSpecial = Pattern.matches(regexSpecial, password);
+
+            // Combinar los resultados
+            validPassword = haveNumbers && haveUppercase && haveSpecial;
+            
+            if(validPassword){
+                validPassword = !passwordConfirm.isEmpty();
+                if(validPassword){
+                    validPassword = password.equals(passwordConfirm);
+                    if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD AND CONFIRMATION PASSWORD DON'T mATCH");
+                }
+                else request.setAttribute("errorRegUsuFail", "CONFIRMATION PASSWORD IS EMPTY");
+            }
+            else request.setAttribute("errorRegUsuFail", "PASSWORD NEED A SPECIAL CHARACTER, AN UPPPERCASE LETTER AND A NUMBER");
+        }
+        else request.setAttribute("errorRegUsuFail","PASSWORD FIELD IS EMPTY" );
+        
+        
 
         if (validName && validSurname && validEmail && validUsername && validPassword){
-            User user = new User(name, username, email, userName, password);
-
-            boolean existsUser = user.existsUser();
+            
+            User user = new User();
+            boolean existsUser = user.existsUser(username);
             if(existsUser) {
-                request.setAttribute("ALREADY EXISTING USER", existsUser);
+                request.setAttribute("errorRegUsuFail", "ALREADY EXISTING USER");
                 request.getRequestDispatcher("/registro.jsp").forward(request, response);
             } else {
+                user = new User(name, username, email, userName, password);
                 boolean created = user.addUser();
-                request.setAttribute("USER REGISTERED", created);
+                if(created)request.setAttribute("userRegistered", "USER REGISTERED");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
 

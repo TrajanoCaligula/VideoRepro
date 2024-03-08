@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Listado Din谩mico de Datos</title>
+    <title>Listado Din醡ico de Datos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bodyList">
     <!--<div id="navbarContainer"></div>-->
+    <jsp:include page="navbar.jsp"/>
     <div class="rectangulo-detras-h1"></div>
         <h1 class="h1List">Listado de Videos</h1> <!-- Encabezado dentro del cuerpo del documento -->
         <br>
@@ -60,11 +61,18 @@
 
         var duracion = document.createElement("div");
         duracion.classList.add("duracion");
-        duracion.textContent = "Duraci贸n: " + video.duracion;
+        duracion.textContent = "Duraci髇: " + video.duracion;
 
         var descripcion = document.createElement("div");
         descripcion.classList.add("descripcion");
-        descripcion.textContent = "Descripci贸n: " + video.descripcion;
+        descripcion.textContent = "Descripci髇: " + video.descripcion;
+        
+        var botonVer = document.createElement("button");
+        botonVer.className = "botonVer";
+        botonVer.textContent = "Ver video";
+        botonVer.onclick = function() {
+          window.location.href = "Video.jsp?titulo=" + video.titulo;
+        };
 
         divVideo.appendChild(titulo);
         divVideo.appendChild(fecha);
@@ -74,22 +82,10 @@
         divVideo.appendChild(autor);
         divVideo.appendChild(fecha);
         divVideo.appendChild(descripcion);
+        divVideo.appendChild(botonVer);
 
         contenedor.appendChild(divVideo);
     });
-    
-    // Funci贸n para cargar la barra de navegaci贸n
-    function cargarNavbar() {
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbarContainer').innerHTML = data;
-            })
-            .catch(error => console.error('Error al cargar la barra de navegaci贸n:', error));
-    }
-
-    // Llama a la funci贸n para cargar la barra de navegaci贸n al cargar la p谩gina
-    window.addEventListener('DOMContentLoaded', cargarNavbar);
 
 </script>
 </html>

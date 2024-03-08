@@ -154,12 +154,14 @@ input[type="submit"]:hover {
     position: relative;
 }
 .h1List {
+   
     position: relative; /* Establecer posición relativa */
     z-index: 1; /* Colocar el encabezado por encima del rectángulo */
     background-color: transparent; /* Establecer el fondo del encabezado como transparente */
     color: #fff; /* Color del texto del encabezado */
     padding: 20px; /* Ajustar el relleno del encabezado */
     margin: 0; /* Eliminar el margen del encabezado */
+    margin-top: 38px;
 }
 .rectangulo-detras-h1 {
     position: absolute; /* Establecer posición absoluta */
@@ -168,4 +170,22 @@ input[type="submit"]:hover {
     width: 100%; /* Ancho completo */
     height: 70px; /* Altura del rectángulo */
     background-color: #8ea7a7; /* Color del rectángulo */
+    margin-top: 38px;
+}
+
+.botonVer {
+    width: auto; /* Tamaño automático según el contenido */
+    background-color: #8ea7a7;
+    color: #fff;
+    padding: 6px 12px; /* Ajusta el espaciado interno */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px; /* Espacio superior */
+    align-self: flex-end; /* Alinea el botón a la derecha */
+    margin-left: 500px;
+}
+
+.botonVer:hover {
+   background-color: #6fa1a1;
 }

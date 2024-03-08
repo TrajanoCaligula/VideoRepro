@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Barra de Navegaci贸n</title>
+    <title>Barra de Navegaci髇</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="navbar">
-        <a id="listaVid" href="login.html">Lista de Videos</a> <span id="s1"class="separador">|</span>
-        <a id="regVid" href="login.html">Registrar Video</a> <span id="s2" class="separador">|</span>
-        <a id="login" href="login.html">Login</a> <span id="s3" class="separador">|</span>
-        <a id="regUs" href="registroUsu.html">Registro</a> <span id="s4" class="separador">|</span>
+        <a id="listaVid" href="listadoVid.jsp">Lista de Videos</a> <span id="s1"class="separador">|</span>
+        <a id="regVid" href="registroVid.jsp">Registrar Video</a> <span id="s2" class="separador">|</span>
+        <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
+        <a id="regUs" href="registroUsu.jsp">Registro</a> <span id="s4" class="separador">|</span>
         <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span><!-- Espacio para mostrar informaci贸n del usuario -->
-        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesi贸n</a> <!-- Bot贸n para cerrar sesi贸n -->
+        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesi髇</a> <!-- Bot贸n para cerrar sesi贸n -->
     </div> 
    
 </body> 
 <script>
     // Aqu铆 puedes agregar l贸gica para mostrar informaci贸n del usuario o controlar la sesi贸n
-    var usuarioLogueado = true; // O false, dependiendo de tu l贸gica de autenticaci贸n
+    var usuarioLogueado = false; // O false, dependiendo de tu l贸gica de autenticaci贸n
 
     // Ejemplo de funci贸n para cerrar sesi贸n
     function cerrarSesion() {
         // Aqu铆 puedes agregar l贸gica para cerrar la sesi贸n del usuario
-        alert("Sesi贸n cerrada");
+        alert("Sesi髇 cerrada");
         // Redirigir a la p谩gina de inicio de sesi贸n, por ejemplo:
-        window.location.href = "login.html";
+        window.location.href = "login.jsp";
     }
     function cambiarCursor() {
         document.getElementById("miTexto").style.cursor = "pointer";
