@@ -49,35 +49,31 @@ public class ServLogUser extends HttpServlet {
 
         if (validUsername && validPassword) {
             User user = new User(userName, password);
-            boolean existsUser = user.existsUser();
-
             request.getSession().setAttribute("USER_LOGGED", false);
             request.getSession().setAttribute("attributeUserExists", false); //TODO:REVISAAARRR
-            request.getSession().setAttribute("name", "");
+            request.getSession().setAttribute("NAME", "");
             request.getSession().setAttribute("USERID", -1);
-            request.getSession().setAttribute("surname", "");
-            request.getSession().setAttribute("email", "");
-            request.getSession().setAttribute("userName", userName);
+            request.getSession().setAttribute("SURNAME", "");
+            request.getSession().setAttribute("EMAIL", "");
+            request.getSession().setAttribute("USERNAME", userName);
 
-            if (existsUser) {
+            if (user.existsUser()) {
                 user = user.getUser();
                 if(user == null) request.setAttribute("DB ERROR", true);
                 else {
-                    if(user.getPassword() == password){
-                        request.setAttribute("name", user.getName());
-                        request.setAttribute("surname", user.getSurename());
-                        request.setAttribute("email", user.getEmail());
-                        request.setAttribute("userName", user.getUserName());
-                        request.setAttribute("PASSWORD FIELD IS EMPTY", !validPassword);
-
-                        request.setAttribute("USER_LOGGED", true);
-                        request.setAttribute("USERID", user.getId());
+                    if(user.getPassword().equals(password)){
+                        request.getSession().setAttribute("NAME", user.getName());
+                        request.getSession().setAttribute("SURNAME", user.getSurname()); 
+                        request.getSession().setAttribute("EMAIL", user.getEmail());
+                        request.getSession().setAttribute("USERNAME", user.getUserName());
+                        request.getSession().setAttribute("USER_LOGGED", true);
+                        request.getSession().setAttribute("USERID", user.getId());
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
                     else request.setAttribute("errorUserNameInvalid", "PASSWORD OR USERNAME INCORRECT");
                 }
             } else {
-                request.setAttribute("errorUserNameInvalid", existsUser);
+                request.setAttribute("errorUserNameInvalid", "El usuario no existe");
             }
 
         }

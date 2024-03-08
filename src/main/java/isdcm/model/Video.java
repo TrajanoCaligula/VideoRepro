@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.sql.Time;
-
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author name
@@ -35,6 +36,18 @@ public class Video {
     private static final String DB_USER = "JAUVARO";
     private static final String DB_PASSWORD = "AJ1234";
     private static final String TABLENAME = "VIDEOS";
+    
+    public Video() {
+        this.id = -1;
+        this.title = "";
+        this.author = "";
+        this.creationDate = null;
+        this.duration = null;
+        this.views = -1;
+        this.description = "";
+        this.format = "";
+        this.userName = "";
+    }
 
     public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
         this.id = id;
@@ -59,7 +72,7 @@ public class Video {
         this.format = format;
     }
 
-    public Video(String title, String author, Date creationDate, Time duration, long views, String description, String format) {
+    public Video(String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
@@ -67,6 +80,7 @@ public class Video {
         this.views = views;
         this.description = description;
         this.format = format;
+        this.userName = userName;
     }
 
     public int getId() {
@@ -154,21 +168,21 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID='" + id "'"; 
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID='" + id +"'"; 
             System.out.println("Getvideo SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                int id = rs.getInt("ID");
+                int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
                 String author = rs.getString("AUTHOR");
-                String creationDate = rs.getString("CREATIONDATE");
-                String duration = rs.getString("DURATION");
-                String views = rs.getString("VIEWS");
+                Date creationDate = rs.getDate("CREATIONDATE");
+                Time duration = rs.getTime("DURATION");
+                long views = rs.getLong("VIEWS");
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
                 String userName = rs.getString("USERNAME");
                                 
-                video = new Video(id, title, author, creationDate, duration, views, description, format, userName);
+                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -187,17 +201,17 @@ public class Video {
             System.out.println("Getlistofvideos SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int id = rs.getInt("ID");
+                int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
                 String author = rs.getString("AUTHOR");
-                String creationDate = rs.getString("CREATIONDATE");
-                String duration = rs.getString("DURATION");
-                String views = rs.getString("VIEWS");
+                Date creationDate = rs.getDate("CREATIONDATE");
+                Time duration = rs.getTime("DURATION");
+                long views = rs.getLong("VIEWS");
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
                 String userName = rs.getString("USERNAME");
                                 
-                video = new Video(id, title, author, creationDate, duration, views, description, format, userName);
+                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName);
                 listVideos.add(video);
             }            
         } catch (SQLException err) {

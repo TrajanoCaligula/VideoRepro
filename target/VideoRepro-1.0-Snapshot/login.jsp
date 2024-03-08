@@ -28,8 +28,7 @@
                 <tr>
                     <td><p>Password:</p></td>
                     <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
-                    <td><img width="19" height="15" id="eyeIcon" src="/eye_slash.png" alt="Ver contraseña"></td>
-                    
+                    <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>                    
                 </tr>
             </table>
             <input type="submit" value="Iniciar Sesión">

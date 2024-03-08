@@ -10,12 +10,24 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import  isdcm.model.*;
+import java.util.Date;
+import java.sql.Time;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  *
  * @author alumne
  */
 public class ServRegVid extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(ServRegVid.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,30 +43,48 @@ public class ServRegVid extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        if(request.getSession(false) != null && request.getAttribute("USER_LOGGED")){
+        if(request.getSession(false) != null){
             String title = request.getParameter("title");
             String author = request.getParameter("author");
-            String creationDate = request.getParameter("creationDate");
-            String duration = request.getParameter("duration");
-            String views = request.getParameter("views");
+            String creationDateBeforeParse = request.getParameter("creationDate");
+            String durationBeforeParse = request.getParameter("duration");
+            String viewsBeforeParse = request.getParameter("views");
             String description = request.getParameter("description");
             String format = request.getParameter("format");
-            String userName = request.getAttribute("userName");
+            String userName = request.getParameter("userName");
+            
+            
+            java.util.Date utildate = new Date(Calendar.getInstance().getTimeInMillis());
+            try {
+                utildate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(creationDateBeforeParse);
+            } catch (ParseException ex) {
+                logger.log(Level.SEVERE, "Error Parse Fecha", ex);
+            }
+            Date creationDate = new Date(utildate.getTime());
+
+            try {
+                utildate = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH).parse(durationBeforeParse);
+            } catch (ParseException ex) {
+                 logger.log(Level.SEVERE, "Error Parse Duración", ex);
+            }
+            
+            try {
+                utildate = new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH).parse(durationBeforeParse);
+            } catch (ParseException ex) {
+                 logger.log(Level.SEVERE, "Error Parse Duración", ex);
+            }
+            Time duration = new Time(utildate.getTime());
 
             boolean validTitle= !title.isEmpty();
             if(!validTitle)request.setAttribute("errorUserNameInvalid", "TITLE IS EMPTY");
             boolean validAuthor = !author.isEmpty();
             if(!validAuthor)request.setAttribute("errorUserNameInvalid", "AUTHOR IS EMPTY");
-            boolean validCreationDate = !creationDate.isEmpty();
-            if(!validCreationDate)request.setAttribute("errorUserNameInvalid", "CREATIONDATE IS EMPTY");
-            boolean validDuration = !duration.isEmpty();
-            if(!validDuration)request.setAttribute("errorUserNameInvalid", "DURATION IS EMPTY");
             boolean validDescription = !description.isEmpty();
             if(!validDescription)request.setAttribute("errorUserNameInvalid", "DESCRIPTION IS EMPTY");
             boolean validFormat = !format.isEmpty();
             if(!validFormat)request.setAttribute("errorUserNameInvalid", "FORMAT IS EMPTY");
 
-            Video video = new Video(title, author, creationDate, duration, 0, description, format, request.getAttribute("userName"));
+            Video video = new Video(title, author, creationDate, duration, 0, description, format, userName);
 
             video.addVideo();
             request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);

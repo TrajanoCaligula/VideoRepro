@@ -10,7 +10,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.List;
+import java.util.ArrayList;
+import  isdcm.model.*;
 /**
  *
  * @author alumne
@@ -31,11 +33,11 @@ public class ServListVid extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        List <Video> listVideos = new ArrayList<>;
+        List <Video> listVideos = new ArrayList<>();
         Video video = new Video();
         listVideos = video.getAllVideos();
 
-        if(listVideos.size() != 0){
+        if(!listVideos.isEmpty()){
             request.setAttribute("videoList", listVideos);
             request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
         } else {
