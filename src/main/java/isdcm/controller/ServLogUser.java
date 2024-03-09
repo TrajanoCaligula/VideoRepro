@@ -51,7 +51,7 @@ public class ServLogUser extends HttpServlet {
         if (validUsername && validPassword) {
             User user = new User();
             request.getSession().setAttribute("USER_LOGGED", false);
-            request.getSession().setAttribute("attributeUserExists", false); //TODO:REVISAAARRR
+            request.getSession().setAttribute("attributeUserExists", false);
             request.getSession().setAttribute("NAME", "");
             request.getSession().setAttribute("USERID", -1);
             request.getSession().setAttribute("SURNAME", "");
@@ -71,10 +71,10 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("USERID", user.getId());
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
-                    else request.setAttribute("errorUserNameInvalid", "PASSWORD OR USERNAME INCORRECT");
+                    else request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
                 }
             } else {
-                request.setAttribute("errorUserNameInvalid", "El usuario no existe");
+                request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
             }
 
         }
