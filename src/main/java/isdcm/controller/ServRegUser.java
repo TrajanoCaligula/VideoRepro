@@ -48,10 +48,14 @@ public class ServRegUser extends HttpServlet {
         boolean validEmail = !email.isEmpty();
         if(validEmail)request.setAttribute("errorRegUsuFail","EMAIL FIELD IS EMPTY");
         boolean validUsername = !userName.isEmpty();
-        if(!validUsername)request.setAttribute("errorRegUsuFail", "USERNAME IS EMPTY");
+        if(!validUsername)request.setAttribute("errorRegUsuFail", "USERNAME FIELD IS EMPTY");
         boolean validPassword = !password.isEmpty();
+        if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD FIELD IS EMPTY");
+        boolean validPassword2 = !passwordConfirm.isEmpty();
+        if(!validPassword2)request.setAttribute("errorRegUsuFail", "CONFIRMATION PASSWORD FIELD IS EMPTY");
         
-        if(validPassword){
+        
+        if(validName && validSurname && validEmail && validUsername){
             //Pasword confirmation
             String regexNum = ".*\\d.*";
             String regexYUppercase = ".*[A-Z].*";
@@ -65,17 +69,12 @@ public class ServRegUser extends HttpServlet {
             // Combinar los resultados
             validPassword = haveNumbers && haveUppercase && haveSpecial;
             
-            if(validPassword){
-                validPassword = !passwordConfirm.isEmpty();
-                if(validPassword){
-                    validPassword = password.equals(passwordConfirm);
-                    if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD AND CONFIRMATION PASSWORD DON'T mATCH");
-                }
-                else request.setAttribute("errorRegUsuFail", "CONFIRMATION PASSWORD IS EMPTY");
+            if(validPassword && validPassword2){
+                validPassword = password.equals(passwordConfirm);
+                if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD AND CONFIRMATION PASSWORD DON'T mATCH");
             }
             else request.setAttribute("errorRegUsuFail", "PASSWORD NEED A SPECIAL CHARACTER, AN UPPPERCASE LETTER AND A NUMBER");
         }
-        else request.setAttribute("errorRegUsuFail","PASSWORD FIELD IS EMPTY" );
         
         
 
@@ -85,7 +84,7 @@ public class ServRegUser extends HttpServlet {
             boolean existsUser = user.existsUser(username);
             if(existsUser) {
                 request.setAttribute("errorRegUsuFail", "ALREADY EXISTING USER");
-                request.getRequestDispatcher("/registro.jsp").forward(request, response);
+                request.getRequestDispatcher("/registroUsu.jsp").forward(request, response);
             } else {
                 user = new User(name, username, email, userName, password);
                 boolean created = user.addUser();
