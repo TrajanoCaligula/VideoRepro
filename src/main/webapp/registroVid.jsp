@@ -32,7 +32,7 @@
 </head>
 <body>
     <jsp:include page="navbar.jsp"/>
-    <form class="reg-vid-form" action="procesar_login.php" method="post">
+    <form class="reg-vid-form" action="ServRegVid" method="post">
         <h2>Registro de Usuario</h2>
         <label id = "error" style="color: red;">
             ${requestScope.errorRegVidFail}
@@ -87,10 +87,10 @@
             </tr>
             <tr>
                 <td><p>Video:</p></td>
-                <td><input type="file" id="video" name="video" accept="video/*" required></td>
+                <td><input type="file" id="video" name="video" accept="video/*"></td>
             </tr>
         </table>
-        <input type="submit" value="Enviar Registro">
+        <input type="submit" value="Subir video">
     </form>
 </body> 
 <script>

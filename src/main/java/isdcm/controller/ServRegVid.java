@@ -51,7 +51,7 @@ public class ServRegVid extends HttpServlet {
             String viewsBeforeParse = request.getParameter("views");
             String description = request.getParameter("description");
             String format = request.getParameter("format");
-            String userName = request.getParameter("userName");
+            String userName = (String)request.getSession().getAttribute("USERNAME");
             
             
             java.util.Date utildate = new Date(Calendar.getInstance().getTimeInMillis());
@@ -86,14 +86,17 @@ public class ServRegVid extends HttpServlet {
 
             Video video = new Video(title, author, creationDate, duration, 0, description, format, userName);
 
-            video.addVideo();
+            if(video.addVideo()){
+                request.setAttribute("errorRegisterVideo", "DB ERROR");
+                request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
 
         } else{
             request.setAttribute("errorUserNotLogged", "MUST LOG IN TO UPLOAD A VIDEO");
         }
 
-        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

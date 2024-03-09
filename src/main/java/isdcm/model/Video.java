@@ -13,6 +13,8 @@ import java.util.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author name
@@ -175,7 +177,7 @@ public class Video {
                 int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
                 String author = rs.getString("AUTHOR");
-                Date creationDate = rs.getDate("CREATIONDATE");
+                Date creationDate = rs.getDate("CREADATE");
                 Time duration = rs.getTime("DURATION");
                 long views = rs.getLong("VIEWS");
                 String description = rs.getString("DESCRIPTION");
@@ -204,7 +206,7 @@ public class Video {
                 int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
                 String author = rs.getString("AUTHOR");
-                Date creationDate = rs.getDate("CREATIONDATE");
+                Date creationDate = rs.getDate("CREADATE");
                 Time duration = rs.getTime("DURATION");
                 long views = rs.getLong("VIEWS");
                 String description = rs.getString("DESCRIPTION");
@@ -226,9 +228,15 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
+            Date date = this.creationDate;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            // Convert the Date object to a String
+            String formattedDate = formatter.format(creationDate);
+            
             String sql = "INSERT INTO " + TABLENAME
-                    + "(TITLE, AUTHOR, CREATIONDATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME)"
-                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + this.creationDate + "', '" + this.duration + "', '" + this.views + "', '" + this.description + "', '" + this.format + "', '" + this.userName + "')";
+                    + "(TITLE, AUTHOR, CREADATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME, URL)"
+                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + formattedDate + "', '" + this.duration + "', " + this.views + ", '" + this.description + "', '" + this.format + "', '" + this.userName + "', 'test')";
             System.out.println("addVideo SQL: " + sql);
             stmt.executeUpdate(sql);
             
