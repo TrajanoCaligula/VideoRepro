@@ -50,7 +50,7 @@ public class ServLogUser extends HttpServlet {
 
         if (validUsername && validPassword) {
             User user = new User();
-            request.getSession().setAttribute("USER_LOGGED", false);
+            request.getSession().setAttribute("USER_LOGGED", "false");
             request.getSession().setAttribute("attributeUserExists", false);
             request.getSession().setAttribute("NAME", "");
             request.getSession().setAttribute("USERID", -1);

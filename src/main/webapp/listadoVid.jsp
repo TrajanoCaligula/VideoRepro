@@ -7,7 +7,7 @@
     
     String param = (String) ses.getAttribute("USER_LOGGED");
     
-    if ((param == null || param.isEmpty())&&(param == "false")) {
+    if ((param == null || param.isEmpty())) {
 %>      
         <script>
             setTimeout(function() {
@@ -15,8 +15,14 @@
             }, 0);
         </script>
 <%
-    } else {
-        // Aquí puedes agregar lógica de servidor adicional si es necesario
+    } else if(param == "false"){
+  %>      
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+            }, 0);
+        </script>
+<%     
     }
 %>
 <!DOCTYPE html>
