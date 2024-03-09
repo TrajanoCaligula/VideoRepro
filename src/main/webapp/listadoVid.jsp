@@ -7,8 +7,7 @@
     
     String param = (String) ses.getAttribute("USER_LOGGED");
     
-    if (param == null || param.isEmpty()) {
-        if(param == "true"){
+    if ((param == null || param.isEmpty())&&(param == "false")) {
 %>      
         <script>
             setTimeout(function() {
@@ -16,7 +15,7 @@
             }, 0);
         </script>
 <%
-    }} else {
+    } else {
         // Aquí puedes agregar lógica de servidor adicional si es necesario
     }
 %>
