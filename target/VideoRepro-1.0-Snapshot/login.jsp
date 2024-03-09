@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <script>
     // Obtener el mensaje de advertencia de la URL
-    var mensaje = decodeURIComponent(window.location.search.substring(1)).split('=')[1];
-
+    var urlParams = new URLSearchParams(window.location.search);
+    var mensaje = urlParams.get('mensaje');
     // Mostrar un cuadro de alerta con el mensaje
     if (mensaje) {
         alert(mensaje);
