@@ -67,7 +67,7 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("SURNAME", user.getSurname()); 
                         request.getSession().setAttribute("EMAIL", user.getEmail());
                         request.getSession().setAttribute("USERNAME", user.getUserName());
-                        request.getSession().setAttribute("USER_LOGGED", true);
+                        request.getSession().setAttribute("USER_LOGGED", "true");
                         request.getSession().setAttribute("USERID", user.getId());
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
