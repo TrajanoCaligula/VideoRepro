@@ -127,7 +127,7 @@ public class User {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName;
+            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 existsUser = (rs.getInt("COUNT") > 0);
@@ -165,7 +165,7 @@ public class User {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userN ;
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userN + "'";
             System.out.println("Getuser SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {

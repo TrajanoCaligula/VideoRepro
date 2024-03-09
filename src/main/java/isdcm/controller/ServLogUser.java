@@ -62,7 +62,7 @@ public class ServLogUser extends HttpServlet {
                 user = user.getUser(userName);
                 if(user == null) request.setAttribute("errorUserNameInvalid", "DB ERROR");
                 else {
-                    if(user.getPassword().equals(password)){
+                    if(user.passwordIsCorrect(userName, password)){
                         request.getSession().setAttribute("NAME", user.getName());
                         request.getSession().setAttribute("SURNAME", user.getSurname()); 
                         request.getSession().setAttribute("EMAIL", user.getEmail());

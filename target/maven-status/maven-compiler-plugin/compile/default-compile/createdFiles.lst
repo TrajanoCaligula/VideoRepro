@@ -1,6 +1,8 @@
-isdcm/videorepro/resources/JakartaEE91Resource.class
-isdcm/controller/ServRegUser.class
-isdcm/controller/ServLogUser.class
-isdcm/model/Video.class
-isdcm/videorepro/JakartaRestConfiguration.class
-isdcm/model/User.class
+isdcm\controller\ServRegUser.class
+isdcm\controller\ServRegVid.class
+isdcm\controller\ServLogUser.class
+isdcm\model\Video.class
+isdcm\controller\ServListVid.class
+isdcm\videorepro\JakartaRestConfiguration.class
+isdcm\videorepro\resources\JakartaEE91Resource.class
+isdcm\model\User.class
