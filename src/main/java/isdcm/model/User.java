@@ -145,10 +145,10 @@ public class User {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName + "' AND password='" + this.password + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userName + "' AND password='" + this.password + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                passwordCorrect = (rs.getInt("COUNT") > 0);
+                passwordCorrect = (password.equals(rs.getString("PASSWORD")));
             }
             
             return passwordCorrect;            
