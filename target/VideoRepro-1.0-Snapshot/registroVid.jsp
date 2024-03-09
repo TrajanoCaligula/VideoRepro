@@ -1,3 +1,24 @@
+<%@ page import="java.io.*,java.util.*" %>
+<%@ page import="jakarta.servlet.*" %>
+<%@ page import="jakarta.servlet.http.*" %>
+
+<%
+    HttpSession ses = request.getSession();
+    
+    String param = (String) ses.getAttribute("useLogged");
+    
+    if (param == null || param.isEmpty()) {
+%>
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+            }, 0);
+        </script>
+<%
+    } else {
+        // Aquí puedes agregar lógica de servidor adicional si es necesario
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>

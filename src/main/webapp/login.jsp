@@ -5,7 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<script>
+    // Obtener el mensaje de advertencia de la URL
+    var mensaje = decodeURIComponent(window.location.search.substring(1)).split('=')[1];
 
+    // Mostrar un cuadro de alerta con el mensaje
+    if (mensaje) {
+        alert(mensaje);
+    }
+</script>
  
 <!DOCTYPE html>
 <html lang="es">
@@ -24,11 +32,11 @@
             <table>
                 <tr>
                     <td><p>Usuario:</p></td>
-                    <td><input type="text" id="userName" name="userName" placeholder="Usuario" required></td>
+                    <td><input type="text" id="USERNAME" name="USERNAME" placeholder="Usuario" required></td>
                 </tr>
                 <tr>
                     <td><p>Password:</p></td>
-                    <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
+                    <td><input type="password" id="PASSWORD" name="PASSWORD" placeholder="Contraseña" required></td>
                     <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>                    
                 </tr>
             </table>

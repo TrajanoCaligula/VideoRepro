@@ -1,3 +1,17 @@
+<%@ page import="java.io.*,java.util.*" %>
+<%@ page import="jakarta.servlet.*" %>
+<%@ page import="jakarta.servlet.http.*" %>
+
+<%
+    HttpSession ses = request.getSession();
+    
+    String param = (String) ses.getAttribute("useLogged");
+    
+    if (param == null || param.isEmpty()) {
+        response.sendRedirect("login.jsp");
+    } else {
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
