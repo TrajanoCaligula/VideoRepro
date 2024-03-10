@@ -174,7 +174,11 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID=" + String.valueOf(id ); 
+            String sql = "UPDATE " + TABLENAME + " SET VIEWS = VIEWS+1 WHERE ID = " + String.valueOf(id );
+            System.out.println("Updatevideo SQL: " + sql);
+            stmt.executeUpdate(sql);
+            
+            sql = "SELECT * FROM " + TABLENAME + " WHERE ID=" + String.valueOf(id ); 
             System.out.println("Getvideo SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -190,6 +194,7 @@ public class Video {
                                 
                 video = new Video(idV, title, author, creationDate, duration, views, description, format, userName);
             }            
+
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
