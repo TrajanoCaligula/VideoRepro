@@ -13,24 +13,6 @@
     <title>Listado Videos</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-            .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
 
         li {
             background-color: #f9f9f9;
@@ -55,22 +37,30 @@
                     console.log("Datos recibidos:", data);
                     var html = "";
                     for (var i = 0; i < data.length; i++) {
-                        html += "<li><label style='font-weight: bold;'>Titulo: </label>" + 
-                                data[i].title + "<br>" +
+                        var fecha = new Date(data[i].creationDate); // Convertir a objeto de fecha
+                        var año = fecha.getFullYear(); // Obtener el año
+                        var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
+                        var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el día
+
+                        var fechaFormateada = año + '/' + mes + '/' + dia;
+                        
+                        html += "<li><div><label style='font-weight: bold;'>Titulo: </label>" + 
+                                data[i].title + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Autor: </label>" +
-                                data[i].author + "<br>" +
+                                data[i].author + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
-                                data[i].creationDate + "<br>" +
+                                fechaFormateada + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Duración: </label>" +
-                                data[i].duration + "<br>" +
+                                data[i].duration + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Visualizaciones: </label>" +
-                                data[i].views + "<br>" +
+                                data[i].views + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Descripción: </label>" +
-                                data[i].description + "<br>" +
+                                data[i].description + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Formato: </label>" +
-                                data[i].format + "<br>" +
+                                data[i].format + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
-                                data[i].userName +"</li>";
+                                data[i].userName + "</div>" +
+                                "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'video.jsp?id="+data[i].id+"';\">Ver Video</buton>" +"</li>";
                                 
                         
                     }
@@ -88,10 +78,18 @@
         });
     </script>
 </head>
-<body>
+<body class = "bodyList">
     
-        <h1>Listado Videos</h1>
-        <ul id="lista-videos"></ul>
+        <jsp:include page="navbar.jsp"/>
+        <div class="rectangulo-detras-h1"></div>
+        <h1 class="h1List">Listado de Videos</h1> 
+        <br>
+
+        <div class="contenedor-listado">
+            <ol class="no-numeros" id="lista-videos">
+                
+            </ol>
+        </div>
     
 </body>
 </html>
