@@ -13,7 +13,6 @@
     <title>Listado Videos</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-
         li {
             background-color: #f9f9f9;
             margin-bottom: 10px;
@@ -60,7 +59,7 @@
                                 data[i].format + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
                                 data[i].userName + "</div>" +
-                                "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'video.jsp?id="+data[i].id+"';\">Ver Video</buton>" +"</li>";
+                                "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'watchVideo.jsp?id="+data[i].id+"';\">Ver Video</buton>" +"</li>";
                                 
                         
                     }
