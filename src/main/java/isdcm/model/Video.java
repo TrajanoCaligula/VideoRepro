@@ -174,7 +174,7 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID='" + id +"'"; 
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE ID=" + String.valueOf(id ); 
             System.out.println("Getvideo SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {

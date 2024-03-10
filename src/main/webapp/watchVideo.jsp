@@ -37,22 +37,26 @@
 
                     var fechaFormateada = año + '/' + mes + '/' + dia;
                     
-                    html += "<div><label style='font-weight: bold;'>Titulo: </label>" + 
-                            data.title + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Autor: </label>" +
-                            data.author + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
-                            fechaFormateada + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Duración: </label>" +
-                            data.duration + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Visualizaciones: </label>" +
-                            data.views + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Descripción: </label>" +
-                            data.description + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Formato: </label>" +
-                            data.format + "</div><div class = 'listdatadiv'>" +
-                            "<label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
-                            data.userName + "</div>";                                
+                    html += "<table class='tablaVideoContainer'><tr>"+
+                                "<th><label style='font-weight: bold;'>Titulo: </label>" + 
+                                data.title + "</th>" +
+                                "<th><label style='font-weight: bold;'>Autor: </label>" +
+                                data.author + "</th></tr>" +
+                            "<tr>"+
+                                "<th><label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
+                                fechaFormateada + "</th>" +
+                                "<th><label style='font-weight: bold;'>Duración: </label>" +
+                                data.duration + "</th></tr>" +
+                            "<tr>"+
+                                "<th><label style='font-weight: bold;'>Visualizaciones: </label>" +
+                                data.views + "</th>" +   
+                                "<th><label style='font-weight: bold;'>Formato: </label>" +
+                                data.format + "</th>"+
+                            "</tr><table>" +
+                            "<div class='dataDescription'><label style='font-weight: bold;'>Descripción: </label>" +
+                            data.description + "</div><br>" + 
+                            "<div class='dataToRight'> <label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
+                            data.userName+"</div>";                                                       
                 }
                 $("#video").html(html); // Agregué el "#" para seleccionar el ID correctamente
             },
@@ -72,9 +76,7 @@
     
         <jsp:include page="navbar.jsp"/>
         <br>
-
-        <div class="contenedor-listado" id="video">
-
+        <div class="videoContainer" id="video">
         </div>
     
 </body>
