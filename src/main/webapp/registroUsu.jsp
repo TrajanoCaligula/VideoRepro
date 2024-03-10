@@ -30,10 +30,10 @@
             </tr>
             <tr>
                 <td><p>Apellidos:</p></td>
-                <td><input type="text" id="surname" name="surname" placeholder="Ramí­rez Sierra" required></td>
+                <td><input type="text" id="surname" name="surname" placeholder="Ram��rez Sierra" required></td>
             </tr>
             <tr>
-                <td><p>Correo electrónico:</p></td>
+                <td><p>Correo electr�nico:</p></td>
                 <td><input type="text" id="email" name="email" placeholder="maria@example.com" required></td>
             </tr>
             <tr>
@@ -41,13 +41,13 @@
                 <td><input type="text" id="userName" name="userName" placeholder="maria123" required></td>
             </tr>
             <tr>
-                <td><label for="password">Contraseña:</label></td>
-                <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
-                <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseña"></td>          
+                <td><label for="password">Contrase�a:</label></td>
+                <td><input type="password" id="password" name="password" placeholder="Contrase�a" required></td>
+                <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contrase�a"></td>          
             </tr>
             <tr>
-                <td><p>Repetir contraseña:</p></td>
-                <td><input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Contraseña" required></td>
+                <td><p>Repetir contrase�a:</p></td>
+                <td><input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Contrase�a" required></td>
                 <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseña"></td>
                
             </tr>

@@ -71,9 +71,9 @@ public class ServRegUser extends HttpServlet {
             
             if(validPassword && validPassword2){
                 validPassword = password.equals(passwordConfirm);
-                if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD AND CONFIRMATION PASSWORD DON'T mATCH");
+                if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD AND CONFIRMATION PASSWORD DON'T MATCH");
             }
-            else request.setAttribute("errorRegUsuFail", "PASSWORD NEED A SPECIAL CHARACTER, AN UPPPERCASE LETTER AND A NUMBER");
+            else request.setAttribute("errorRegUsuFail", "PASSWORD NEED A SPECIAL CHARACTER !@#$%^&*(), AN UPPPERCASE LETTER AND A NUMBER");
         }
         
         
@@ -91,20 +91,9 @@ public class ServRegUser extends HttpServlet {
                 if(created)request.setAttribute("userRegistered", "USER REGISTERED");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
+        }
+        request.getRequestDispatcher("/registroUsu.jsp").forward(request, response);
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServRegUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServRegUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-        }
     
     }
 

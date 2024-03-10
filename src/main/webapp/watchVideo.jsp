@@ -60,24 +60,24 @@
                     var fechaFormateada = año + '/' + mes + '/' + dia;
                     
                     html += "<table class='tablaVideoContainer'><tr>"+
-                                "<th><label style='font-weight: bold;'>Titulo: </label>" + 
-                                data.title + "</th>" +
-                                "<th><label style='font-weight: bold;'>Autor: </label>" +
-                                data.author + "</th></tr>" +
+                                "<td><label style='font-weight: bold;'>Titulo: </label>" + 
+                                data.title + "</td>" +
+                                "<td><label style='font-weight: bold;'>Autor: </label>" +
+                                data.author + "</td></tr>" +
                             "<tr>"+
-                                "<th><label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
-                                fechaFormateada + "</th>" +
-                                "<th><label style='font-weight: bold;'>Duración: </label>" +
-                                data.duration + "</th></tr>" +
+                                "<td><label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
+                                fechaFormateada + "</td>" +
+                                "<td><label style='font-weight: bold;'>Duración: </label>" +
+                                data.duration + "</td></tr>" +
                             "<tr>"+
-                                "<th><label style='font-weight: bold;'>Visualizaciones: </label>" +
-                                data.views + "</th>" +   
-                                "<th><label style='font-weight: bold;'>Formato: </label>" +
-                                data.format + "</th>"+
+                                "<td><label style='font-weight: bold;'>Visualizaciones: </label>" +
+                                data.views + "</td>" +   
+                                "<td><label style='font-weight: bold;'>Formato: </label>" +
+                                data.format + "</td>"+
                             "</tr><table>" +
                             "<div class='dataDescription'><label style='font-weight: bold;'>Descripción: </label>" +
                             data.description + "</div><br>" + 
-                            "<div class='dataToRight'> <label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
+                            "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" +
                             data.userName+"</div>";                                                       
                 }
                 $("#video").html(html); // Agregué el "#" para seleccionar el ID correctamente

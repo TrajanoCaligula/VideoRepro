@@ -28,8 +28,8 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Regitro Usuario</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+        <link rel="stylesheet" href="style.css">
+       </head>
 <body>
     <jsp:include page="navbar.jsp"/>
     <form class="reg-vid-form" action="ServRegVid" method="post" enctype="multipart/form-data">

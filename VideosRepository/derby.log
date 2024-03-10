@@ -1,24 +1,7 @@
-Sat Mar 09 19:37:57 CET 2024 : Servidor de red Apache Derby: Se ha iniciado 10.14.2.0 - (1828579) y está listo para aceptar las conexiones en el puerto 1527
+Sun Mar 10 20:31:37 CET 2024 : Servidor de red Apache Derby: Se ha iniciado 10.14.2.0 - (1828579) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Sat Mar 09 19:37:57 CET 2024:
- Iniciando instancia a816c00e-018e-2481-e869-0000547d4e8f de Derby, versión The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
-en el directorio de base de datos D:\GIT\VideoRepro\VideosRepository\VideosRepository con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
-Cargado desde file:/C:/Program%20Files/Java/jdk-17/db-derby-10.14.2.0-bin/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=17.0.10+11-LTS-240
-user.dir=C:\Program Files\Java\jdk-17\db-derby-10.14.2.0-bin
-os.name=Windows 11
-os.arch=amd64
-os.version=10.0
-derby.system.home=D:\GIT\VideoRepro\VideosRepository
-Cargador de clases de base de datos iniciado - derby.database.classpath=''
-----------------------------------------------------------------
-Sat Mar 09 19:38:02 CET 2024:
-Cerrando la instancia a816c00e-018e-2481-e869-0000547d4e8f en el directorio de base de datos D:\GIT\VideoRepro\VideosRepository\VideosRepository con cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
-Sat Mar 09 19:38:02 CET 2024 Thread[DRDAConnThread_3,5,main] (DATABASE = VideosRepository), (DRDAID = {2}), Cierre de la base de datos 'VideosRepository'.
-----------------------------------------------------------------
-Sat Mar 09 19:38:57 CET 2024:
- Iniciando instancia 6ede40af-018e-2481-e869-0000547d4e8f de Derby, versión The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
+Sun Mar 10 20:36:48 CET 2024:
+ Iniciando instancia a816c00e-018e-29d9-6850-0000547d4e8f de Derby, versión The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
 en el directorio de base de datos D:\GIT\VideoRepro\VideosRepository\VideosRepository con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
 Cargado desde file:/C:/Program%20Files/Java/jdk-17/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation

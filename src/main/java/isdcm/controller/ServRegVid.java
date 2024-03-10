@@ -5,21 +5,13 @@
 package isdcm.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import  isdcm.model.*;
-import jakarta.servlet.http.Part;
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.sql.Time;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -102,19 +94,6 @@ public class ServRegVid extends HttpServlet {
         }
 
         request.getRequestDispatcher("/login.jsp").forward(request, response);
-
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServRegVid</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServRegVid at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -126,32 +105,6 @@ public class ServRegVid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    protected void processVideo(HttpServletRequest request, HttpServletResponse response)
-               throws ServletException, IOException{
-        
-        Part filePart = request.getPart("videoFile");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-        InputStream fileContent = filePart.getInputStream();
-        String userName = (String) request.getSession().getAttribute("USERNAME");
-        String videoFolder = "/src/main/webapp/videos/"+userName;
-        
-        File folder = new File(videoFolder);
-
-        try{
-            if (folder.mkdirs()) {
-                System.out.println("Carpeta creada correctamente.");
-            } else {
-                System.out.println("Error al crear la carpeta.");
-            }
-        }catch(Exception ex){
-            System.out.println("Error al crear la carpeta.");
-        }
-        String videoPath = getServletContext().getRealPath("/videos/"+userName+"/"+fileName);
-
-        // Guardar el archivo en una ubicación específica
-        Files.copy(fileContent, Paths.get(videoPath));
-    }
     
     
     
@@ -173,11 +126,8 @@ public class ServRegVid extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
        
-        
-        //processVideo(request, response);
-        processRequest(request, response);
-
-        
+            processRequest(request, response);
+  
     }
 
     /**

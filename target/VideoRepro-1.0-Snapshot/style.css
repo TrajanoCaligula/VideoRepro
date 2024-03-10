@@ -59,6 +59,10 @@ input[type="submit"]:hover {
     flex-direction: column; /* Apila los elementos uno encima del otro */
 }
 .reg-vid-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 700px; /* Ancho específico para el formulario especial */
 }
 

@@ -44,7 +44,7 @@
         </form>
     </body>
     <script>
-        const passwordInput = document.getElementById('password');
+        const passwordInput = document.getElementById('PASSWORD');
         const eyeIcon = document.getElementById('eyeIcon');
         const error = document.getElementById('error');
 

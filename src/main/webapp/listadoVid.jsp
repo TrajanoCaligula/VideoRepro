@@ -85,10 +85,13 @@
                                 
                         
                     }
+                    if( data === null||data.length <= 0)html += "<label> No hay videos en el Repositorio</label>";
                     $("#lista-videos").html(html); // Agregué el "#" para seleccionar el ID correctamente
                 },
                 error: function() {
-                    console.error('Error al obtener datos del servidor');
+                     var html = "";
+                     html += "<label> No hay videos en el Repositorio</label>";               
+                    $("#lista-videos").html(html); // Agregué el "#" para seleccionar el ID correctamente
                 }
             });
         }

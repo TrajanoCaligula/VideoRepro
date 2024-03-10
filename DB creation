@@ -22,11 +22,12 @@ CREATE TABLE VIDEOS
     "VIEWS" INT not null,
     "DESCRIPTION" VARCHAR(255) not null,
     "FORMAT" VARCHAR(5) not null,
-    "USERNAME" VARCHAR(100) not null    
+    "USERNAME" VARCHAR(100) not null,
+    "URL" VARCHAR(255) not null
 );
 
 
-"URL" VARCHAR(255) not null,
+
     "URLINFO" VARCHAR(255) not null
 
 
