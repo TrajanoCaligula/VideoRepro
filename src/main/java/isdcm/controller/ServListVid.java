@@ -4,6 +4,7 @@
  */
 package isdcm.controller;
 
+import isdcm.DTO.VideoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,8 +37,20 @@ public class ServListVid extends HttpServlet {
         List <Video> listVideos = new ArrayList<>();
         Video video = new Video();
         listVideos = video.getAllVideos();
-
-        if(!listVideos.isEmpty()){
+        List <VideoDTO> listVideosDTO = new ArrayList<>();
+        for(int i = 0; i < listVideos.size();++i){
+            VideoDTO vid = new VideoDTO(listVideos.get(i).getId(),
+                                    listVideos.get(i).getTitle(),
+                                    listVideos.get(i).getAuthor(),
+                                    listVideos.get(i).getCreationDate(),
+                                    listVideos.get(i).getDuration(),
+                                    listVideos.get(i).getViews(),
+                                    listVideos.get(i).getDescription(),
+                                    listVideos.get(i).getFormat(),
+                                    listVideos.get(i).getUserName());
+            listVideosDTO.add(vid);
+        }
+        if(!listVideosDTO.isEmpty()){
             request.setAttribute("videoList", listVideos);
             request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
         } else {
@@ -46,18 +59,6 @@ public class ServListVid extends HttpServlet {
 
         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);     //TODO: comprovar si va be
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServListVid</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServListVid at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

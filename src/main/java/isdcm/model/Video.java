@@ -148,6 +148,10 @@ public class Video {
     public void setFormat(String format) {
         this.format = format;
     }
+    
+    public String getUserName() {
+        return userName;
+    }
 
     @Override
     public String toString() {

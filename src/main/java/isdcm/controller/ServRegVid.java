@@ -11,6 +11,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import  isdcm.model.*;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.sql.Time;
 import java.util.List;
@@ -121,6 +126,35 @@ public class ServRegVid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    protected void processVideo(HttpServletRequest request, HttpServletResponse response)
+               throws ServletException, IOException{
+        
+        Part filePart = request.getPart("videoFile");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        InputStream fileContent = filePart.getInputStream();
+        String userName = (String) request.getSession().getAttribute("USERNAME");
+        String videoFolder = "/src/main/webapp/videos/"+userName;
+        
+        File folder = new File(videoFolder);
+
+        try{
+            if (folder.mkdirs()) {
+                System.out.println("Carpeta creada correctamente.");
+            } else {
+                System.out.println("Error al crear la carpeta.");
+            }
+        }catch(Exception ex){
+            System.out.println("Error al crear la carpeta.");
+        }
+        String videoPath = getServletContext().getRealPath("/videos/"+userName+"/"+fileName);
+
+        // Guardar el archivo en una ubicación específica
+        Files.copy(fileContent, Paths.get(videoPath));
+    }
+    
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -137,8 +171,13 @@ public class ServRegVid extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
+       
+        
+        //processVideo(request, response);
         processRequest(request, response);
+
+        
     }
 
     /**
