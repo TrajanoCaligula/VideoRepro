@@ -13,7 +13,8 @@
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
         <a id="regUs" href="registroUsu.jsp">Registro</a> <span id="s4" class="separador">|</span>
         <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span><!-- Espacio para mostrar informaci贸n del usuario -->
-        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesi髇</a> <!-- Bot贸n para cerrar sesi贸n -->
+        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesi髇</a>
+
     </div> 
    
 </body> 
@@ -23,10 +24,22 @@
 
     // Ejemplo de funci贸n para cerrar sesi贸n
     function cerrarSesion() {
-        // Aqu铆 puedes agregar l贸gica para cerrar la sesi贸n del usuario
-        alert("Sesi髇 cerrada");
-        // Redirigir a la p谩gina de inicio de sesi贸n, por ejemplo:
-        window.location.href = "login.jsp";
+        // 1. AJAX Request (Optional for server-side session termination)
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "ServLogUser", true); // Replace with correct URL and method (use GET for session termination)
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            // Session terminated successfully on server (handle response if needed)
+          } else {
+            // Handle errors (e.g., display error message)
+            console.error("Error closing session:", xhr.statusText);
+          }
+        };
+        xhr.send();
+
+        // 2. Client-Side Session Management
+        sessionStorage.clear(); // Clear client-side session data
+        window.location.href = "login.jsp"; // Redirect to login page
     }
     function cambiarCursor() {
         document.getElementById("miTexto").style.cursor = "pointer";

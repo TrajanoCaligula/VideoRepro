@@ -5,12 +5,12 @@
 package isdcm.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import isdcm.model.*;
+import jakarta.servlet.annotation.WebServlet;
 
 
 
@@ -21,8 +21,26 @@ import isdcm.model.*;
  *
  * @author alumne
  */
+@WebServlet(name = "ServLogUser", urlPatterns = {"/ServLogUser"})
 public class ServLogUser extends HttpServlet {
 
+    
+    public static boolean isAlphanumeric(String str) {
+        if (str == null || str.isEmpty()) {
+          return false; // Empty string is not alphanumeric
+        }
+        for (char ch : str.toCharArray()) {
+          if (!Character.isLetterOrDigit(ch)) {
+            return false;
+          }
+        }
+        return true;
+    }
+    
+    public static boolean inRange(String field, int value) {
+        return (field.length() <= value);
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,11 +62,13 @@ public class ServLogUser extends HttpServlet {
         //Attributes validation
         boolean validUsername = !userName.isEmpty();
         if(!validUsername)request.setAttribute("errorUserNameInvalid", "USERNAME IS EMPTY");
+        validUsername = validUsername && isAlphanumeric(userName)&& inRange(userName,100);
+        if(!validUsername) request.setAttribute("errorUserNameInvalid", "INVALID CHARACTERS");
+        
         boolean validPassword = !password.isEmpty();
         if(!validPassword)request.setAttribute("errorUserNameInvalid", "PASSWORD IS EMPTY");
-        
 
-        if (validUsername && validPassword) {
+        if (validUsername && validPassword && inRange(password,255)) {
             User user = new User();
             request.getSession().setAttribute("USER_LOGGED", "false");
             request.getSession().setAttribute("attributeUserExists", false);
@@ -76,7 +96,6 @@ public class ServLogUser extends HttpServlet {
             } else {
                 request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
             }
-
         }
         request.getRequestDispatcher("/login.jsp").forward(request, response);
 
@@ -94,7 +113,7 @@ public class ServLogUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession(false) != null) request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        request.getSession().invalidate();
     }
 
     /**

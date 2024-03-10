@@ -40,11 +40,11 @@
         <table>
             <tr>
                 <td class="columna1"><p>Tí­tulo:</p></td>
-                <td><input type="text" id="title" name="title" placeholder="El mejor video" required></td>
+                <td><input type="text" id="title" name="title" placeholder="El mejor video" maxlength="100" required></td>
             </tr>
             <tr>
                 <td><p>Autor:</p></td>
-                <td><input type="text" id="author" name="author" placeholder="Sara" required></td>
+                <td><input type="text" id="author" name="author" placeholder="Sara" maxlength="100" required></td>
             </tr>
             <tr>
                 <td><p>Fecha de creación:</p></td>
@@ -56,7 +56,7 @@
             </tr>
             <tr>
                 <td class="textarealabel-celda"><p>Descripción:</p></td>
-                <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" required></textarea></td>               
+                <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" maxlength="255" required></textarea></td>               
             </tr>
             <tr>
                 <td><p>Formato:</p></td>

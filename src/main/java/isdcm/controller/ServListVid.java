@@ -6,7 +6,6 @@ package isdcm.controller;
 
 import isdcm.DTO.VideoDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,10 +14,12 @@ import java.util.List;
 import java.util.ArrayList;
 import  isdcm.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.annotation.WebServlet;
 /**
  *
  * @author alumne
  */
+@WebServlet(name = "ServListVid", urlPatterns = {"/ServListVid"})
 public class ServListVid extends HttpServlet {
 
     /**
