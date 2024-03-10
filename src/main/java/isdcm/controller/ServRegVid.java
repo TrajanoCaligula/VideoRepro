@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import  isdcm.model.*;
+import jakarta.servlet.annotation.WebServlet;
 import java.util.Date;
 import java.sql.Time;
 import java.util.Calendar;
@@ -23,9 +24,14 @@ import java.text.ParseException;
  *
  * @author alumne
  */
+@WebServlet(name = "ServRegVid", urlPatterns = {"/ServRegVid"})
 public class ServRegVid extends HttpServlet {
     private static final Logger logger = Logger.getLogger(ServRegVid.class.getName());
 
+    public static boolean inRange(String field, int value) {
+        return (field.length() <= value);
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +51,6 @@ public class ServRegVid extends HttpServlet {
             String author = request.getParameter("author");
             String creationDateBeforeParse = request.getParameter("creationDate");
             String durationBeforeParse = request.getParameter("duration");
-            String viewsBeforeParse = request.getParameter("views");
             String description = request.getParameter("description");
             String format = request.getParameter("format");
             String userName = (String)request.getSession().getAttribute("USERNAME");
@@ -73,27 +78,35 @@ public class ServRegVid extends HttpServlet {
             Time duration = new Time(utildate.getTime());
 
             boolean validTitle= !title.isEmpty();
-            if(!validTitle)request.setAttribute("errorUserNameInvalid", "TITLE IS EMPTY");
+            if(!validTitle)request.setAttribute("errorRegVidFail", "TITLE IS EMPTY");
+            validTitle = validTitle && inRange(title,100);
+            if(!validTitle) request.setAttribute("errorRegVidFail", "TITLE IS TOO LONG");
+        
             boolean validAuthor = !author.isEmpty();
-            if(!validAuthor)request.setAttribute("errorUserNameInvalid", "AUTHOR IS EMPTY");
+            if(!validAuthor)request.setAttribute("errorRegVidFail", "AUTHOR IS EMPTY");
+            validAuthor = validAuthor && inRange(author,100);
+            if(!validAuthor) request.setAttribute("errorRegVidFail", "AUTHOR IS TOO LONG");
+            
             boolean validDescription = !description.isEmpty();
-            if(!validDescription)request.setAttribute("errorUserNameInvalid", "DESCRIPTION IS EMPTY");
+            if(!validDescription)request.setAttribute("errorRegVidFail", "DESCRIPTION IS EMPTY");
+            validDescription = validDescription && inRange(description,255);
+            if(!validDescription) request.setAttribute("errorRegVidFail", "DESCRIPTION IS TOO LONG");
+            
             boolean validFormat = !format.isEmpty();
-            if(!validFormat)request.setAttribute("errorUserNameInvalid", "FORMAT IS EMPTY");
-
+            if(!validFormat)request.setAttribute("errorRegVidFail", "FORMAT IS EMPTY");
+            
             Video video = new Video(title, author, creationDate, duration, 0, description, format, userName);
 
             if(video.addVideo()){
-                request.setAttribute("errorRegisterVideo", "DB ERROR");
-                request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
+                request.setAttribute("errorRegVidFail", "DB ERROR");
+                request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
             }
-            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+            request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
 
         } else{
-            request.setAttribute("errorUserNotLogged", "MUST LOG IN TO UPLOAD A VIDEO");
+            request.setAttribute("errorRegVidFail", "MUST LOG IN TO UPLOAD A VIDEO");
         }
-
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,20 +5,44 @@
 package isdcm.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.regex.*;
 import isdcm.model.User;
+import jakarta.servlet.annotation.WebServlet;
 
 /**
  *
  * @author alumne
  */
+@WebServlet(name = "ServRegUser", urlPatterns = {"/ServRegUser"})
 public class ServRegUser extends HttpServlet {
 
+    public static boolean isAlphanumeric(String str) {
+        if (str == null || str.isEmpty()) {
+          return false; // Empty string is not alphanumeric
+        }
+        for (char ch : str.toCharArray()) {
+          if (!Character.isLetterOrDigit(ch)) {
+            return false;
+          }
+        }
+        return true;
+    }
+    
+    public static boolean isValidEmail(String email) {
+        if (email == null) return false;
+        // Regular expression for a basic email format
+        String regex = "^[\\w!#$%&'*+/=?^`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^`{|}~-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        return email.matches(regex);
+    }
+    
+    public static boolean inRange(String field, int value) {
+        return (field.length() <= value);
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,7 +58,7 @@ public class ServRegUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String name = request.getParameter("name");
-        String username = request.getParameter("surname");
+        String surname = request.getParameter("surname");
         String email = request.getParameter("email");
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
@@ -43,15 +67,27 @@ public class ServRegUser extends HttpServlet {
         //Attributes validation
         boolean validName = !name.isEmpty();
         if(!validName)request.setAttribute("errorRegUsuFail","NAME FIELD IS EMPTY");
-        boolean validSurname = !username.isEmpty();
+        validName = validName && isAlphanumeric(name)&& inRange(name,100);
+        if(!validName) request.setAttribute("errorRegUsuFail", "INVALID NAME");
+        
+        boolean validSurname = !surname.isEmpty();
         if(!validSurname)request.setAttribute("errorRegUsuFail","SURNAME FIELD IS EMPTY");
+        validSurname = validSurname && isAlphanumeric(surname)&& inRange(surname,100);
+        if(!validSurname) request.setAttribute("errorRegUsuFail", "INVALID SURNAME");
+        
         boolean validEmail = !email.isEmpty();
-        if(validEmail)request.setAttribute("errorRegUsuFail","EMAIL FIELD IS EMPTY");
+        if(!validEmail)request.setAttribute("errorRegUsuFail","EMAIL FIELD IS EMPTY");
+        validEmail = validEmail && isValidEmail(email)&& inRange(email,255);
+        if(!validEmail) request.setAttribute("errorRegUsuFail", "INVALID EMAIL");
+        
         boolean validUsername = !userName.isEmpty();
         if(!validUsername)request.setAttribute("errorRegUsuFail", "USERNAME FIELD IS EMPTY");
-        boolean validPassword = !password.isEmpty();
+        validUsername = validUsername && isAlphanumeric(userName)&& inRange(userName,100);
+        if(!validUsername) request.setAttribute("errorRegUsuFail", "INVALID USERNAME");
+        
+        boolean validPassword = !password.isEmpty()&& inRange(email,255);
         if(!validPassword)request.setAttribute("errorRegUsuFail", "PASSWORD FIELD IS EMPTY");
-        boolean validPassword2 = !passwordConfirm.isEmpty();
+        boolean validPassword2 = !passwordConfirm.isEmpty()&& inRange(email,255);
         if(!validPassword2)request.setAttribute("errorRegUsuFail", "CONFIRMATION PASSWORD FIELD IS EMPTY");
         
         
@@ -81,12 +117,12 @@ public class ServRegUser extends HttpServlet {
         if (validName && validSurname && validEmail && validUsername && validPassword){
             
             User user = new User();
-            boolean existsUser = user.existsUser(username);
+            boolean existsUser = user.existsUser(userName);
             if(existsUser) {
                 request.setAttribute("errorRegUsuFail", "ALREADY EXISTING USER");
                 request.getRequestDispatcher("/registroUsu.jsp").forward(request, response);
             } else {
-                user = new User(name, username, email, userName, password);
+                user = new User(name, surname, email, userName, password);
                 boolean created = user.addUser();
                 if(created)request.setAttribute("userRegistered", "USER REGISTERED");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
