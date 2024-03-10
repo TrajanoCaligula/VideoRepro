@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
 import  isdcm.model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  *
  * @author alumne
@@ -38,27 +39,25 @@ public class ServListVid extends HttpServlet {
         Video video = new Video();
         listVideos = video.getAllVideos();
         List <VideoDTO> listVideosDTO = new ArrayList<>();
-        for(int i = 0; i < listVideos.size();++i){
-            VideoDTO vid = new VideoDTO(listVideos.get(i).getId(),
-                                    listVideos.get(i).getTitle(),
-                                    listVideos.get(i).getAuthor(),
-                                    listVideos.get(i).getCreationDate(),
-                                    listVideos.get(i).getDuration(),
-                                    listVideos.get(i).getViews(),
-                                    listVideos.get(i).getDescription(),
-                                    listVideos.get(i).getFormat(),
-                                    listVideos.get(i).getUserName());
+        for (Video vide : listVideos) {
+            VideoDTO vid = new VideoDTO(vide.getId(),
+                                vide.getTitle(),
+                                vide.getAuthor(),
+                                vide.getCreationDate(),
+                                vide.getDuration(),
+                                vide.getViews(),
+                                vide.getDescription(),
+                                vide.getFormat(),
+                                vide.getUserName());
             listVideosDTO.add(vid);
         }
+        String json = new ObjectMapper().writeValueAsString(listVideosDTO);
         if(!listVideosDTO.isEmpty()){
-            request.setAttribute("videoList", listVideos);
-            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         } else {
             request.setAttribute("errorEmptyListVideos", "There are no videos");
         }
-
-        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);     //TODO: comprovar si va be
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

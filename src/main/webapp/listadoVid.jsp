@@ -4,66 +4,94 @@
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="isdcm.DTO.VideoDTO" %>
 <%@ page import="isdcm.controller.ServListVid" %>
-<%
-    HttpSession ses = request.getSession();
-    
-    String param = (String) ses.getAttribute("USER_LOGGED");
-    
-    if ((param == null || param.isEmpty())) {
-%>      
-        <script>
-            setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
-            }, 0);
-        </script>
-<%
-    } else if(param == "false"){
-  %>      
-        <script>
-            setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
-            }, 0);
-        </script>
-<%     
-    }
-%>
+
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Listado Dinámico de Datos</title>
     <link rel="stylesheet" href="style.css">
+    <title>Listado Videos</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+            .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+    <script>
+        // Función para obtener la información del servlet
+        function obtenerInformacion() {
+            $.ajax({
+                url: "ServListVid",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log("Datos recibidos:", data);
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                        html += "<li><label style='font-weight: bold;'>Titulo: </label>" + 
+                                data[i].title + "<br>" +
+                                "<label style='font-weight: bold;'>Autor: </label>" +
+                                data[i].author + "<br>" +
+                                "<label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
+                                data[i].creationDate + "<br>" +
+                                "<label style='font-weight: bold;'>Duración: </label>" +
+                                data[i].duration + "<br>" +
+                                "<label style='font-weight: bold;'>Visualizaciones: </label>" +
+                                data[i].views + "<br>" +
+                                "<label style='font-weight: bold;'>Descripción: </label>" +
+                                data[i].description + "<br>" +
+                                "<label style='font-weight: bold;'>Formato: </label>" +
+                                data[i].format + "<br>" +
+                                "<label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
+                                data[i].userName +"</li>";
+                                
+                        
+                    }
+                    $("#lista-videos").html(html); // Agregué el "#" para seleccionar el ID correctamente
+                },
+                error: function() {
+                    console.error('Error al obtener datos del servidor');
+                }
+            });
+        }
+
+        // Llamar a la función al cargar la página
+        $(document).ready(function() {
+            obtenerInformacion();
+        });
+    </script>
 </head>
 <body>
-       
-    <h1>Listado de Datos</h1>
-    <ul>
-        <% 
-        // Obtener la lista de datos del objeto request
-        ArrayList<VideoDTO> listado = (ArrayList<VideoDTO>) request.getAttribute("videoList");
-        if (listado != null) {
-            for (VideoDTO dato : listado) {
-        %>
-            <li><%= dato.getTitle() %></li>
-            <p>AAAA</p>
-        <% 
-            }
-        }
-        %>
-    </ul>
+    
+        <h1>Listado Videos</h1>
+        <ul id="lista-videos"></ul>
+    
 </body>
-<script>
-    // Función para recargar la página automáticamente
-    function recargarPagina() {
-      setTimeout(function() {
-        location.reload();
-      }, 2000);
-    }
-
-    // Llamar a la función al cargar la página
-    recargarPagina();
-
-    // **Llamada al servlet**
-    request.getRequestDispatcher("ServListVid").forward(request, response);
-</script>
 </html>
