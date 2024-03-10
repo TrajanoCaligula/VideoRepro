@@ -19,8 +19,11 @@
 </body> 
 <script>
     // Aqu铆 puedes agregar l贸gica para mostrar informaci贸n del usuario o controlar la sesi贸n
-    var usuarioLogueado = false; // O false, dependiendo de tu l贸gica de autenticaci贸n
-
+    var ses = '<%= request.getSession(false) %>';
+    // Obtener el atributo "USER_LOGGED"
+    var userLogged = '<%= session.getAttribute("USER_LOGGED") %>';
+    var userName = '<%= session.getAttribute("USERNAME") %>';
+     var currentPage = "<%= request.getServletPath() %>";
     // Ejemplo de funci贸n para cerrar sesi贸n
     function cerrarSesion() {
         // Aqu铆 puedes agregar l贸gica para cerrar la sesi贸n del usuario
@@ -32,10 +35,11 @@
         document.getElementById("miTexto").style.cursor = "pointer";
     }
 
-
-    var enlaceLogin = document.getElementById('login');
-    var enlaceRegistro = document.getElementById('regVid');
-    var nombreUsuario = document.getElementById('nombreUsuario');
+    var listaVid = document.getElementById('listaVid');
+    var regVid = document.getElementById('regVid');
+    var login = document.getElementById('login');
+    var regUs = document.getElementById('regUs');
+    var navuserName = document.getElementById('nombreUsuario');
     var closeSesion = document.getElementById('closeSession');
     var s1 = document.getElementById('s1');
     var s2 = document.getElementById('s2');
@@ -43,32 +47,74 @@
     var s4 = document.getElementById('s4');
     var s5 = document.getElementById('s5');
 
-
-
-    if (usuarioLogueado) {
-    // Si el usuario est谩 logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
-    enlaceLogin.style.display = 'none';
-    enlaceRegistro.style.display = 'none';
-    nombreUsuario.style.display = 'inline';
+    listaVid.style.display = 'inline';
+    regVid.style.display = 'inline';
+    login.style.display = 'inline';
+    regUs.style.display = 'inline';
+    navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
-    nombreUsuario.textContent = "Nombre de usuario";
-    s2.style.display='none';
-    s3.style.display='none';
+    nombreUsuario.textContent = "";
+    s1.style.display='inline';
+    s2.style.display='inline';
+    s3.style.display='inline';
     s4.style.display='inline';
+    s5.style.display='inline';
+
+
+    if (userLogged === "true") {
+    // Si el usuario est谩 logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
+    listaVid.style.display = 'inline';
+    regVid.style.display = 'inline';
+    login.style.display = 'none';
+    regUs.style.display = 'none';
+    navuserName.style.display = 'inline';
+    closeSesion.style.display ='inline';
+    nombreUsuario.textContent = 'User: '+userName;
+    s1.style.display='inline';
+    s2.style.display='inline';
+    s3.style.display='none';
+    s4.style.display='none';
     s5.style.display='inline';
 
   } else {
     // Si el usuario no est谩 logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
-    enlaceLogin.style.display = 'inline';
-    enlaceRegistro.style.display = 'inline';
+    listaVid.style.display = 'none';
+    regVid.style.display = 'none';
+    login.style.display = 'inline';
+    regUs.style.display = 'inline';
+    navuserName.style.display = 'none';
     closeSesion.style.display ='none';
-    nombreUsuario.style.display = 'none'; // Ocultamos el nombre de usuario
-    s2.style.display='inline';
+    nombreUsuario.textContent = "";
+    s1.style.display='none';
+    s2.style.display='none';
     s3.style.display='inline';
     s4.style.display='none';
     s5.style.display='none';
-
   }
-
+  switch (currentPage) {
+            case "//login.jsp" :  // Manejar el caso cuando la URL no contiene informaci髇 espec韋ica del archivo JSP
+                login.style.display = 'none';
+                s3.style.display='none';
+                break;
+            case "/login.jsp":
+                login.style.display = 'none';
+                s3.style.display='none';
+                break;
+            case "/registroUsu.jsp":
+                regUs.style.display = 'none';
+                s3.style.display='none';
+                s4.style.display='none';
+                break;
+            case "/registroVid.jsp":
+                regVid.style.display = 'none';
+                s2.style.display='none';
+                break;
+            case "/listadoVid.jsp":
+                 listaVid.style.display = 'none';
+                 s1.style.display='none';
+                break;
+            default:
+        }
+          
 </script>
 </html>

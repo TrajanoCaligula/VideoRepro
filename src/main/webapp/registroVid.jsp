@@ -33,7 +33,7 @@
 <body>
     <jsp:include page="navbar.jsp"/>
     <form class="reg-vid-form" action="ServRegVid" method="post" enctype="multipart/form-data">
-        <h2>Registro de Usuario</h2>
+        <h2>Registar Video</h2>
         <label id = "error" style="color: red;">
             ${requestScope.errorRegVidFail}
         </label>
