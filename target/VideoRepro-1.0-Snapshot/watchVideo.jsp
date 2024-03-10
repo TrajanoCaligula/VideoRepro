@@ -10,7 +10,29 @@
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="isdcm.DTO.VideoDTO" %>
 <%@ page import="isdcm.controller.ServListVid" %>
-
+<%
+    HttpSession ses = request.getSession();
+    
+    String param = (String) ses.getAttribute("USER_LOGGED");
+    
+    if ((param == null || param.isEmpty())) {
+%>      
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+            }, 0);
+        </script>
+<%
+    } else if(param == "false"){
+  %>      
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+            }, 0);
+        </script>
+<%     
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
