@@ -207,19 +207,36 @@ ol.no-numeros {
             padding: 10px;
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 600px;
+            width: 800px;
+            height: 600px;
             margin: 0 auto; 
             margin-top: 30px; 
             word-wrap: break-word;
 }
 .tablaVideoContainer {
-        width: 550px; /* Ancho deseado para la tabla */
         margin: 0 auto; /* Centrar horizontalmente */
+        width: 550px; /* Ancho deseado para la tabla */
+        margin-top: 20px;
         text-align: left; /* Alinear el contenido de la tabla a la izquierda */
 }
 .dataToRight {
         float: right; /* Alinear a la derecha */
 }
 .dataDescription {
-        margin-left: 25px; /* Alinear a la derecha */
+        margin-left: 127px; /* Alinear a la derecha */
+}
+li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+    background-color: #e0e0e0;
+}
+.displayvid{
+    padding-left: 80px;
+    padding-top: 20px;
 }

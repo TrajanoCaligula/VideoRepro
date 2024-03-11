@@ -49,7 +49,8 @@ public class ServListVid extends HttpServlet {
                                 vide.getViews(),
                                 vide.getDescription(),
                                 vide.getFormat(),
-                                vide.getUserName());
+                                vide.getUserName(),
+                                vide.getUrl());
             listVideosDTO.add(vid);
         }
         String json = new ObjectMapper().writeValueAsString(listVideosDTO);

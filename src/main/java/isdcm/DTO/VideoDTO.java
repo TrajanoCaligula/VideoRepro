@@ -20,12 +20,12 @@ public class VideoDTO implements Serializable{
     private Time duration;
     private long views;
     private String description;
-    //private URL videoUrl;
+    private String videoUrl;
     //private URL imageUrl;
     private String format;
     private String userName;
 
-    public VideoDTO(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
+    public VideoDTO(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName, String url) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -35,6 +35,7 @@ public class VideoDTO implements Serializable{
         this.description = description;
         this.format = format;
         this.userName = userName;
+        this.videoUrl = url;
     }
     public int getId() {
         return id;
@@ -102,5 +103,8 @@ public class VideoDTO implements Serializable{
     
     public String getUserName() {
         return userName;
+    }
+    public String getUrl() {
+        return videoUrl;
     }
 }

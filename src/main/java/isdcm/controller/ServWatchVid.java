@@ -50,7 +50,8 @@ public class ServWatchVid extends HttpServlet {
                      vid.getViews(),
                      vid.getDescription(),
                      vid.getFormat(),
-                     vid.getUserName());
+                     vid.getUserName(),
+                     vid.getUrl());
         String json = new ObjectMapper().writeValueAsString(videoData);
         if(null != videoData && -1 != vid.getId()){
             response.setContentType("application/json");

@@ -58,7 +58,7 @@
                 <td class="textarealabel-celda"><p>Descripción:</p></td>
                 <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" maxlength="255" required></textarea></td>               
             </tr>
-            <tr>
+            <!--<tr>
                 <td><p>Formato:</p></td>
                 <td><select id="format" name="format">
                     <option value="mp4">MP4</option>
@@ -84,10 +84,10 @@
                     <option value="flv">FLV</option> 
                 </select>
             </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td><p>Video:</p></td>
-                <td><input type="file" id="videoFile" name="videoFile" accept="video/*"></td>
+                <td><input type="file" id="videoFile" name="videoFile" accept="video/*" required></td>
             </tr>
         </table>
         <input type="submit" value="Subir video">

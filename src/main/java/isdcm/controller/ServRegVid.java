@@ -40,14 +40,11 @@ public class ServRegVid extends HttpServlet {
     public static boolean inRange(String field, int value) {
         return (field.length() <= value);
     }
-    public void processVideoFile(HttpServletRequest request, HttpServletResponse response)
+    public String processVideoFile(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         Part videoFilePart = request.getPart("videoFile");
-        ServletContext servletContext = getServletContext();
-        String projectRoot = servletContext.getRealPath("/");
-        String parteDeseada = projectRoot.substring(0, projectRoot.lastIndexOf("\\target\\") + 1);
-        String uploadLocation = parteDeseada +"uploads";
-        int id = new Video().getLastIndex();
+        String uploadLocation = getServletContext().getInitParameter("upload.location");
+        int id = new Video().getLastIndex()+1;
         String newFileName = "Id_"+String.valueOf(id)+"_Usr_"+request.getSession().getAttribute("USERNAME") +"_VID_"+videoFilePart.getSubmittedFileName();
         
         try(InputStream input = videoFilePart.getInputStream()){
@@ -58,6 +55,7 @@ public class ServRegVid extends HttpServlet {
         }catch(IOException e){
             throw e;
         }
+        return newFileName;
     }
     
     /**
@@ -69,7 +67,7 @@ public class ServRegVid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response, String fileName)
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
@@ -80,8 +78,13 @@ public class ServRegVid extends HttpServlet {
             String creationDateBeforeParse = request.getParameter("creationDate");
             String durationBeforeParse = request.getParameter("duration");
             String description = request.getParameter("description");
-            String format = request.getParameter("format");
+            String format = "uknown";
             String userName = (String)request.getSession().getAttribute("USERNAME");
+            String nameFile = request.getPart("videoFile").getSubmittedFileName();
+            int dotIndex = nameFile.lastIndexOf('.');
+            if (dotIndex > 0 && dotIndex < nameFile.length() - 1) {
+                format = nameFile.substring(dotIndex + 1);
+            }
             
             
             java.util.Date utildate = new Date(Calendar.getInstance().getTimeInMillis());
@@ -123,7 +126,7 @@ public class ServRegVid extends HttpServlet {
             boolean validFormat = !format.isEmpty();
             if(!validFormat)request.setAttribute("errorRegVidFail", "FORMAT IS EMPTY");
             
-            Video video = new Video(title, author, creationDate, duration, 0, description, format, userName);
+            Video video = new Video(title, author, creationDate, duration, 0, description, format, userName,fileName);
 
             if(video.addVideo()){
                 request.setAttribute("errorRegVidFail", "DB ERROR");
@@ -152,7 +155,7 @@ public class ServRegVid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request, response,"");
     }
 
     /**
@@ -166,9 +169,9 @@ public class ServRegVid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
+            String fileName = processVideoFile(request, response);
+            processRequest(request, response, fileName);
             
-            processRequest(request, response);
-            processVideoFile(request, response);
   
     }
 

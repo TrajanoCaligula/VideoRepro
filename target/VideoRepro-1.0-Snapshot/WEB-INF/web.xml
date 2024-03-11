@@ -15,10 +15,10 @@
         <servlet-name>ServRegVid</servlet-name>
         <servlet-class>isdcm.controller.ServRegVid</servlet-class>
         <multipart-config>
-            <location>/</location> <!-- Ubicación temporal para guardar archivos -->
-            <max-file-size>20848820</max-file-size> <!-- Tamaño máximo del archivo -->
-            <max-request-size>418018841</max-request-size> <!-- Tamaño máximo total de la solicitud -->
-            <file-size-threshold>1048576</file-size-threshold> <!-- Umbral para guardar en disco (en bytes) -->
+            <location>/</location> 
+            <max-file-size>20848820</max-file-size> 
+            <max-request-size>418018841</max-request-size> 
+            <file-size-threshold>1048576</file-size-threshold> 
         </multipart-config>
     </servlet>
     <servlet>
@@ -58,9 +58,8 @@
         <servlet-name>ServUser</servlet-name>
         <servlet-class>/ServUser</servlet-class>
     </servlet>
-    
     <context-param>
         <param-name>upload.location</param-name>
-        <param-value>D:/GIT/VideoRepro/uploads</param-value>
+        <param-value>D:\GIT\VideoRepro\uploads</param-value> <!-- Aqui s'ha de posar la direcció de \VideoRepro\uploads-->
     </context-param>
 </web-app>

@@ -59,7 +59,9 @@
 
                     var fechaFormateada = año + '/' + mes + '/' + dia;
                     
-                    html += "<table class='tablaVideoContainer'><tr>"+
+                    html += "<video width='640' height='360' controls>\n\
+                            <source src='"+data.url+"' type='video/mp4'> Tu navegador no soporta el elemento de video.</video>"+
+                            "<table class='tablaVideoContainer'><tr>"+
                                 "<td><label style='font-weight: bold;'>Titulo: </label>" + 
                                 data.title + "</td>" +
                                 "<td><label style='font-weight: bold;'>Autor: </label>" +
@@ -99,6 +101,8 @@
         <jsp:include page="navbar.jsp"/>
         <br>
         <div class="videoContainer" id="video">
+
         </div>
+
     
 </body>

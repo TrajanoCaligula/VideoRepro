@@ -29,7 +29,7 @@ public class Video {
     private Time duration;
     private long views;
     private String description;
-    //private URL videoUrl;
+    private String videoUrl;
     //private URL imageUrl;
     private String format;
     private String userName;
@@ -49,9 +49,10 @@ public class Video {
         this.description = "";
         this.format = "";
         this.userName = "";
+        this.videoUrl = "";
     }
 
-    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
+    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName, String url) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -61,9 +62,10 @@ public class Video {
         this.description = description;
         this.format = format;
         this.userName = userName;
+        this.videoUrl = url;
     }
 
-    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format) {
+    public Video(int id, String title, String author, Date creationDate, Time duration, long views, String description, String format, String url) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -72,9 +74,10 @@ public class Video {
         this.views = views;
         this.description = description;
         this.format = format;
+        this.videoUrl = url;
     }
 
-    public Video(String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName) {
+    public Video(String title, String author, Date creationDate, Time duration, long views, String description, String format, String userName, String url) {
         this.title = title;
         this.author = author;
         this.creationDate = creationDate;
@@ -83,6 +86,7 @@ public class Video {
         this.description = description;
         this.format = format;
         this.userName = userName;
+        this.videoUrl = url;
     }
 
     public int getId() {
@@ -152,6 +156,13 @@ public class Video {
     public String getUserName() {
         return userName;
     }
+     public String getUrl() {
+        return videoUrl;
+    }
+    public void setUrl(String url) {
+        this.videoUrl = url;
+    }
+
 
     @Override
     public String toString() {
@@ -165,6 +176,7 @@ public class Video {
                 ", description='" + description + '\'' +
                 ", format='" + format + '\'' +
                 ", userName='" + userName+ '\'' +
+                ", videoUrl='" + videoUrl+ '\'' +
                 '}';
     }
 
@@ -191,8 +203,9 @@ public class Video {
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
                 String userName = rs.getString("USERNAME");
+                String videoUrl = rs.getString("URL");
                                 
-                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName);
+                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
             }            
 
         } catch (SQLException err) {
@@ -221,8 +234,9 @@ public class Video {
                 String description = rs.getString("DESCRIPTION");
                 String format = rs.getString("FORMAT");
                 String userName = rs.getString("USERNAME");
+                String videoUrl = rs.getString("URL");
                                 
-                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName);
+                video = new Video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
                 listVideos.add(video);
             }            
         } catch (SQLException err) {
@@ -245,7 +259,7 @@ public class Video {
             
             String sql = "INSERT INTO " + TABLENAME
                     + "(TITLE, AUTHOR, CREADATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME, URL)"
-                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + formattedDate + "', '" + this.duration + "', " + this.views + ", '" + this.description + "', '" + this.format + "', '" + this.userName + "', 'test')";
+                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + formattedDate + "', '" + this.duration + "', " + this.views + ", '" + this.description + "', '" + this.format + "', '" + this.userName + "', '"+ this.videoUrl+"')";
             System.out.println("addVideo SQL: " + sql);
             stmt.executeUpdate(sql);
             
