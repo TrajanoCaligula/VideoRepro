@@ -145,7 +145,7 @@ public class User {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userName + "' AND password='" + this.password + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userName + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 passwordCorrect = (password.equals(rs.getString("PASSWORD")));
