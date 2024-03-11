@@ -10,7 +10,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import  isdcm.model.*;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import java.util.Date;
 import java.sql.Time;
 import java.util.Calendar;
@@ -30,6 +39,25 @@ public class ServRegVid extends HttpServlet {
 
     public static boolean inRange(String field, int value) {
         return (field.length() <= value);
+    }
+    public void processVideoFile(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        Part videoFilePart = request.getPart("videoFile");
+        ServletContext servletContext = getServletContext();
+        String projectRoot = servletContext.getRealPath("/");
+        String parteDeseada = projectRoot.substring(0, projectRoot.lastIndexOf("\\target\\") + 1);
+        String uploadLocation = parteDeseada +"uploads";
+        int id = new Video().getLastIndex();
+        String newFileName = "Id_"+String.valueOf(id)+"_Usr_"+request.getSession().getAttribute("USERNAME") +"_VID_"+videoFilePart.getSubmittedFileName();
+        
+        try(InputStream input = videoFilePart.getInputStream()){
+            Path targetPath = Paths.get(uploadLocation,newFileName);
+            System.out.println("File saved to:"+targetPath);
+            Files.copy(input, targetPath,StandardCopyOption.REPLACE_EXISTING);
+            
+        }catch(IOException e){
+            throw e;
+        }
     }
     
     /**
@@ -138,8 +166,9 @@ public class ServRegVid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-       
+            
             processRequest(request, response);
+            processVideoFile(request, response);
   
     }
 

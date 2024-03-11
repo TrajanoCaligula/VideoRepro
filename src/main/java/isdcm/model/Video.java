@@ -255,4 +255,24 @@ public class Video {
         }
         return result;
     }
+    
+    
+    public int getLastIndex(){
+    int result = -1;
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT MAX(ID) AS Max_Id FROM VIDEOS";
+            System.out.println("Max id SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                result = rs.getInt("Max_Id");
+            }
+            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return result;
+    }
 }

@@ -26,28 +26,28 @@
         <table>
             <tr>
                 <td><p>Nombre:</p></td>
-                <td><input type="text" id="name" name="name" placeholder="Maria" required></td>
+                <td><input type="text" id="name" name="name" placeholder="Maria" maxlength="100" required></td>
             </tr>
             <tr>
                 <td><p>Apellidos:</p></td>
-                <td><input type="text" id="surname" name="surname" placeholder="Ramí­rez Sierra" required></td>
+                <td><input type="text" id="surname" name="surname" placeholder="Ramí­rez Sierra" maxlength="100" required></td>
             </tr>
             <tr>
                 <td><p>Correo electrónico:</p></td>
-                <td><input type="text" id="email" name="email" placeholder="maria@example.com" required></td>
+                <td><input type="text" id="email" name="email" placeholder="maria@example.com" maxlength="200" required></td>
             </tr>
             <tr>
                 <td><p>Nombre de usuario:</p></td>
-                <td><input type="text" id="userName" name="userName" placeholder="maria123" required></td>
+                <td><input type="text" id="userName" name="userName" placeholder="maria123" maxlength="100" required></td>
             </tr>
             <tr>
                 <td><label for="password">Contraseña:</label></td>
-                <td><input type="password" id="password" name="password" placeholder="Contraseña" required></td>
+                <td><input type="password" id="password" name="password" placeholder="Contraseña" maxlength="255" required></td>
                 <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseña"></td>          
             </tr>
             <tr>
                 <td><p>Repetir contraseña:</p></td>
-                <td><input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Contraseña" required></td>
+                <td><input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Contraseña" maxlength="255" required></td>
                 <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseÃ±a"></td>
                
             </tr>

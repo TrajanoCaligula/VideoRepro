@@ -32,11 +32,11 @@
             <table>
                 <tr>
                     <td><p>Usuario:</p></td>
-                    <td><input type="text" id="USERNAME" name="USERNAME" placeholder="Usuario" required></td>
+                    <td><input type="text" id="USERNAME" name="USERNAME" placeholder="Usuario" maxlength="100" required></td>
                 </tr>
                 <tr>
                     <td><p>Password:</p></td>
-                    <td><input type="password" id="PASSWORD" name="PASSWORD" placeholder="Contraseña" required></td>
+                    <td><input type="password" id="PASSWORD" name="PASSWORD" placeholder="Contraseña" maxlength="255" required></td>
                     <td><img width="19" height="15" id="eyeIcon" src="eye_slash.png" alt="Ver contraseña"></td>                    
                 </tr>
             </table>

@@ -58,4 +58,9 @@
         <servlet-name>ServUser</servlet-name>
         <servlet-class>/ServUser</servlet-class>
     </servlet>
+    
+    <context-param>
+        <param-name>upload.location</param-name>
+        <param-value>D:/GIT/VideoRepro/uploads</param-value>
+    </context-param>
 </web-app>
