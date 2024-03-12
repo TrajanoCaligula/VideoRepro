@@ -10,7 +10,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p�gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
             }, 0);
         </script>
 <%
@@ -18,7 +18,7 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p�gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
             }, 0);
         </script>
 <%     
@@ -39,7 +39,7 @@
         </label>
         <table>
             <tr>
-                <td class="columna1"><p>T��tulo:</p></td>
+                <td class="columna1"><p>Tí­tulo:</p></td>
                 <td><input type="text" id="title" name="title" placeholder="El mejor video" maxlength="100" required></td>
             </tr>
             <tr>
@@ -47,15 +47,15 @@
                 <td><input type="text" id="author" name="author" placeholder="Sara" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><p>Fecha de creaci�n:</p></td>
+                <td><p>Fecha de creación:</p></td>
                 <td><input type="date" id = "creationDate" name="creationDate"  required></td>
             </tr>
             <tr>
-                <td><p>Duraci�n:</p></td>
+                <td><p>Duración:</p></td>
                 <td><input type="time" min="00:00:00" max="99:59:59" step="1" id="duration" name="duration" required></td>
             </tr>
             <tr>
-                <td class="textarealabel-celda"><p>Descripci�n:</p></td>
+                <td class="textarealabel-celda"><p>Descripción:</p></td>
                 <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" maxlength="255" required></textarea></td>               
             </tr>
             <!--<tr>
@@ -93,27 +93,18 @@
         <input type="submit" value="Subir video">
     </form>
 </body> 
-<script>
-    // Obtener el select
+<!--<script>
     var select = document.getElementById('format');
-    
-    // Obtener las opciones
     var opciones = select.getElementsByTagName('option');
-    
-    // Convertir las opciones en un array para ordenar
     var opcionesArray = Array.prototype.slice.call(opciones, 0);
     
     // Ordenar las opciones alfabéticamente
     opcionesArray.sort(function(a, b) {
         return a.text.localeCompare(b.text);
     });
-    
-    // Limpiar el select
     select.innerHTML = '';
-    
-    // Agregar las opciones ordenadas al select
     opcionesArray.forEach(function(opcion) {
         select.appendChild(opcion);
     });
-</script>
+</script>-->
 </html>
