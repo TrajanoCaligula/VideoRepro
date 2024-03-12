@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Barra de Navegaci�n</title>
+    <title>Barra de Navegación</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,20 +12,18 @@
         <a id="regVid" href="registroVid.jsp">Registrar Video</a> <span id="s2" class="separador">|</span>
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
         <a id="regUs" href="registroUsu.jsp">Registro</a> <span id="s4" class="separador">|</span>
-        <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span><!-- Espacio para mostrar información del usuario -->
-        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesi�n</a>
+        <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span>
+        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesión</a>
 
     </div> 
    
 </body> 
 <script>
-    // Aquí puedes agregar lógica para mostrar información del usuario o controlar la sesión
     var ses = '<%= request.getSession(false) %>';
     // Obtener el atributo "USER_LOGGED"
     var userLogged = '<%= session.getAttribute("USER_LOGGED") %>';
     var userName = '<%= session.getAttribute("USERNAME") %>';
      var currentPage = "<%= request.getServletPath() %>";
-    // Ejemplo de función para cerrar sesión
     function cerrarSesion() {
         // 1. AJAX Request (Optional for server-side session termination)
         var xhr = new XMLHttpRequest();
@@ -75,7 +73,7 @@
 
 
     if (userLogged === "true") {
-    // Si el usuario est� logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
+    // Si el usuario está logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
     listaVid.style.display = 'inline';
     regVid.style.display = 'inline';
     login.style.display = 'none';
@@ -90,7 +88,7 @@
     s5.style.display='inline';
 
   } else {
-    // Si el usuario no est� logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
+    // Si el usuario no está logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
     listaVid.style.display = 'none';
     regVid.style.display = 'none';
     login.style.display = 'inline';
@@ -105,7 +103,7 @@
     s5.style.display='none';
   }
   switch (currentPage) {
-            case "//login.jsp" :  // Manejar el caso cuando la URL no contiene informaci�n espec�fica del archivo JSP
+            case "//login.jsp" :  // Manejar el caso cuando la URL no contiene información específica del archivo JSP
                 login.style.display = 'none';
                 s3.style.display='none';
                 break;
