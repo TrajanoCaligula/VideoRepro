@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.util.List;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import isdcm.model.DataForDataBase;
 
 /**
  *
@@ -34,10 +35,10 @@ public class Video {
     private String format;
     private String userName;
 
-    private static final String DB_HOST = "jdbc:derby://localhost:1527/VideosRepository";
-    private static final String DB_USER = "JAUVARO";
-    private static final String DB_PASSWORD = "AJ1234";
-    private static final String TABLENAME = "VIDEOS";
+    private static final String DB_HOST = DataForDataBase.DB_HOST;
+    private static final String DB_USER = DataForDataBase.DB_USER;
+    private static final String DB_PASSWORD = DataForDataBase.DB_PASSWORD;
+    private static final String TABLENAME = DataForDataBase.VIDEOS_TABLENAME;
     
     public Video() {
         this.id = -1;

@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import isdcm.model.DataForDataBase;
 
 /**
  *
@@ -23,11 +24,11 @@ public class User {
     private String email;
     private String userName;
     private String password;
-
-    private static final String DB_HOST = "jdbc:derby://localhost:1527/VideosRepository";
-    private static final String DB_USER = "JAUVARO";
-    private static final String DB_PASSWORD = "AJ1234";
-    private static final String TABLENAME = "USERS";
+    
+    private static final String DB_HOST = DataForDataBase.DB_HOST;
+    private static final String DB_USER = DataForDataBase.DB_USER;
+    private static final String DB_PASSWORD = DataForDataBase.DB_PASSWORD;
+    private static final String TABLENAME = DataForDataBase.USERS_TABLENAME;
     
     public User() {
         this.id = -1;
