@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package isdcm.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Alvaro
- */
+
 @WebServlet(name = "ServWachVid", urlPatterns = {"/ServWachVid"})
 public class ServWatchVid extends HttpServlet {
 
@@ -62,7 +55,6 @@ public class ServWatchVid extends HttpServlet {
        
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
