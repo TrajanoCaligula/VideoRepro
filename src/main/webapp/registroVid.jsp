@@ -10,7 +10,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%
@@ -18,44 +18,44 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%     
     }
 %>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Regitro Usuario</title>
         <link rel="stylesheet" href="style.css">
-       </head>
+    </head>
 <body>
     <jsp:include page="navbar.jsp"/>
     <form class="reg-vid-form" action="ServRegVid" method="post" enctype="multipart/form-data">
-        <h2>Registar Video</h2>
+        <h2>New Video</h2>
         <label id = "error" style="color: red;">
             ${requestScope.errorRegVidFail}
         </label>
         <table>
             <tr>
-                <td class="columna1"><p>Tí­tulo:</p></td>
+                <td class="columna1"><p>Title:</p></td>
                 <td><input type="text" id="title" name="title" placeholder="El mejor video" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><p>Autor:</p></td>
+                <td><p>Author:</p></td>
                 <td><input type="text" id="author" name="author" placeholder="Sara" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><p>Fecha de creación:</p></td>
+                <td><p>Creation Date:</p></td>
                 <td><input type="date" id = "creationDate" name="creationDate"  required></td>
             </tr>
             <tr>
-                <td><p>Duración:</p></td>
+                <td><p>Duration:</p></td>
                 <td><input type="time" min="00:00:00" max="99:59:59" step="1" id="duration" name="duration" required></td>
             </tr>
             <tr>
-                <td class="textarealabel-celda"><p>Descripción:</p></td>
+                <td class="textarealabel-celda"><p>Description:</p></td>
                 <td><textarea class= "reg-vid-textarea" id="description" name="description" rows="4" maxlength="255" required></textarea></td>               
             </tr>
             <!--<tr>
@@ -90,7 +90,7 @@
                 <td><input type="file" id="videoFile" name="videoFile" accept="video/*" required></td>
             </tr>
         </table>
-        <input type="submit" value="Subir video">
+        <input type="submit" value="Upload video">
     </form>
 </body> 
 <!--<script>

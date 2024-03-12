@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Barra de Navegación</title>
+    <title>Nav bar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="navbar">
-        <a id="listaVid" href="listadoVid.jsp">Lista de Videos</a> <span id="s1"class="separador">|</span>
-        <a id="regVid" href="registroVid.jsp">Registrar Video</a> <span id="s2" class="separador">|</span>
+        <a id="listaVid" href="listadoVid.jsp">Video List</a> <span id="s1"class="separador">|</span>
+        <a id="regVid" href="registroVid.jsp">New Video</a> <span id="s2" class="separador">|</span>
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
-        <a id="regUs" href="registroUsu.jsp">Registro</a> <span id="s4" class="separador">|</span>
+        <a id="regUs" href="registroUsu.jsp">Register</a> <span id="s4" class="separador">|</span>
         <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span>
-        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Cerrar Sesión</a>
+        <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Logout</a>
 
     </div> 
    
@@ -80,7 +80,7 @@
     regUs.style.display = 'none';
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
-    nombreUsuario.textContent = 'Usuario: '+userName;
+    nombreUsuario.textContent = 'User: '+userName;
     s1.style.display='inline';
     s2.style.display='inline';
     s3.style.display='none';

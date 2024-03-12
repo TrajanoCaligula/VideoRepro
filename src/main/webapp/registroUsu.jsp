@@ -6,17 +6,17 @@
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
  
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Regitro Usuario</title>
+        <title>User Register</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <jsp:include page="navbar.jsp"/>
     <form class= "reg-usu-form"action="ServRegUser" method="post">
-        <h2>Registro de Usuario</h2>
+        <h2>Register</h2>
         <label id = "error" style="color: red;">
             ${requestScope.errorRegUsuFail}
         </label>
@@ -25,34 +25,34 @@
         </label>
         <table>
             <tr>
-                <td><p>Nombre:</p></td>
+                <td><p>Name:</p></td>
                 <td><input type="text" id="name" name="name" placeholder="Maria" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><p>Apellidos:</p></td>
+                <td><p>Surname:</p></td>
                 <td><input type="text" id="surname" name="surname" placeholder="Ramí­rez Sierra" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><p>Correo electrónico:</p></td>
+                <td><p>Email:</p></td>
                 <td><input type="text" id="email" name="email" placeholder="maria@example.com" maxlength="200" required></td>
             </tr>
             <tr>
-                <td><p>Nombre de usuario:</p></td>
+                <td><p>User Name:</p></td>
                 <td><input type="text" id="userName" name="userName" placeholder="maria123" maxlength="100" required></td>
             </tr>
             <tr>
-                <td><label for="password">Contraseña:</label></td>
+                <td><label for="password">Password:</label></td>
                 <td><input type="password" id="password" name="password" placeholder="Contraseña" maxlength="255" required></td>
                 <td><img width="19" height="15" id="passEye" src="eye_slash.png" alt="Ver contraseña"></td>          
             </tr>
             <tr>
-                <td><p>Repetir contraseña:</p></td>
+                <td><p>Confirm password:</p></td>
                 <td><input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Contraseña" maxlength="255" required></td>
                 <td><img width="19" height="15" id="repassEye" src="eye_slash.png" alt="Ver contraseÃ±a"></td>
                
             </tr>
         </table>
-        <input type="submit" value="Confirmar">
+        <input type="submit" value="Confirm">
     </form>
 </body> 
 <script>

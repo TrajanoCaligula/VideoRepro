@@ -13,7 +13,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p谩gina"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%
@@ -21,7 +21,7 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p谩gina"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%     
@@ -32,7 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Listado Videos</title>
+    <title>Watch Video</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     // Funci贸n para obtener la informaci贸n del servlet
@@ -53,32 +53,32 @@
 
                     var fechaFormateada = year + '/' + month + '/' + day;
                     
-                    html += "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" + data.userName+"</div>"+
+                    html += "<div class='dataToRight'> <label style='font-weight: bold;'>Uploaded by: </label>" + data.userName+"</div>"+
                             "<video class='displayvid' width='640' height='360' controls>\n\
                             <source class='displayvid' src='"+'${pageContext.request.contextPath}/uploads/' +  data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
                             "<table class='tablaVideoContainer'><tr>"+
-                                "<td><label style='font-weight: bold;'>Titulo: </label>" + 
+                                "<td><label style='font-weight: bold;'>T韙le: </label>" + 
                                 data.title + "</td>" +
-                                "<td><label style='font-weight: bold;'>Autor: </label>" +
+                                "<td><label style='font-weight: bold;'>Author: </label>" +
                                 data.author + "</td></tr>" +
                             "<tr>"+
-                                "<td><label style='font-weight: bold;'>Fecha de Creaci贸n: </label>" +                                
+                                "<td><label style='font-weight: bold;'>Creation Date: </label>" +                                
                                 fechaFormateada + "</td>" +
-                                "<td><label style='font-weight: bold;'>Duraci贸n: </label>" +
+                                "<td><label style='font-weight: bold;'>Duration: </label>" +
                                 data.duration + "</td></tr>" +
                             "<tr>"+
-                                "<td><label style='font-weight: bold;'>Visualizaciones: </label>" +
+                                "<td><label style='font-weight: bold;'>Views: </label>" +
                                 data.views + "</td>" +   
-                                "<td><label style='font-weight: bold;'>Formato: </label>" +
+                                "<td><label style='font-weight: bold;'>Format: </label>" +
                                 data.format + "</td>"+
                             "</tr><table>" +
-                            "<div class='dataDescription'><label style='font-weight: bold;'>Descripci贸n: </label>" +
+                            "<div class='dataDescription'><label style='font-weight: bold;'>Description: </label>" +
                             data.description + "</div><br>";                                                       
                 }
                 $("#video").html(html); 
             },
             error: function() {
-                console.error('Error al obtener datos del servidor');
+                console.error('Error charging the data from the server');
             }
         });
     }

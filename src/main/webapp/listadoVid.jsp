@@ -13,7 +13,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%
@@ -21,7 +21,7 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta página"; 
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
             }, 0);
         </script>
 <%     
@@ -32,7 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Listado Videos</title>
+    <title>Video List</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         li {
@@ -65,32 +65,32 @@
 
                         var fechaFormateada = any + '/' + mes + '/' + dia;
                         
-                        html += "<li><div><label style='font-weight: bold;'>Titulo: </label>" + 
+                        html += "<li><div><label style='font-weight: bold;'>Title: </label>" + 
                                 data[i].title + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Autor: </label>" +
+                                "<label style='font-weight: bold;'>Author: </label>" +
                                 data[i].author + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Fecha de Creacion: </label>" +                                
+                                "<label style='font-weight: bold;'>Creation Date: </label>" +                                
                                 fechaFormateada + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Duracion: </label>" +
+                                "<label style='font-weight: bold;'>Duration: </label>" +
                                 data[i].duration + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Visualizaciones: </label>" +
+                                "<label style='font-weight: bold;'>Views: </label>" +
                                 data[i].views + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Descripción: </label>" +
+                                "<label style='font-weight: bold;'>Description: </label>" +
                                 data[i].description + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Formato: </label>" +
+                                "<label style='font-weight: bold;'>Format: </label>" +
                                 data[i].format + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Subido por: </label>" +
+                                "<label style='font-weight: bold;'>Uploaded by: </label>" +
                                 data[i].userName + "</div>" +
-                                "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'watchVideo.jsp?id="+data[i].id+"';\">Ver Video</buton>" +"</li>";
+                                "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'watchVideo.jsp?id="+data[i].id+"';\">Watch Video</buton>" +"</li>";
                                 
                         
                     }
-                    if( data === null||data.length <= 0)html += "<label> No hay videos en el Repositorio</label>";
+                    if( data === null||data.length <= 0)html += "<label>There are any video in our repository</label>";
                     $("#lista-videos").html(html);
                 },
                 error: function() {
                      var html = "";
-                     html += "<label> No hay videos en el Repositorio</label>";               
+                     html += "<label>There are any video in our repository</label>";               
                     $("#lista-videos").html(html); 
                 }
             });
@@ -106,7 +106,7 @@
     
         <jsp:include page="navbar.jsp"/>
         <div class="rectangulo-detras-h1"></div>
-        <h1 class="h1List">Listado de Videos</h1> 
+        <h1 class="h1List">Video List</h1> 
         <br>
 
         <div class="contenedor-listado">
