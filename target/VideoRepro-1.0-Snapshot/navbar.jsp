@@ -75,14 +75,14 @@
 
 
     if (userLogged === "true") {
-    // Si el usuario est√° logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
+    // Si el usuario est· logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
     listaVid.style.display = 'inline';
     regVid.style.display = 'inline';
     login.style.display = 'none';
     regUs.style.display = 'none';
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
-    nombreUsuario.textContent = 'User: '+userName;
+    nombreUsuario.textContent = 'Usuario: '+userName;
     s1.style.display='inline';
     s2.style.display='inline';
     s3.style.display='none';
@@ -90,7 +90,7 @@
     s5.style.display='inline';
 
   } else {
-    // Si el usuario no est√° logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
+    // Si el usuario no est· logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
     listaVid.style.display = 'none';
     regVid.style.display = 'none';
     login.style.display = 'inline';

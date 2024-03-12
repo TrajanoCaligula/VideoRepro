@@ -60,6 +60,6 @@
     </servlet>
     <context-param>
         <param-name>upload.location</param-name>
-        <param-value>D:\GIT\VideoRepro\uploads</param-value> <!-- Aqui s'ha de posar la direcció de \VideoRepro\uploads-->
+        <param-value>D:\GIT\VideoRepro\target\VideoRepro-1.0-Snapshot\uploads</param-value> <!-- Aqui s'ha de posar la direcció de \VideoRepro\target\VideoRepro-1.0-Snapshot\uploadss-->
     </context-param>
 </web-app>

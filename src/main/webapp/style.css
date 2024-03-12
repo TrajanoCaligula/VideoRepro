@@ -221,6 +221,7 @@ ol.no-numeros {
 }
 .dataToRight {
         float: right; /* Alinear a la derecha */
+        margin-right: 50px;
 }
 .dataDescription {
         margin-left: 127px; /* Alinear a la derecha */
@@ -238,5 +239,5 @@ li:hover {
 }
 .displayvid{
     padding-left: 80px;
-    padding-top: 20px;
+    padding-top: 40px;
 }

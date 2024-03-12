@@ -59,8 +59,9 @@
 
                     var fechaFormateada = año + '/' + mes + '/' + dia;
                     
-                    html += "<video width='640' height='360' controls>\n\
-                            <source src='"+data.url+"' type='video/mp4'> Tu navegador no soporta el elemento de video.</video>"+
+                    html += "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" + data.userName+"</div>"+
+                            "<video class='displayvid' width='640' height='360' controls>\n\
+                            <source class='displayvid' src='"+'${pageContext.request.contextPath}/uploads/' +  data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
                             "<table class='tablaVideoContainer'><tr>"+
                                 "<td><label style='font-weight: bold;'>Titulo: </label>" + 
                                 data.title + "</td>" +
@@ -78,9 +79,7 @@
                                 data.format + "</td>"+
                             "</tr><table>" +
                             "<div class='dataDescription'><label style='font-weight: bold;'>Descripción: </label>" +
-                            data.description + "</div><br>" + 
-                            "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" +
-                            data.userName+"</div>";                                                       
+                            data.description + "</div><br>";                                                       
                 }
                 $("#video").html(html); // Agregué el "#" para seleccionar el ID correctamente
             },

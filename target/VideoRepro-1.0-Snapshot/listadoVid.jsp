@@ -79,7 +79,7 @@
                                 data[i].description + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Formato: </label>" +
                                 data[i].format + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Usuario que lo ha subido: </label>" +
+                                "<label style='font-weight: bold;'>Subido por: </label>" +
                                 data[i].userName + "</div>" +
                                 "<button class='botonVer' id='showVideo' onclick=\"window.location.href = 'watchVideo.jsp?id="+data[i].id+"';\">Ver Video</buton>" +"</li>";
                                 
