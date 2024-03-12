@@ -1,9 +1,3 @@
-<%-- 
-    Document   : elementListVid
-    Created on : 8 mar 2024, 3:27:21
-    Author     : Alvaro
---%>
-
 <%@ page import="java.io.*,java.util.*" %>
 <%@ page import="jakarta.servlet.*" %>
 <%@ page import="jakarta.servlet.http.*" %>
@@ -19,7 +13,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p·gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p√°gina"; 
             }, 0);
         </script>
 <%
@@ -27,7 +21,7 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p·gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p√°gina"; 
             }, 0);
         </script>
 <%     
@@ -41,7 +35,7 @@
     <title>Listado Videos</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // FunciÛn para obtener la informaciÛn del servlet
+    // Funci√≥n para obtener la informaci√≥n del servlet
     function obtenerInformacion() {
         var id = '<%= request.getParameter("id") %>';
         $.ajax({
@@ -53,11 +47,11 @@
                 var html = "";
                 if(data !== null) {
                     var fecha = new Date(data.creationDate); // Convertir a objeto de fecha
-                    var aÒo = fecha.getFullYear(); // Obtener el aÒo
+                    var a√±o = fecha.getFullYear(); // Obtener el a√±o
                     var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
-                    var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el dÌa
+                    var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el d√≠a
 
-                    var fechaFormateada = aÒo + '/' + mes + '/' + dia;
+                    var fechaFormateada = a√±o + '/' + mes + '/' + dia;
                     
                     html += "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" + data.userName+"</div>"+
                             "<video class='displayvid' width='640' height='360' controls>\n\
@@ -68,9 +62,9 @@
                                 "<td><label style='font-weight: bold;'>Autor: </label>" +
                                 data.author + "</td></tr>" +
                             "<tr>"+
-                                "<td><label style='font-weight: bold;'>Fecha de CreaciÛn: </label>" +                                
+                                "<td><label style='font-weight: bold;'>Fecha de Creaci√≥n: </label>" +                                
                                 fechaFormateada + "</td>" +
-                                "<td><label style='font-weight: bold;'>DuraciÛn: </label>" +
+                                "<td><label style='font-weight: bold;'>Duraci√≥n: </label>" +
                                 data.duration + "</td></tr>" +
                             "<tr>"+
                                 "<td><label style='font-weight: bold;'>Visualizaciones: </label>" +
@@ -78,10 +72,10 @@
                                 "<td><label style='font-weight: bold;'>Formato: </label>" +
                                 data.format + "</td>"+
                             "</tr><table>" +
-                            "<div class='dataDescription'><label style='font-weight: bold;'>DescripciÛn: </label>" +
+                            "<div class='dataDescription'><label style='font-weight: bold;'>Descripci√≥n: </label>" +
                             data.description + "</div><br>";                                                       
                 }
-                $("#video").html(html); // AgreguÈ el "#" para seleccionar el ID correctamente
+                $("#video").html(html); 
             },
             error: function() {
                 console.error('Error al obtener datos del servidor');
@@ -89,7 +83,7 @@
         });
     }
 
-    // Llamar a la funciÛn al cargar la p·gina
+    // Llamar a la funci√≥n al cargar la p√°gina
     $(document).ready(function() {
         obtenerInformacion();
     });
