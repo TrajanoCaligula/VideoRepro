@@ -61,12 +61,12 @@ public class ServLogUser extends HttpServlet {
         request.setAttribute("errorUserNameInvalid", "");
         //Attributes validation
         boolean validUsername = !userName.isEmpty();
-        if(!validUsername)request.setAttribute("errorUserNameInvalid", "El nombre del usuario esta vacio");
+        if(!validUsername)request.setAttribute("errorUserNameInvalid", "USERNAME IS EMPTY");
         validUsername = validUsername && isAlphanumeric(userName)&& inRange(userName,100);
-        if(!validUsername) request.setAttribute("errorUserNameInvalid", "Has introducido caraceters invaidos en el nombre del usuario");
+        if(!validUsername) request.setAttribute("errorUserNameInvalid", "INVALID CHARACTERS");
         
         boolean validPassword = !password.isEmpty();
-        if(!validPassword)request.setAttribute("errorUserNameInvalid", "No has introducido la contraseña");
+        if(!validPassword)request.setAttribute("errorUserNameInvalid", "PASSWORD IS EMPTY");
 
         if (validUsername && validPassword && inRange(password,255)) {
             User user = new User();
@@ -91,10 +91,10 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("USERID", user.getId());
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
-                    else request.setAttribute("errorUserNameInvalid", "El usuario o la contraseña introducidos son incorretos");
+                    else request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
                 }
             } else {
-                request.setAttribute("errorUserNameInvalid", "El usuario o la contraseña introducidos son incorretos");
+                request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
             }
         }
         request.getRequestDispatcher("/login.jsp").forward(request, response);
