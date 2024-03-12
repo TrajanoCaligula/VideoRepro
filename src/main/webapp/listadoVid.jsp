@@ -13,7 +13,7 @@
 %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p·gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p√°gina"; 
             }, 0);
         </script>
 <%
@@ -21,7 +21,7 @@
   %>      
         <script>
             setTimeout(function() {
-                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p·gina"; 
+                window.location.href = "login.jsp?mensaje=No tienes permiso para acceder a esta p√°gina"; 
             }, 0);
         </script>
 <%     
@@ -48,7 +48,7 @@
         }
     </style>
     <script>
-        // FunciÛn para obtener la informaciÛn del servlet
+        // Funci√≥n para obtener la informaci√≥n del servlet
         function obtenerInformacion() {
             $.ajax({
                 url: "ServListVid",
@@ -59,23 +59,23 @@
                     var html = "";
                     for (var i = 0; i < data.length; i++) {
                         var fecha = new Date(data[i].creationDate); // Convertir a objeto de fecha
-                        var aÒo = fecha.getFullYear(); // Obtener el aÒo
+                        var a√±o = fecha.getFullYear(); // Obtener el a√±o
                         var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
-                        var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el dÌa
+                        var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el d√≠a
 
-                        var fechaFormateada = aÒo + '/' + mes + '/' + dia;
+                        var fechaFormateada = a√±o + '/' + mes + '/' + dia;
                         
                         html += "<li><div><label style='font-weight: bold;'>Titulo: </label>" + 
                                 data[i].title + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Autor: </label>" +
                                 data[i].author + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Fecha de CreaciÛn: </label>" +                                
+                                "<label style='font-weight: bold;'>Fecha de Creaci√≥n: </label>" +                                
                                 fechaFormateada + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>DuraciÛn: </label>" +
+                                "<label style='font-weight: bold;'>Duraci√≥n: </label>" +
                                 data[i].duration + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Visualizaciones: </label>" +
                                 data[i].views + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>DescripciÛn: </label>" +
+                                "<label style='font-weight: bold;'>Descripci√≥n: </label>" +
                                 data[i].description + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Formato: </label>" +
                                 data[i].format + "</div><div class = 'listdatadiv'>" +
@@ -86,17 +86,17 @@
                         
                     }
                     if( data === null||data.length <= 0)html += "<label> No hay videos en el Repositorio</label>";
-                    $("#lista-videos").html(html); // AgreguÈ el "#" para seleccionar el ID correctamente
+                    $("#lista-videos").html(html);
                 },
                 error: function() {
                      var html = "";
                      html += "<label> No hay videos en el Repositorio</label>";               
-                    $("#lista-videos").html(html); // AgreguÈ el "#" para seleccionar el ID correctamente
+                    $("#lista-videos").html(html); 
                 }
             });
         }
 
-        // Llamar a la funciÛn al cargar la p·gina
+        // Llamar a la funci√≥n al cargar la p√°gina
         $(document).ready(function() {
             obtenerInformacion();
         });
