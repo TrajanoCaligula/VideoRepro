@@ -59,19 +59,19 @@
                     var html = "";
                     for (var i = 0; i < data.length; i++) {
                         var fecha = new Date(data[i].creationDate); // Convertir a objeto de fecha
-                        var año = fecha.getFullYear(); // Obtener el año
+                        var any = fecha.getFullYear(); // Obtener el año
                         var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
                         var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el día
 
-                        var fechaFormateada = año + '/' + mes + '/' + dia;
+                        var fechaFormateada = any + '/' + mes + '/' + dia;
                         
                         html += "<li><div><label style='font-weight: bold;'>Titulo: </label>" + 
                                 data[i].title + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Autor: </label>" +
                                 data[i].author + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Fecha de Creación: </label>" +                                
+                                "<label style='font-weight: bold;'>Fecha de Creacion: </label>" +                                
                                 fechaFormateada + "</div><div class = 'listdatadiv'>" +
-                                "<label style='font-weight: bold;'>Duración: </label>" +
+                                "<label style='font-weight: bold;'>Duracion: </label>" +
                                 data[i].duration + "</div><div class = 'listdatadiv'>" +
                                 "<label style='font-weight: bold;'>Visualizaciones: </label>" +
                                 data[i].views + "</div><div class = 'listdatadiv'>" +

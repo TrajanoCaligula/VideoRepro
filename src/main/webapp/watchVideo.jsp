@@ -47,11 +47,11 @@
                 var html = "";
                 if(data !== null) {
                     var fecha = new Date(data.creationDate); // Convertir a objeto de fecha
-                    var año = fecha.getFullYear(); // Obtener el año
-                    var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
-                    var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el día
+                    var year = fecha.getFullYear(); // Obtener el año
+                    var month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
+                    var day = ('0' + fecha.getDate()).slice(-2); // Obtener el día
 
-                    var fechaFormateada = año + '/' + mes + '/' + dia;
+                    var fechaFormateada = year + '/' + month + '/' + day;
                     
                     html += "<div class='dataToRight'> <label style='font-weight: bold;'>Subido por: </label>" + data.userName+"</div>"+
                             "<video class='displayvid' width='640' height='360' controls>\n\
