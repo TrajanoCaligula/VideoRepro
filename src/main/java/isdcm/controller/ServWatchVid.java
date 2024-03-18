@@ -25,32 +25,34 @@ public class ServWatchVid extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idString = request.getParameter("id");
-        int id = -1;
-        try {
-            id = Integer.parseInt(idString);
-            // Operaciones con el número entero convertido
-        } catch (NumberFormatException e) {
-            // Manejo de la excepción si el String no es un número entero válido
-            System.err.println("El Identificador del video no es un número entero válido.");
-        }
-        Video vid = new Video().getVideo(id);
-        VideoDTO videoData = new VideoDTO(vid.getId(),
-                     vid.getTitle(),
-                     vid.getAuthor(),
-                     vid.getCreationDate(),
-                     vid.getDuration(),
-                     vid.getViews(),
-                     vid.getDescription(),
-                     vid.getFormat(),
-                     vid.getUserName(),
-                     vid.getUrl());
-        String json = new ObjectMapper().writeValueAsString(videoData);
-        if(null != videoData && -1 != vid.getId()){
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-        } else {
-            request.setAttribute("errorEmptyVideo", "No existe este video en nuestra pagina");
+        if(request.getSession(false) != null){
+            String idString = request.getParameter("id");
+            int id = -1;
+            try {
+                id = Integer.parseInt(idString);
+                // Operaciones con el número entero convertido
+            } catch (NumberFormatException e) {
+                // Manejo de la excepción si el String no es un número entero válido
+                System.err.println("El Identificador del video no es un número entero válido.");
+            }
+            Video vid = new Video().getVideo(id);
+            VideoDTO videoData = new VideoDTO(vid.getId(),
+                         vid.getTitle(),
+                         vid.getAuthor(),
+                         vid.getCreationDate(),
+                         vid.getDuration(),
+                         vid.getViews(),
+                         vid.getDescription(),
+                         vid.getFormat(),
+                         vid.getUserName(),
+                         vid.getUrl());
+            String json = new ObjectMapper().writeValueAsString(videoData);
+            if(null != videoData && -1 != vid.getId()){
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+            } else {
+                request.setAttribute("errorEmptyVideo", "No existe este video en nuestra pagina");
+            }
         }
        
     }

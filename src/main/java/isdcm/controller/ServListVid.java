@@ -36,29 +36,31 @@ public class ServListVid extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        List <Video> listVideos = new ArrayList<>();
-        Video video = new Video();
-        listVideos = video.getAllVideos();
-        List <VideoDTO> listVideosDTO = new ArrayList<>();
-        for (Video vide : listVideos) {
-            VideoDTO vid = new VideoDTO(vide.getId(),
-                                vide.getTitle(),
-                                vide.getAuthor(),
-                                vide.getCreationDate(),
-                                vide.getDuration(),
-                                vide.getViews(),
-                                vide.getDescription(),
-                                vide.getFormat(),
-                                vide.getUserName(),
-                                vide.getUrl());
-            listVideosDTO.add(vid);
-        }
-        String json = new ObjectMapper().writeValueAsString(listVideosDTO);
-        if(!listVideosDTO.isEmpty()){
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-        } else {
-            request.setAttribute("errorEmptyListVideos", "There are no videos");
+        if(request.getSession(false) != null){
+            List <Video> listVideos = new ArrayList<>();
+            Video video = new Video();
+            listVideos = video.getAllVideos();
+            List <VideoDTO> listVideosDTO = new ArrayList<>();
+            for (Video vide : listVideos) {
+                VideoDTO vid = new VideoDTO(vide.getId(),
+                                    vide.getTitle(),
+                                    vide.getAuthor(),
+                                    vide.getCreationDate(),
+                                    vide.getDuration(),
+                                    vide.getViews(),
+                                    vide.getDescription(),
+                                    vide.getFormat(),
+                                    vide.getUserName(),
+                                    vide.getUrl());
+                listVideosDTO.add(vid);
+            }
+            String json = new ObjectMapper().writeValueAsString(listVideosDTO);
+            if(!listVideosDTO.isEmpty()){
+                response.setContentType("application/json");
+                response.getWriter().write(json);
+            } else {
+                request.setAttribute("errorEmptyListVideos", "There are no videos");
+            }
         }
     }
 

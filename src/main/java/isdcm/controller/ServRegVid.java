@@ -137,7 +137,7 @@ public class ServRegVid extends HttpServlet {
         } else{
             request.setAttribute("errorRegVidFail", "MUST LOG IN TO UPLOAD A VIDEO");
         }
-        request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
+        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
