@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import isdcm.model.DataForDataBase;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -126,12 +127,14 @@ public class User {
         boolean existsUser = false;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + userName + "'";
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement statement;
+            String query = "select * from " + TABLENAME + " where username=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, userName); 
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                existsUser = (rs.getInt("COUNT") > 0);
+                existsUser = true;
             }
             
             return existsUser;            
@@ -140,14 +143,17 @@ public class User {
         }
         return existsUser;
     }
+    
     public boolean passwordIsCorrect(String userName, String password){
         boolean passwordCorrect = false;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userName + "'";
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement statement;
+            String query = "select * from " + TABLENAME + " where username=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, userName); 
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 passwordCorrect = (password.equals(rs.getString("PASSWORD")));
             }
@@ -164,11 +170,13 @@ public class User {
         User user = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + userN + "'";
-            System.out.println("Getuser SQL: " + sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement statement;
+            String query = "select * from " + TABLENAME + " where username=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, userN); 
+            ResultSet rs = statement.executeQuery();
+            
             if (rs.next()) {
                 int id = rs.getInt("ID");
                 String name = rs.getString("NAME");
@@ -189,13 +197,17 @@ public class User {
         boolean result = false;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
-            String sql = "INSERT INTO " + TABLENAME
-                    + "(NAME, SURNAME, EMAIL, USERNAME, PASSWORD)"
-                   + " VALUES ('" + this.name + "', '" + this.surname + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
-            System.out.println("Createuser SQL: " + sql);
-            stmt.executeUpdate(sql);
+            PreparedStatement statement;
+            String query = "INSERT INTO "+ TABLENAME +" (NAME, SURNAME, EMAIL, USERNAME, PASSWORD) VALUES (?,?,?,?,?)";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, this.name); 
+            statement.setString(2, this.surname); 
+            statement.setString(3, this.email); 
+            statement.setString(4, this.userName); 
+            statement.setString(5, this.password);          
+           
+            statement.executeUpdate();
             
             result = true;
         } catch (SQLException err) {
