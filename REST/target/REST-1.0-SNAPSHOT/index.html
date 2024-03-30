@@ -9,17 +9,21 @@
         
         <form action="resources/jakartaee9/getInfo" method="get">
             <label>Informaci&oacute;n</label>
-            <input type="text" name="info"/>
+            <input type="text" name="videoID"/>
             <label>Fecha</label>
-            <input type="text" name="fecha"/>
+            <input type="text" name="date"/>
             <input type="submit" name="submit" value="Enviar con GET"/>
         </form>        
         
         <form action="resources/jakartaee9/postInfo" method="post">
-            <label>Informaci&oacute;n</label>             
-            <input type="text" name="info"/>
-            <label>Fecha</label>
-            <input type="text" name="fecha"/>
+            <label>Buscar</label>             
+            <input type="text" name="POSTinput"/>
+            <label>filtrar por</label>
+            <select name="filter">
+                <option value="es">Title</option>
+                <option value="mx">Author</option>
+                <option value="ar">Date</option>
+            </select>
             <input type="submit" name="submit" value="Enviar con POST"/>
         </form>
     </body>    

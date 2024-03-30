@@ -185,6 +185,7 @@ public class Video {
         Video video = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            
             Statement stmt = conn.createStatement();
             
             String sql = "UPDATE " + TABLENAME + " SET VIEWS = VIEWS+1 WHERE ID = " + String.valueOf(id );

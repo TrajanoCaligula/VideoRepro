@@ -1,2 +1,4 @@
 com\mycompany\rest\JakartaRestConfiguration.class
+model\DataForDataBase.class
+model\video.class
 com\mycompany\rest\resources\JakartaEE91Resource.class
