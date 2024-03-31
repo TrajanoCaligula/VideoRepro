@@ -4,29 +4,26 @@
  */
 package isdcm.controller;
 
-import isdcm.DTO.VideoDTO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.ArrayList;
-import  isdcm.model.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.annotation.WebServlet;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+
 /**
  *
- * @author alumne
+ * @author jaume
  */
-@WebServlet(name = "ServListVid", urlPatterns = {"/ServListVid"})
-public class ServListVid extends HttpServlet {
+@WebServlet(name = "ServREST", urlPatterns = {"/ServREST"})
+public class ServREST extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,17 +36,10 @@ public class ServListVid extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
-
-        if(request.getSession(false) != null){
-            List <Video> listVideos = new ArrayList<>();
-            Video video = new Video();
-            listVideos = video.getAllVideos();
+        try (PrintWriter out = response.getWriter()) {
             
-            //TESTING
-            
-            String addressAPI = "http://localhost:8080/REST/resources/jakartaee9/getVideos";  
+            String addressAPI = "http://localhost:8080/REST/resources/jakartaee9";  
             
             // Create a URLConnection
             URLConnection connection = new URL(addressAPI).openConnection();
@@ -66,42 +56,25 @@ public class ServListVid extends HttpServlet {
                 // Request successful, proceed to get the response body
                 // Get the response body as an InputStream
                 InputStream inputStream = httpConnection.getInputStream();
+
+                // Read the response body as a String (assuming it's text-based)
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder responseBody = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                   responseBody.append(line);
                 }
+
+                // Close the streams
                 reader.close();
                 inputStream.close();
+
+                // Process the response body (parse JSON, XML, etc.)
+                System.out.println("Response body: " + responseBody.toString());
 
             } else {
                 // Handle error based on response code (e.g., throw an exception)
                 throw new RuntimeException("Error accessing API: " + responseCode);
-            }
-            
-            //
-            
-            List <VideoDTO> listVideosDTO = new ArrayList<>();
-            for (Video vide : listVideos) {
-                VideoDTO vid = new VideoDTO(vide.getId(),
-                                    vide.getTitle(),
-                                    vide.getAuthor(),
-                                    vide.getCreationDate(),
-                                    vide.getDuration(),
-                                    vide.getViews(),
-                                    vide.getDescription(),
-                                    vide.getFormat(),
-                                    vide.getUserName(),
-                                    vide.getUrl());
-                listVideosDTO.add(vid);
-            }
-            String json = new ObjectMapper().writeValueAsString(listVideosDTO);
-            if(!listVideosDTO.isEmpty()){
-                response.setContentType("application/json");
-                response.getWriter().write(json);
-            } else {
-                request.setAttribute("errorEmptyListVideos", "There are no videos");
             }
         }
     }

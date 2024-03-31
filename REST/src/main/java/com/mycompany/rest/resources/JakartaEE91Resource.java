@@ -1,5 +1,6 @@
 package com.mycompany.rest.resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.video;
 
 /**
@@ -26,11 +28,12 @@ public class JakartaEE91Resource {
      */
     @Path("getInfo")
     @GET    
-    @Produces("text/html")
-    public void getInfo (@QueryParam("videoID") String videoID){
+    @Produces("video/mp4")
+    public video getInfo (@QueryParam("videoID") String videoID){
         
         video video = new video();
         video = video.getVideo(Integer.parseInt(videoID));
+        return video;
     }
 
     /**
@@ -41,11 +44,11 @@ public class JakartaEE91Resource {
      * @param date
      * @return 
      */
-    @Path("postInfo")   
+    @Path("getVideos")   
     @POST    
     @Consumes("application/x-www-form-urlencoded")
-    @Produces("text/html")
-    public void postInfo (@FormParam("POSTinput") String POSTinput,
+    @Produces("application/json")
+    public String postInfo (@FormParam("POSTinput") String POSTinput,
                             @FormParam("filter") String filter) 
     {                
         video video = new video();
@@ -63,6 +66,14 @@ public class JakartaEE91Resource {
             default:
                 break; //TODO: reenvii a la pagina?
         }
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+          String json = mapper.writeValueAsString(listVideos);
+          return json;
+        } catch (JsonProcessingException e) {
+          // Handle exception
+          return null;
+        }
     } 
     
     /**
@@ -70,14 +81,14 @@ public class JakartaEE91Resource {
      * 
      * @return 
      */
-    @Path("putInfo")   
+    @Path("updateViews")   
     @PUT    
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/html")
     public boolean putInfo () 
     {     
         video video = new video();
-        return video.updateVideo(0);
+        return video.updateVideo(0); //todo: canviar el parametre per el id del video
         //TODO: tenir en compte que a part de cridar a la API , si aquesta retorna correcte, augmentem en 1 el html de visites
             
         }
