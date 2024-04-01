@@ -9,6 +9,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 
 @WebServlet(name = "ServWachVid", urlPatterns = {"/ServWachVid"})
@@ -53,6 +59,33 @@ public class ServWatchVid extends HttpServlet {
             } else {
                 request.setAttribute("errorEmptyVideo", "No existe este video en nuestra pagina");
             }
+            
+            //TESTING
+            
+            String addressAPI = "http://localhost:8080/REST/resources/jakartaee9/updateViews";  
+            
+            // Create a URLConnection
+            URLConnection connection = new URL(addressAPI).openConnection();
+
+            // Cast to HttpURLConnection (assuming it's a HTTP connection)
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+            // Set the request method
+            httpConnection.setRequestMethod("PUT");
+            // Send the request and get the response code
+            int responseCode = httpConnection.getResponseCode();
+            
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Request successful, proceed to get the response body
+                // Get the response body as an InputStream
+                //TODO
+
+            } else {
+                // Handle error based on response code (e.g., throw an exception)
+                throw new RuntimeException("Error accessing API: " + responseCode);
+            }
+            
+            //
         }
        
     }
