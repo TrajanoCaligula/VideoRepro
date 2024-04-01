@@ -241,3 +241,9 @@ li:hover {
     padding-left: 80px;
     padding-top: 40px;
 }
+.tdSearcher{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  vertical-align: middle; /* Alineación vertical */
+}

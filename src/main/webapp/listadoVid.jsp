@@ -96,7 +96,7 @@
             });
         }
 
-        // Llamar a la funci√≥n al cargar la p√°gina
+        // Llamar a la funciÛn al cargar la p·gina
         $(document).ready(function() {
             obtenerInformacion();
         });
