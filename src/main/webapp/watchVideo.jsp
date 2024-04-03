@@ -55,7 +55,7 @@
                     
                     html += "<div class='dataToRight'> <label style='font-weight: bold;'>Uploaded by: </label>" + data.userName+"</div>"+
                             "<video class='displayvid' width='640' height='360' controls>\n\
-                            <source class='displayvid' src='"+'${pageContext.request.contextPath}/uploads/' +  data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
+                            <source class='displayvid' src='" +  data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
                             "<table class='tablaVideoContainer'><tr>"+
                                 "<td><label style='font-weight: bold;'>Títle: </label>" + 
                                 data.title + "</td>" +

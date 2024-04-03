@@ -12,15 +12,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.ArrayList;
-import  isdcm.model.*;
+import isdcm.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+
 /**
  *
  * @author alumne
@@ -47,7 +42,7 @@ public class ServListVid extends HttpServlet {
             Video video = new Video();
             listVideos = video.getAllVideos();
             
-            //TESTING
+            /*TESTING
             
             String addressAPI = "http://localhost:8080/REST/resources/jakartaee9/getVideos";  
             
@@ -80,7 +75,7 @@ public class ServListVid extends HttpServlet {
                 throw new RuntimeException("Error accessing API: " + responseCode);
             }
             
-            //
+            */
             
             List <VideoDTO> listVideosDTO = new ArrayList<>();
             for (Video vide : listVideos) {
