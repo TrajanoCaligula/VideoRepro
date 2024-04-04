@@ -109,13 +109,17 @@ public class JakartaEE91Resource {
     @Path("updateViews")   
     @PUT    
     @Consumes("application/x-www-form-urlencoded")
-    @Produces("text/html")
-    public boolean putInfo (@QueryParam("videoID") String id) 
+    @Produces("application/json")
+    public String updateViews (@FormParam("videoID") String id) 
     {     
         video video = new video();
-        return video.updateVideo( Integer.parseInt(id)); //todo: canviar el parametre per el id del video
-        //TODO: tenir en compte que a part de cridar a la API , si aquesta retorna correcte, augmentem en 1 el html de visites
-            
+        boolean R= video.updateVideo( Integer.parseInt(id));
+        try{
+            String json = new ObjectMapper().writeValueAsString(R);
+            return json;
+        }catch(JsonProcessingException e){
+            return "error";
         }
     }
+}
 

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
@@ -147,13 +148,19 @@ public class ServREST extends HttpServlet {
             throws ServletException, IOException {
          String idString = request.getParameter("videoID");
 
-        String url = "http://localhost:8080/REST/resources/jakartaee9/putInfo?videoID="+idString;
+        String url = "http://localhost:8080/REST/resources/jakartaee9/updateViews";
         
         // Crear un cliente para hacer la llamada
-        Client client = ClientBuilder.newClient();
-        
-        // Hacer la llamada al servicio REST
-        Response restResponse;restResponse = client.target(url).request().put(Entity.entity(request, MediaType.TEXT_PLAIN));
+      Client client = ClientBuilder.newClient();
+
+      // Crear los parámetros que deseas enviar en el cuerpo de la solicitud
+      Form form = new Form();
+      form.param("videoID", idString);
+
+      // Hacer la llamada al servicio REST
+      Response restResponse = client.target(url)
+                                    .request()
+                                    .put(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
         
         // Obtener el código de estado de la respuesta
         int statusCode = restResponse.getStatus();
@@ -167,7 +174,7 @@ public class ServREST extends HttpServlet {
             response.getWriter().println("Respuesta del servicio REST: " + responseBody);
         } else {
             // Si la respuesta no es exitosa, manejar el error adecuadamente
-            response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode);
+            response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode+"      "+ restResponse.readEntity(String.class));
         }
         
         // Cerrar el cliente

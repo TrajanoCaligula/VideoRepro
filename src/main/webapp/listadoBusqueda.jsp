@@ -168,16 +168,11 @@
     
      $(document).on("click", ".customButton", buttonClickHandler);
         function putView(videoId) {
-            console.log(videoId);
-            var id = String.valueOf(videoId);
-            console.log(id);
+            var id = videoId.toString();
             $.ajax({
-                url: "ServREST",
+                url: "ServREST?videoID="+id,
                 type: "PUT",
                 dataType: "json",
-                data: {
-                    videoID: id
-                },
                 success: function(data) {
                     console.log("Datos recibidos:", data);
                 },
@@ -189,7 +184,12 @@
 
         // Función para obtener la información del video actualizada después de la actualización
         function watchVideo(videoId) {
-            console.log(videoId);
+            var id = videoId.toString();
+            setTimeout(function() {
+                // Redireccionar a otra vista (página JSP)
+                window.location.href = "reproduccion.jsp?id="+id;
+            }, 200);
+            
         }
 
     </script>
