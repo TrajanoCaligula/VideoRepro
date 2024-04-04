@@ -40,37 +40,40 @@ public class ServREST extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         // URL del servicio REST que quieres llamar
-        String idString = request.getParameter("id");
 
-        String url = "http://localhost:8080/REST/resources/jakartaee9/getInfo?videoID="+idString;
-        
-        // Crear un cliente para hacer la llamada
-        Client client = ClientBuilder.newClient();
-        
-        // Hacer la llamada al servicio REST
-        Response restResponse = client.target(url).request().get();
-        
-        // Obtener el código de estado de la respuesta
-        int statusCode = restResponse.getStatus();
-        
-        // Si la respuesta es exitosa (código 200)
-        if (statusCode == 200) {
-            // Leer el cuerpo de la respuesta
-            String responseBody = restResponse.readEntity(String.class);
-            if(!responseBody.isEmpty()){
-                response.setContentType("application/json");
-                response.getWriter().write(responseBody);
+        if(request.getSession(false) != null){
+             // URL del servicio REST que quieres llamar
+            String idString = request.getParameter("id");
+    
+            String url = "http://localhost:8080/REST/resources/jakartaee9/getInfo?videoID="+idString;
+            
+            // Crear un cliente para hacer la llamada
+            Client client = ClientBuilder.newClient();
+            
+            // Hacer la llamada al servicio REST
+            Response restResponse = client.target(url).request().get();
+            
+            // Obtener el código de estado de la respuesta
+            int statusCode = restResponse.getStatus();
+            
+            // Si la respuesta es exitosa (código 200)
+            if (statusCode == 200) {
+                // Leer el cuerpo de la respuesta
+                String responseBody = restResponse.readEntity(String.class);
+                if(!responseBody.isEmpty()){
+                    response.setContentType("application/json");
+                    response.getWriter().write(responseBody);
+                } else {
+                    request.setAttribute("errorEmptyListVideos", "There is no video");
+                }
             } else {
-                request.setAttribute("errorEmptyListVideos", "There is no video");
+                // Si la respuesta no es exitosa, manejar el error adecuadamente
+                response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode);
             }
-        } else {
-            // Si la respuesta no es exitosa, manejar el error adecuadamente
-            response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode);
+            
+            // Cerrar el cliente
+            client.close();
         }
-        
-        // Cerrar el cliente
-        client.close();
     }
 
     /**
@@ -84,56 +87,58 @@ public class ServREST extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(request.getSession(false) != null){
                         // Obtener los parámetros del formulario que invoca al servlet
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String day = request.getParameter("day");
-        String month = request.getParameter("month");
-        String year = request.getParameter("year");
-
-        // Obtener más parámetros según sea necesario
-        
-        // Crear un objeto MultivaluedMap para contener los parámetros del formulario
-        MultivaluedMap<String, String> formParams = new MultivaluedHashMap<>();
-        formParams.add("title", title);
-        formParams.add("author", author);
-        formParams.add("day", day);
-        formParams.add("month", month);
-        formParams.add("year", year);
-
-        // Agregar más parámetros según sea necesario
-        
-        // Crear un cliente para hacer la llamada al servicio REST
-        Client client = ClientBuilder.newClient();
-        
-        // URL del servicio REST que quieres llamar
-        String url = "http://localhost:8080/REST/resources/jakartaee9/postSearch";
-        
-        // Hacer la llamada al servicio REST
-        Response restResponse = client.target(url)
-                                     .request()
-                                     .post(Entity.form(formParams));
-        
-        // Obtener el código de estado de la respuesta
-        int statusCode = restResponse.getStatus();
-        
-        // Si la respuesta es exitosa (código 200)
-        if (statusCode == 200) {
-            // Leer el cuerpo de la respuesta
-            String responseBody = restResponse.readEntity(String.class);
-            if(!responseBody.isEmpty()){
-                response.setContentType("application/json");
-                response.getWriter().write(responseBody);
+            String title = request.getParameter("title");
+            String author = request.getParameter("author");
+            String day = request.getParameter("day");
+            String month = request.getParameter("month");
+            String year = request.getParameter("year");
+    
+            // Obtener más parámetros según sea necesario
+            
+            // Crear un objeto MultivaluedMap para contener los parámetros del formulario
+            MultivaluedMap<String, String> formParams = new MultivaluedHashMap<>();
+            formParams.add("title", title);
+            formParams.add("author", author);
+            formParams.add("day", day);
+            formParams.add("month", month);
+            formParams.add("year", year);
+    
+            // Agregar más parámetros según sea necesario
+            
+            // Crear un cliente para hacer la llamada al servicio REST
+            Client client = ClientBuilder.newClient();
+            
+            // URL del servicio REST que quieres llamar
+            String url = "http://localhost:8080/REST/resources/jakartaee9/postSearch";
+            
+            // Hacer la llamada al servicio REST
+            Response restResponse = client.target(url)
+                                         .request()
+                                         .post(Entity.form(formParams));
+            
+            // Obtener el código de estado de la respuesta
+            int statusCode = restResponse.getStatus();
+            
+            // Si la respuesta es exitosa (código 200)
+            if (statusCode == 200) {
+                // Leer el cuerpo de la respuesta
+                String responseBody = restResponse.readEntity(String.class);
+                if(!responseBody.isEmpty()){
+                    response.setContentType("application/json");
+                    response.getWriter().write(responseBody);
+                } else {
+                    request.setAttribute("errorEmptyListVideos", "There are no videos");
+                }
             } else {
-                request.setAttribute("errorEmptyListVideos", "There are no videos");
+                // Si la respuesta no es exitosa, manejar el error adecuadamente
+                response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode);
             }
-        } else {
-            // Si la respuesta no es exitosa, manejar el error adecuadamente
-            response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode);
+            
+            // Cerrar el cliente
+            client.close();
         }
-        
-        // Cerrar el cliente
-        client.close();
     }
      /**
      * Handles the HTTP <code>PUT</code> method.
@@ -146,39 +151,41 @@ public class ServREST extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String idString = request.getParameter("videoID");
-
-        String url = "http://localhost:8080/REST/resources/jakartaee9/updateViews";
-        
-        // Crear un cliente para hacer la llamada
-      Client client = ClientBuilder.newClient();
-
-      // Crear los parámetros que deseas enviar en el cuerpo de la solicitud
-      Form form = new Form();
-      form.param("videoID", idString);
-
-      // Hacer la llamada al servicio REST
-      Response restResponse = client.target(url)
-                                    .request()
-                                    .put(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
-        
-        // Obtener el código de estado de la respuesta
-        int statusCode = restResponse.getStatus();
-        
-        // Si la respuesta es exitosa (código 200)
-        if (statusCode == 200) {
-            // Leer el cuerpo de la respuesta
-            String responseBody = restResponse.readEntity(String.class);
+        if(request.getSession(false) != null){
+             String idString = request.getParameter("videoID");
+    
+            String url = "http://localhost:8080/REST/resources/jakartaee9/updateViews";
             
-            // Hacer algo con el cuerpo de la respuesta, por ejemplo:
-            response.getWriter().println("Respuesta del servicio REST: " + responseBody);
-        } else {
-            // Si la respuesta no es exitosa, manejar el error adecuadamente
-            response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode+"      "+ restResponse.readEntity(String.class));
+            // Crear un cliente para hacer la llamada
+          Client client = ClientBuilder.newClient();
+    
+          // Crear los parámetros que deseas enviar en el cuerpo de la solicitud
+          Form form = new Form();
+          form.param("videoID", idString);
+    
+          // Hacer la llamada al servicio REST
+          Response restResponse = client.target(url)
+                                        .request()
+                                        .put(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+            
+            // Obtener el código de estado de la respuesta
+            int statusCode = restResponse.getStatus();
+            
+            // Si la respuesta es exitosa (código 200)
+            if (statusCode == 200) {
+                // Leer el cuerpo de la respuesta
+                String responseBody = restResponse.readEntity(String.class);
+                
+                // Hacer algo con el cuerpo de la respuesta, por ejemplo:
+                response.getWriter().println("Respuesta del servicio REST: " + responseBody);
+            } else {
+                // Si la respuesta no es exitosa, manejar el error adecuadamente
+                response.getWriter().println("Error al llamar al servicio REST. Código de estado: " + statusCode+"      "+ restResponse.readEntity(String.class));
+            }
+            
+            // Cerrar el cliente
+            client.close();
         }
-        
-        // Cerrar el cliente
-        client.close();
     }
 
 }
