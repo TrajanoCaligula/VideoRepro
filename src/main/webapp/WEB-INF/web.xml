@@ -29,6 +29,10 @@
         <servlet-name>ServWatchVid</servlet-name>
         <servlet-class>isdcm.controller.ServWatchVid</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ServREST</servlet-name>
+        <servlet-class>isdcm.controller.ServREST</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServRegUser</servlet-name>
         <url-pattern>/ServRegUser</url-pattern>
@@ -54,10 +58,10 @@
             30
         </session-timeout>
     </session-config>
-    <servlet>
-        <servlet-name>ServUser</servlet-name>
-        <servlet-class>/ServUser</servlet-class>
-    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServREST</servlet-name>
+        <url-pattern>/ServREST</url-pattern>
+    </servlet-mapping>
     <context-param>
         <param-name>upload.location</param-name>
         <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\src\main\webapp\uploads-->

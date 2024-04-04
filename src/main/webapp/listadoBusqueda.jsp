@@ -3,7 +3,7 @@
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="isdcm.DTO.VideoDTO" %>
-<%@ page import="isdcm.controller.ServListVid" %>
+<%@ page import="isdcm.controller.ServREST" %>
 
 <!DOCTYPE html>
 <html>
@@ -25,6 +25,7 @@
             background-color: #e0e0e0;
         }
     </style>
+    
 
 </head>
 <body class = "bodyList">
@@ -33,42 +34,40 @@
         <div class="rectangulo-detras-h1"></div>
         <h1 class="h1List">Video Searcher</h1> 
         <br>
-        <form>
-                <table>
-                    <tr> 
-                        <td class="tdSearcher"><label for="title">Title:</label></td>
-                        <td class="tdSearcher"><input  type="text" id="title" name="title"></input></td>
-                        <td class="tdSearcher"><label for="author">Author:</label></td>
-                        <td class="tdSearcher"><input  type="text" id="author" name="author"></input></td>
-                        <td class="tdSearcher"><label for="day">Day:</label></td>
-                        <td class="tdSearcher"><select id="day" name="day">
-                                <option>----</option>
-                            </select></td>
-                        <td><label for="month">Month:</label></td>
-                        <td><span></span></td>
-                        <td><select id="month" name="month">
+            <table>
+                <tr> 
+                    <td><label for="title">Title:</label></td>
+                    <td><textarea  type="text" id="title" name="title"></textarea></td>
+                    <td><label for="author">Author:</label></td>
+                    <td><textarea  type="text" id="author" name="author"></textarea></td>
+                    <td><label for="day">Day:</label></td>
+                    <td><select id="day" name="day">
                             <option>----</option>
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                            <option>April</option>
-                            <option>May</option>
-                            <option>June</option>
-                            <option>July</option>
-                            <option>August</option>
-                            <option>September</option>
-                            <option>October</option>
-                            <option>November</option>
-                            <option>December</option>
                         </select></td>
-                        <td><label for="year">Year:</label></td>
-                        <td><select id="year" name="year">
-                                <option>----</option>
-                        </select></td>
-                        <td><input class="tdSearcher" type="submit" value="Search"></td>
-                    </tr>
-                </table>
-          </form>
+                    <td><label for="month">Month:</label></td>
+                    <td><span></span></td>
+                    <td><select id="month" name="month">
+                        <option>----</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select></td>
+                    <td><label for="year">Year:</label></td>
+                    <td><select id="year" name="year">
+                            <option>----</option>
+                    </select></td>
+                    <td><button onclick="obtenerInformacion()">Search</button></td>
+                </tr>
+            </table>
         <div class="contenedor-listado">
             <ol class="no-numeros" id="lista-videos">
                 
@@ -99,5 +98,100 @@
          selectDias.add(option);
      }
  </script>
+     <script>
+        // FunciÃ³n para obtener la informaciÃ³n del servlet
+        function obtenerInformacion() {
+            var title = document.getElementById("title").value;
+            var author = document.getElementById("author").value;
+            var day = document.getElementById("day").value;
+            var month = document.getElementById("month").value;
+            var year = document.getElementById("year").value;
+            
+            $.ajax({
+                url: "ServREST",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    title: title,
+                    author: author,
+                    day: day,
+                    month: month,
+                    year: year
+                },
+                success: function(data) {
+                    console.log("Datos recibidos:", data);
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var fecha = new Date(data[i].creationDate); // Convertir a objeto de fecha
+                        var any = fecha.getFullYear(); // Obtener el aÃ±o
+                        var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
+                        var dia = ('0' + fecha.getDate()).slice(-2); // Obtener el dÃ­a
+
+                        var fechaFormateada = any + '/' + mes + '/' + dia;
+                        
+                        html += "<li><div><label style='font-weight: bold;'>Title: </label>" + 
+                                data[i].title + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Author: </label>" +
+                                data[i].author + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Creation Date: </label>" +                                
+                                fechaFormateada + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Duration: </label>" +
+                                data[i].duration + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Views: </label>" +
+                                data[i].views + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Description: </label>" +
+                                data[i].description + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Format: </label>" +
+                                data[i].format + "</div><div class = 'listdatadiv'>" +
+                                "<label style='font-weight: bold;'>Uploaded by: </label>" +
+                                data[i].userName + "</div>" +
+                                "<button class='botonVer customButton' id='showVideo' data-video-id='"+data[i].id+"'>Watch Video</buton>" +"</li>";
+                                
+                        
+                    }
+                    if( data === null||data.length <= 0)html += "<label>There are any video in our repository</label>";
+                    $("#lista-videos").html(html);
+                },
+                error: function() {
+                     var html = "";
+                     html += "<label>There are any video in our repository</label>";               
+                    $("#lista-videos").html(html); 
+                }
+            });
+        }
+        
+    function buttonClickHandler(event) {
+        var videoId = event.target.getAttribute("data-video-id");
+        putView(videoId);
+        watchVideo(videoId);
+    }
+    
+     $(document).on("click", ".customButton", buttonClickHandler);
+        function putView(videoId) {
+            console.log(videoId);
+            var id = String.valueOf(videoId);
+            console.log(id);
+            $.ajax({
+                url: "ServREST",
+                type: "PUT",
+                dataType: "json",
+                data: {
+                    videoID: id
+                },
+                success: function(data) {
+                    console.log("Datos recibidos:", data);
+                },
+                error: function() {
+                    console.log("error");
+                }
+            });
+        }
+
+        // Función para obtener la información del video actualizada después de la actualización
+        function watchVideo(videoId) {
+            console.log(videoId);
+        }
+
+    </script>
 
 </html>

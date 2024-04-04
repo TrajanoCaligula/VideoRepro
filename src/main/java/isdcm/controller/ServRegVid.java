@@ -170,7 +170,7 @@ public class ServRegVid extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
             String fileName = processVideoFile(request, response);
-            String urlVideo = "/VideoRepro/uploads/"+ fileName;
+            String urlVideo = "http://localhost:8080/VideoRepro/uploads/"+ fileName;
             processRequest(request, response, urlVideo);
             
   

@@ -8,13 +8,13 @@
 </head>
 <body>
     <div class="navbar">
+        <a id="searchVid" href="listadoBusqueda.jsp">Video Search</a> <span id="s6" class="separador">|</span>
         <a id="listaVid" href="listadoVid.jsp">Video List</a> <span id="s1"class="separador">|</span>
         <a id="regVid" href="registroVid.jsp">New Video</a> <span id="s2" class="separador">|</span>
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
         <a id="regUs" href="registroUsu.jsp">Register</a> <span id="s4" class="separador">|</span>
         <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span>
         <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Logout</a>
-
     </div> 
    
 </body> 
@@ -46,6 +46,7 @@
         document.getElementById("miTexto").style.cursor = "pointer";
     }
 
+    var searchVid = document.getElementById('searchVid');
     var listaVid = document.getElementById('listaVid');
     var regVid = document.getElementById('regVid');
     var login = document.getElementById('login');
@@ -57,8 +58,11 @@
     var s3 = document.getElementById('s3');
     var s4 = document.getElementById('s4');
     var s5 = document.getElementById('s5');
+    var s6 = document.getElementById('s6');
+
 
     listaVid.style.display = 'inline';
+    searchVid.style.display = 'inline';
     regVid.style.display = 'inline';
     login.style.display = 'inline';
     regUs.style.display = 'inline';
@@ -70,17 +74,21 @@
     s3.style.display='inline';
     s4.style.display='inline';
     s5.style.display='inline';
+    s6.style.display='inline';
+
 
 
     if (userLogged === "true") {
     // Si el usuario está logueado, ocultamos los enlaces de login y registro y mostramos el nombre de usuario
     listaVid.style.display = 'inline';
+    searchVid.style.display = 'inline';
     regVid.style.display = 'inline';
     login.style.display = 'none';
     regUs.style.display = 'none';
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
     nombreUsuario.textContent = 'User: '+userName;
+    s6.style.display='inline';
     s1.style.display='inline';
     s2.style.display='inline';
     s3.style.display='none';
@@ -90,12 +98,14 @@
   } else {
     // Si el usuario no está logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
     listaVid.style.display = 'none';
+    searchVid.style.display = 'none';
     regVid.style.display = 'none';
     login.style.display = 'inline';
     regUs.style.display = 'inline';
     navuserName.style.display = 'none';
     closeSesion.style.display ='none';
     nombreUsuario.textContent = "";
+    s6.style.display='none';
     s1.style.display='none';
     s2.style.display='none';
     s3.style.display='inline';
@@ -121,8 +131,12 @@
                 s2.style.display='none';
                 break;
             case "/listadoVid.jsp":
-                 listaVid.style.display = 'none';
-                 s1.style.display='none';
+                listaVid.style.display = 'none';
+                s1.style.display='none';
+                break;
+            case "/listadoBusqueda.jsp":
+                searchVid.style.display = 'none';
+                s6.style.display='none';
                 break;
             default:
         }

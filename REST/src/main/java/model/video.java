@@ -196,7 +196,7 @@ public class video {
                 String userName = rs.getString("USERNAME");
                 String videoUrl = rs.getString("URL");
                                 
-                video = new video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
+                video = new video(idV, title, author, creationDate, duration, views, description, videoUrl, format, userName);
             }            
 
         } catch (SQLException err) {
@@ -211,10 +211,10 @@ public class video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             
             PreparedStatement statement;
-            String query = "select * from " + TABLENAME + " SET VIEWS = VIEWS+1 WHERE ID=?";
+            String query = "UPDATE "+ TABLENAME + " SET VIEWS=VIEWS+1 WHERE ID=?";
             statement = conn.prepareStatement(query);
             statement.setString(1, String.valueOf(id)); 
-            result = statement.executeUpdate();                                              //TODO: TEST
+            result = statement.executeUpdate();
             
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -244,7 +244,7 @@ public class video {
                 String userName = rs.getString("USERNAME");
                 String videoUrl = rs.getString("URL");
                                 
-                video = new video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
+                video = new video(idV, title, author, creationDate, duration, views, description, videoUrl, format,userName );
                 listVideos.add(video);
             }            
         } catch (SQLException err) {
@@ -253,16 +253,36 @@ public class video {
         return listVideos;
     }
     
-    public List <video> getVideosbyTitle(String filterTitle) {
+    
+    public List <video> getVideosByFilter(String titleParam, String authorParam ,String day,String month, String year){
         List<video> listVideos = new ArrayList<>();
         video video = null;
+        
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);         
-            
             PreparedStatement statement;
-            String query = "select * from " + TABLENAME + " where title=?";
+            String query = "select * from " + TABLENAME;
+            Boolean whereAdded = false;
+            if(titleParam != null && !titleParam.isEmpty()){
+                whereAdded = true;
+                query= query + " where title=?";
+            }
+            if(authorParam != null && !authorParam.isEmpty()){
+                if(whereAdded){
+                    query = query + " AND author=?";
+                }
+                else{
+                    whereAdded = true;
+                    query = query + " where author=?";
+                }   
+            }
             statement = conn.prepareStatement(query);
-            statement.setString(1, filterTitle); 
+            if(titleParam != null && !titleParam.isEmpty()){
+                statement.setString(1, titleParam );
+                if(authorParam != null && !authorParam.isEmpty())statement.setString(2, authorParam );
+            }
+            else if(authorParam != null && !authorParam.isEmpty())statement.setString(1, authorParam );
+           
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -277,81 +297,25 @@ public class video {
                 String userName = rs.getString("USERNAME");
                 String videoUrl = rs.getString("URL");
                                 
-                video = new video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
+                video = new video(idV, title, author, creationDate, duration, views, description, videoUrl, format, userName);
                 listVideos.add(video);
-            }            
-        } catch (SQLException err) {
+            }   
+        }catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-        return listVideos;
-    }
-    
-    public List <video> getVideosbyAuthor(String filterAuthor) {
-        List<video> listVideos = new ArrayList<>();
-        video video = null;
-        try {
-            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);         
-            
-            PreparedStatement statement;
-            String query = "select * from " + TABLENAME + " where author=?";
-            statement = conn.prepareStatement(query);
-            statement.setString(1, filterAuthor); 
-            ResultSet rs = statement.executeQuery();
+        
+        List<video> listVideosFiltered = new ArrayList<>();
 
-            while (rs.next()) {
-                int idV = rs.getInt("ID");
-                String title = rs.getString("TITLE");
-                String author = rs.getString("AUTHOR");
-                Date creationDate = rs.getDate("CREADATE");
-                Time duration = rs.getTime("DURATION");
-                long views = rs.getLong("VIEWS");
-                String description = rs.getString("DESCRIPTION");
-                String format = rs.getString("FORMAT");
-                String userName = rs.getString("USERNAME");
-                String videoUrl = rs.getString("URL");
-                                
-                video = new video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
-                listVideos.add(video);
-            }            
-        } catch (SQLException err) {
-            System.out.println(err.getMessage());
+        for (video vide : listVideos){
+            boolean add = true;
+            if(day != null && !day.equals("----") && vide.getCreationDate().getDate() != Integer.parseInt(day)) add = false;
+            if(month != null && !month.equals("----") && (vide.getCreationDate().getMonth()+1) != Integer.parseInt(month))add = false;
+            if(year != null && !year.equals("----") && vide.getCreationDate().getYear() != Integer.parseInt(year))add = false;
+            if(add)listVideosFiltered.add(vide);
         }
-        return listVideos;
-    }
-    
-    public List <video> getVideosbyDate(String filterDate) {
-        List<video> listVideos = new ArrayList<>();
-        video video = null;
-        try {
-            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            
-            PreparedStatement statement;
-            String query = "select * from " + TABLENAME + " where CREADATE=?";
-            statement = conn.prepareStatement(query);
-            statement.setString(1, filterDate); 
-            ResultSet rs = statement.executeQuery();
 
-            while (rs.next()) {
-                int idV = rs.getInt("ID");
-                String title = rs.getString("TITLE");
-                String author = rs.getString("AUTHOR");
-                Date creationDate = rs.getDate("CREADATE");
-                Time duration = rs.getTime("DURATION");
-                long views = rs.getLong("VIEWS");
-                String description = rs.getString("DESCRIPTION");
-                String format = rs.getString("FORMAT");
-                String userName = rs.getString("USERNAME");
-                String videoUrl = rs.getString("URL");
-                                
-                video = new video(idV, title, author, creationDate, duration, views, description, format, userName, videoUrl);
-                listVideos.add(video);
-            }            
-        } catch (SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return listVideos;
+        return listVideosFiltered;
     }
-    
             
     
     

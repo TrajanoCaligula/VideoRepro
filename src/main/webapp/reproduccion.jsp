@@ -3,7 +3,7 @@
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="isdcm.DTO.VideoDTO" %>
-<%@ page import="isdcm.controller.ServRESTRepro" %>
+<%@ page import="isdcm.controller.ServREST" %>
 <%
     HttpSession ses = request.getSession();
     
@@ -35,11 +35,11 @@
     <title>Watch Video</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // FunciÛn para obtener la informaciÛn del servlet
+    // Funci√≥n para obtener la informaci√≥n del servlet
     function obtenerInformacion() {
         var id = '<%= request.getParameter("id") %>';
         $.ajax({
-            url: "ServRESTRepro?id=" + id,
+            url: "ServREST?id=" + id,
             type: "GET",
             dataType: "json",
             success: function(data) {
@@ -47,7 +47,7 @@
                 var html = "";
                 if(data !== null) {
                     var fecha = new Date(data.creationDate); // Convertir a objeto de fecha
-                    var year = fecha.getFullYear(); // Obtener el aÒo
+                    var year = fecha.getFullYear(); // Obtener el a√±o
                     var month = ('0' + (fecha.getMonth() + 1)).slice(-2); // Obtener el mes (agregar 1 porque los meses comienzan en 0)
                     var day = ('0' + fecha.getDate()).slice(-2); // Obtener el d√≠a
 
@@ -55,7 +55,7 @@
                     
                     html += "<div class='dataToRight'> <label style='font-weight: bold;'>Uploaded by: </label>" + data.userName+"</div>"+
                             "<video class='displayvid' width='640' height='360' controls>\n\
-                            <source class='displayvid' src='"+ data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
+                            <source class='displayvid' src='" +  data.url + "' type='video/"+data.format+"'> Tu navegador no soporta el elemento de video.</video>"+
                             "<table class='tablaVideoContainer'><tr>"+
                                 "<td><label style='font-weight: bold;'>TÌtle: </label>" + 
                                 data.title + "</td>" +
@@ -87,6 +87,9 @@
     $(document).ready(function() {
         obtenerInformacion();
     });
+    
+
+
 </script>
 </head>
 <body class = "bodyList">
