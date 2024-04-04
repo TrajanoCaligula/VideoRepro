@@ -173,7 +173,6 @@ public class ServRegVid extends HttpServlet {
             String urlVideo = "http://localhost:8080/VideoRepro/uploads/"+ fileName;
             processRequest(request, response, urlVideo);
             
-  
     }
 
     /**

@@ -65,6 +65,6 @@
     <context-param>
         <param-name>upload.location</param-name>
         <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\src\main\webapp\uploads-->
-        <param-value>D:\GIT\VideoRepro\src\main\webapp\uploads</param-value> 
+        <param-value>D:\GIT\VideoRepro\uploads</param-value> 
     </context-param>
 </web-app>
