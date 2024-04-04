@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td><p>Creation Date:</p></td>
-                <td><input type="date" id = "creationDate" name="creationDate"  required></td>
+                <td><input type="date" id = "creationDate"  min="1900-01-01" max="2024-05-30" name="creationDate"  required></td>
             </tr>
             <tr>
                 <td><p>Duration:</p></td>

@@ -129,7 +129,7 @@ public class ServREST extends HttpServlet {
                     response.setContentType("application/json");
                     response.getWriter().write(responseBody);
                 } else {
-                    request.setAttribute("errorEmptyListVideos", "There are no videos");
+                    request.setAttribute("errorEmptyListVideos", "There are no videos for that search");
                 }
             } else {
                 // Si la respuesta no es exitosa, manejar el error adecuadamente

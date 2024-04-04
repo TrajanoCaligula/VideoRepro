@@ -4,7 +4,29 @@
 <%@ page import="jakarta.servlet.http.*" %>
 <%@ page import="isdcm.DTO.VideoDTO" %>
 <%@ page import="isdcm.controller.ServREST" %>
-
+<%
+    HttpSession ses = request.getSession();
+    
+    String param = (String) ses.getAttribute("USER_LOGGED");
+    
+    if ((param == null || param.isEmpty())) {
+%>      
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
+            }, 0);
+        </script>
+<%
+    } else if(param == "false"){
+  %>      
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.jsp?mensaje=You need to login to acces this page"; 
+            }, 0);
+        </script>
+<%     
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +46,15 @@
         li:hover {
             background-color: #e0e0e0;
         }
+        table {
+            background-color: #c2d1d1; /* Fondo verde claro */
+            border-collapse: collapse; /* Colapso de bordes de la tabla */
+            width: 100%; /* Ancho de la tabla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
     </style>
     
 
@@ -36,10 +67,11 @@
         <br>
             <table>
                 <tr> 
+                    
                     <td><label for="title">Title:</label></td>
-                    <td><textarea  type="text" id="title" name="title"></textarea></td>
+                    <td><input maxlength="100" class="searchTextarea" type="text" id="title" name="title"></input></td>
                     <td><label for="author">Author:</label></td>
-                    <td><textarea  type="text" id="author" name="author"></textarea></td>
+                    <td><input  maxlength="100" class="searchTextarea" type="text" id="author" name="author"></input></td>
                     <td><label for="day">Day:</label></td>
                     <td><select id="day" name="day">
                             <option>----</option>
@@ -65,7 +97,7 @@
                     <td><select id="year" name="year">
                             <option>----</option>
                     </select></td>
-                    <td><button onclick="obtenerInformacion()">Search</button></td>
+                    <td><button type="buttonSearch" onclick="obtenerInformacion()">Search</button></td>
                 </tr>
             </table>
         <div class="contenedor-listado">
@@ -91,9 +123,9 @@
      var selectDias = document.getElementById("year");
 
      // Añadir opciones al select
-     for (var i = 1; i <= 200; i++) {
+     for (var i = 2024; i >= 1900; --i) {
          var option = document.createElement("option");
-         option.text = i+1824;
+         option.text = i;
          option.value = i;
          selectDias.add(option);
      }
@@ -149,12 +181,12 @@
                                 
                         
                     }
-                    if( data === null||data.length <= 0)html += "<label>There are any video in our repository</label>";
+                    if( data === null||data.length <= 0)html += "<label>There are no videos for that search</label>";
                     $("#lista-videos").html(html);
                 },
                 error: function() {
                      var html = "";
-                     html += "<label>There are any video in our repository</label>";               
+                     html += "<label>There are no videos for that search</label>";               
                     $("#lista-videos").html(html); 
                 }
             });
