@@ -71,8 +71,6 @@ public class ServRegVid extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-
-        if(request.getSession(false) != null){
             String title = request.getParameter("title");
             String author = request.getParameter("author");
             String creationDateBeforeParse = request.getParameter("creationDate");
@@ -129,15 +127,11 @@ public class ServRegVid extends HttpServlet {
             Video video = new Video(title, author, creationDate, duration, 0, description, format, userName,fileName);
 
             if(video.addVideo()){
-                request.setAttribute("errorRegVidFail", "DB ERROR");
+                request.setAttribute("Success", "Video Added Successfully");
                 request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
             }
+            request.setAttribute("Error", "SOMETHING HAS GONE WRONG ADDING THE VIDEO");
             request.getRequestDispatcher("/registroVid.jsp").forward(request, response);
-
-        } else{
-            request.setAttribute("errorRegVidFail", "MUST LOG IN TO UPLOAD A VIDEO");
-        }
-        request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -149,13 +143,13 @@ public class ServRegVid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response,"");
+        request.setAttribute("Error", "This URL is not operational");
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        else request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     /**
@@ -168,10 +162,17 @@ public class ServRegVid extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException { 
+        response.setContentType("text/html;charset=UTF-8");
+
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
             String fileName = processVideoFile(request, response);
             String urlVideo = "http://localhost:8080/VideoRepro/uploads/"+ fileName;
             processRequest(request, response, urlVideo);
+        } else{
+            request.setAttribute("errorRegVidFail", "MUST LOG IN TO REGISTER A VIDEO");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }   
             
     }
 

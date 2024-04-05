@@ -93,6 +93,11 @@
     
         <jsp:include page="navbar.jsp"/>
         <br>
+        <% if (request.getAttribute("Error") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Error") %>");
+            };
+        <% } %>
         <div class="videoContainer" id="video">
 
         </div>

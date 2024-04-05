@@ -41,7 +41,7 @@ public class ServREST extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if(request.getSession(false) != null){
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
              // URL del servicio REST que quieres llamar
             String idString = request.getParameter("id");
     
@@ -74,6 +74,10 @@ public class ServREST extends HttpServlet {
             // Cerrar el cliente
             client.close();
         }
+        else{
+            request.setAttribute("Error", "MUST LOG IN TO ACCES HERE");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -87,8 +91,8 @@ public class ServREST extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession(false) != null){
-                        // Obtener los parámetros del formulario que invoca al servlet
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
+            // Obtener los parámetros del formulario que invoca al servlet
             String title = request.getParameter("title");
             String author = request.getParameter("author");
             String day = request.getParameter("day");
@@ -139,6 +143,11 @@ public class ServREST extends HttpServlet {
             // Cerrar el cliente
             client.close();
         }
+        else{            
+            request.setAttribute("Error", "MUST LOG IN TO SEARCH A VIDEO"); 
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
     }
      /**
      * Handles the HTTP <code>PUT</code> method.
@@ -151,8 +160,9 @@ public class ServREST extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession(false) != null){
-             String idString = request.getParameter("videoID");
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
+
+            String idString = request.getParameter("videoID");
     
             String url = "http://localhost:8080/REST/resources/jakartaee9/updateViews";
             
@@ -186,6 +196,11 @@ public class ServREST extends HttpServlet {
             // Cerrar el cliente
             client.close();
         }
+        else{
+            request.setAttribute("Error", "MUST LOG IN TO INCREASE THE VIEWS");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
     }
 
 }

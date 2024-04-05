@@ -211,6 +211,7 @@ public class User {
             
             result = true;
         } catch (SQLException err) {
+            var a = err.getMessage();
             System.out.println(err.getMessage());
         }
         return result;

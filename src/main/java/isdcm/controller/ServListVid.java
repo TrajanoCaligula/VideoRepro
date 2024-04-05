@@ -36,69 +36,32 @@ public class ServListVid extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+        List <Video> listVideos = new ArrayList<>();
+        Video video = new Video();
+        listVideos = video.getAllVideos();
 
-        if(request.getSession(false) != null){
-            List <Video> listVideos = new ArrayList<>();
-            Video video = new Video();
-            listVideos = video.getAllVideos();
-            
-            /*TESTING
-            
-            String addressAPI = "http://localhost:8080/REST/resources/jakartaee9/getVideos";  
-            
-            // Create a URLConnection
-            URLConnection connection = new URL(addressAPI).openConnection();
-
-            // Cast to HttpURLConnection (assuming it's a HTTP connection)
-            HttpURLConnection httpConnection = (HttpURLConnection) connection;
-
-            // Set the request method
-            httpConnection.setRequestMethod("PUT");
-            // Send the request and get the response code
-            int responseCode = httpConnection.getResponseCode();
-            
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Request successful, proceed to get the response body
-                // Get the response body as an InputStream
-                InputStream inputStream = httpConnection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder responseBody = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                  responseBody.append(line);
-                }
-                reader.close();
-                inputStream.close();
-
-            } else {
-                // Handle error based on response code (e.g., throw an exception)
-                throw new RuntimeException("Error accessing API: " + responseCode);
-            }
-            
-            */
-            
-            List <VideoDTO> listVideosDTO = new ArrayList<>();
-            for (Video vide : listVideos) {
-                VideoDTO vid = new VideoDTO(vide.getId(),
-                                    vide.getTitle(),
-                                    vide.getAuthor(),
-                                    vide.getCreationDate(),
-                                    vide.getDuration(),
-                                    vide.getViews(),
-                                    vide.getDescription(),
-                                    vide.getFormat(),
-                                    vide.getUserName(),
-                                    vide.getUrl());
-                listVideosDTO.add(vid);
-            }
-            String json = new ObjectMapper().writeValueAsString(listVideosDTO);
-            if(!listVideosDTO.isEmpty()){
-                response.setContentType("application/json");
-                response.getWriter().write(json);
-            } else {
-                request.setAttribute("errorEmptyListVideos", "There are no videos");
-            }
+        List <VideoDTO> listVideosDTO = new ArrayList<>();
+        for (Video vide : listVideos) {
+            VideoDTO vid = new VideoDTO(vide.getId(),
+                                vide.getTitle(),
+                                vide.getAuthor(),
+                                vide.getCreationDate(),
+                                vide.getDuration(),
+                                vide.getViews(),
+                                vide.getDescription(),
+                                vide.getFormat(),
+                                vide.getUserName(),
+                                vide.getUrl());
+            listVideosDTO.add(vid);
         }
+        String json = new ObjectMapper().writeValueAsString(listVideosDTO);
+        if(!listVideosDTO.isEmpty()){
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        } else {
+            request.setAttribute("errorEmptyListVideos", "There are no videos");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -113,7 +76,11 @@ public class ServListVid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))processRequest(request, response);
+        else{
+            request.setAttribute("Error", "MUST LOG IN TO ACCES HERE");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -127,17 +94,10 @@ public class ServListVid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("Error", "This URL is not operational");
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        else request.getRequestDispatcher("/login.jsp").forward(request, response);
+     
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

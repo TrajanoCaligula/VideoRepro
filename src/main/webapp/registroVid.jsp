@@ -37,6 +37,13 @@
         <label id = "error" style="color: red;">
             ${requestScope.errorRegVidFail}
         </label>
+        <script>
+        <% if (request.getAttribute("Error") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Error") %>");
+            };
+        <% } %>
+        </script>
         <table>
             <tr>
                 <td class="columna1"><p>Title:</p></td>

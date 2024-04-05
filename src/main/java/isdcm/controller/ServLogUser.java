@@ -113,7 +113,12 @@ public class ServLogUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))
         request.getSession().invalidate();
+        else{
+            request.setAttribute("Error", "MUST LOG IN TO LOG OUT");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }  
     }
 
     /**
@@ -127,17 +132,13 @@ public class ServLogUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))
+        {
+            request.setAttribute("Error", "MUST LOG OUT");
+            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        }
+        else  processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

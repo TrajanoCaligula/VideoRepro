@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import isdcm.model.DataForDataBase;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -186,15 +187,19 @@ public class Video {
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             
-            Statement stmt = conn.createStatement();
+            PreparedStatement statement;            
+
+            String sql = "UPDATE " + TABLENAME + " SET VIEWS = VIEWS+1 WHERE ID=? ";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, String.valueOf(id)); 
+            statement.executeUpdate();
             
-            String sql = "UPDATE " + TABLENAME + " SET VIEWS = VIEWS+1 WHERE ID = " + String.valueOf(id );
-            System.out.println("Updatevideo SQL: " + sql);
-            stmt.executeUpdate(sql);
+            PreparedStatement statement2;
+            sql = "SELECT * FROM " + TABLENAME + " WHERE ID=?"; 
+            statement2 = conn.prepareStatement(sql);
+            statement2.setString(1, String.valueOf(id)); 
+            ResultSet rs = statement2.executeQuery();
             
-            sql = "SELECT * FROM " + TABLENAME + " WHERE ID=" + String.valueOf(id ); 
-            System.out.println("Getvideo SQL: " + sql);
-            ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
@@ -211,6 +216,7 @@ public class Video {
             }            
 
         } catch (SQLException err) {
+            var a =err.getMessage();
             System.out.println(err.getMessage());
         }
         return video;
@@ -221,11 +227,11 @@ public class Video {
         Video video = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
+            PreparedStatement statement;            
             String sql = "SELECT * FROM " + TABLENAME;
-            System.out.println("Getlistofvideos SQL: " + sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int idV = rs.getInt("ID");
                 String title = rs.getString("TITLE");
@@ -251,23 +257,30 @@ public class Video {
         boolean result = false;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
-            Statement stmt = conn.createStatement();
             
-            Date date = this.creationDate;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
             // Convert the Date object to a String
             String formattedDate = formatter.format(creationDate);
-            
-            String sql = "INSERT INTO " + TABLENAME
-                    + "(TITLE, AUTHOR, CREADATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME, URL)"
-                   + " VALUES ('" + this.title + "', '" + this.author + "', '" + formattedDate + "', '" + this.duration + "', " + this.views + ", '" + this.description + "', '" + this.format + "', '" + this.userName + "', '"+ this.videoUrl+"')";
-            System.out.println("addVideo SQL: " + sql);
-            stmt.executeUpdate(sql);
-            
+            PreparedStatement statement; 
+            String sql = "INSERT INTO " + TABLENAME + "(TITLE, AUTHOR, CREADATE, DURATION, VIEWS, DESCRIPTION, FORMAT, USERNAME, URL) VALUES (?,?,?,?,?,?,?,?,?)";
+                       
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, this.title); 
+            statement.setString(2, this.author);
+            statement.setString(3, formattedDate);
+            statement.setString(4, this.duration.toString()); 
+            statement.setString(5, String.valueOf(this.views));
+            statement.setString(6, this.description); 
+            statement.setString(7, this.format); 
+            statement.setString(8, this.userName);
+            statement.setString(9, this.videoUrl); 
+            statement.executeUpdate();
             result = true;
         } catch (SQLException err) {
+            var a = err.getMessage();
             System.out.println(err.getMessage());
+            
         }
         return result;
     }
@@ -279,9 +292,10 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT MAX(ID) AS Max_Id FROM VIDEOS";
-            System.out.println("Max id SQL: " + sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement statement;            
+            String query = "SELECT MAX(ID) AS Max_Id FROM" + TABLENAME ;
+            statement = conn.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 result = rs.getInt("Max_Id");
             }

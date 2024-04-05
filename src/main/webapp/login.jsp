@@ -24,6 +24,18 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp"/>
+        <script>
+        <% if (request.getAttribute("Error") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Error") %>");
+            };
+        <% } %>
+        <% if (request.getAttribute("Success") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Success") %>");
+            };
+        <% } %>
+        </script>
         <form class="login-form" action="ServLogUser" method="post">
             <h2>Login</h2>
             <label id = "error" style="color: red;">

@@ -105,6 +105,18 @@
 <body class = "bodyList">
     
         <jsp:include page="navbar.jsp"/>
+        <script>
+        <% if (request.getAttribute("Success") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Success") %>");
+            };
+        <% } %>
+        <% if (request.getAttribute("Error") != null) { %>
+            window.onload = function() {
+                alert("<%= request.getAttribute("Error") %>");
+            };
+        <% } %>
+        </script>
         <div class="rectangulo-detras-h1"></div>
         <h1 class="h1List">Video List</h1> 
         <br>

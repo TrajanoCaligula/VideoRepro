@@ -124,8 +124,13 @@ public class ServRegUser extends HttpServlet {
             } else {
                 user = new User(name, surname, email, userName, password);
                 boolean created = user.addUser();
-                if(created)request.setAttribute("userRegistered", "USER REGISTERED");
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                if(created){
+                    request.setAttribute("Success", "USER REGISTERED");
+                    request.getRequestDispatcher("/login.jsp").forward(request, response);
+                }else{
+                    request.setAttribute("Error", "THE EMAIL IS THE SAME THAN ANOTHER USER");
+                    request.getRequestDispatcher("/registroUsu.jsp").forward(request, response);
+                }
             }
         }
         request.getRequestDispatcher("/registroUsu.jsp").forward(request, response);
@@ -145,7 +150,9 @@ public class ServRegUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("Error", "This URL is not operational");
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        else request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     /**
@@ -159,7 +166,11 @@ public class ServRegUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(request.getSession().getAttribute("USER_LOGGED") != null && request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
+           request.setAttribute("Error", "MUST NOT LOG IN TO ACCES HERE");
+            request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        }
+        else processRequest(request, response);
     }
 
 }

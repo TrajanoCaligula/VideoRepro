@@ -24,7 +24,6 @@ public class ServWatchVid extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession(false) != null){
             String idString = request.getParameter("id");
             int id = -1;
             try {
@@ -51,36 +50,7 @@ public class ServWatchVid extends HttpServlet {
                 response.getWriter().write(json);
             } else {
                 request.setAttribute("errorEmptyVideo", "No existe este video en nuestra pagina");
-            }
-            
-            /*
-            
-            String addressAPI = "http://localhost:8080/REST/resources/jakartaee9/updateViews";  
-            
-            // Create a URLConnection
-            URLConnection connection = new URL(addressAPI).openConnection();
-
-            // Cast to HttpURLConnection (assuming it's a HTTP connection)
-            HttpURLConnection httpConnection = (HttpURLConnection) connection;
-
-            // Set the request method
-            httpConnection.setRequestMethod("PUT");
-            // Send the request and get the response code
-            int responseCode = httpConnection.getResponseCode();
-            
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Request successful, proceed to get the response body
-                // Get the response body as an InputStream
-                //TODO
-
-            } else {
-                // Handle error based on response code (e.g., throw an exception)
-                throw new RuntimeException("Error accessing API: " + responseCode);
-            }
-            
-            */
-        }
-       
+            }  
     }
 
     /**
@@ -94,7 +64,12 @@ public class ServWatchVid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))processRequest(request, response);
+        else{
+            request.setAttribute("Error", "MUST LOG IN TO ACCES HERE");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -108,7 +83,10 @@ public class ServWatchVid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("Error", "This URL is not operational");
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
+        else request.getRequestDispatcher("/login.jsp").forward(request, response);
+        
     }
 
     /**

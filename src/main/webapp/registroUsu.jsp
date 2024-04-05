@@ -23,6 +23,13 @@
         <label id = "error" style="color: greenyellow;">
             ${requestScope.userRegistered}
         </label>
+        <script>
+            <% if (request.getAttribute("Error") != null) { %>
+                window.onload = function() {
+                    alert("<%= request.getAttribute("Error") %>");
+                };
+            <% } %>
+        </script>
         <table>
             <tr>
                 <td><p>Name:</p></td>
