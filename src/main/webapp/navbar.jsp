@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a id="searchVid" href="listadoBusqueda.jsp">Video Search</a> <span id="s6" class="separador">|</span>
+        <a id="searchVid" href="listadoBusqueda.jsp">Search Video</a> <span id="s6" class="separador">|</span>
         <a id="listaVid" href="listadoVid.jsp">Video List</a> <span id="s1"class="separador">|</span>
         <a id="regVid" href="registroVid.jsp">New Video</a> <span id="s2" class="separador">|</span>
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>

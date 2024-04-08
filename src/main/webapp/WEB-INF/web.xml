@@ -64,7 +64,7 @@
     </servlet-mapping>
     <context-param>
         <param-name>upload.location</param-name>
-        <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\src\main\webapp\uploads-->
+        <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\uploads-->
         <param-value>D:\GIT\VideoRepro\uploads</param-value> 
     </context-param>
 </web-app>

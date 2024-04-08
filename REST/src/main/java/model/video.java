@@ -222,36 +222,6 @@ public class video {
         return (result > 0);
     }
     
-    public List <video> getAllVideos() {
-        List<video> listVideos = new ArrayList<>();
-        video video = null;
-        try {
-            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);          
-            Statement stmt = conn.createStatement();
-            
-            String sql = "SELECT * FROM " + TABLENAME;
-            System.out.println("Getlistofvideos SQL: " + sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                int idV = rs.getInt("ID");
-                String title = rs.getString("TITLE");
-                String author = rs.getString("AUTHOR");
-                Date creationDate = rs.getDate("CREADATE");
-                Time duration = rs.getTime("DURATION");
-                long views = rs.getLong("VIEWS");
-                String description = rs.getString("DESCRIPTION");
-                String format = rs.getString("FORMAT");
-                String userName = rs.getString("USERNAME");
-                String videoUrl = rs.getString("URL");
-                                
-                video = new video(idV, title, author, creationDate, duration, views, description, videoUrl, format,userName );
-                listVideos.add(video);
-            }            
-        } catch (SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return listVideos;
-    }
     
     
     public List <video> getVideosByFilter(String titleParam, String authorParam ,String day,String month, String year){

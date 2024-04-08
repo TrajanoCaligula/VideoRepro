@@ -166,7 +166,7 @@ public class ServRegUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession().getAttribute("USER_LOGGED") != null && request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
            request.setAttribute("Error", "MUST NOT LOG IN TO ACCES HERE");
             request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
         }
