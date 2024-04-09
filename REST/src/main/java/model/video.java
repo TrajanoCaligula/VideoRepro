@@ -235,23 +235,30 @@ public class video {
                 Boolean whereAdded = false;
                 if(titleParam != null && !titleParam.isEmpty()){
                     whereAdded = true;
-                    query= query + " where title=?";
+                    query= query + " where (LOWER(title) LIKE ? OR UPPER(title) LIKE ?)";
                 }
                 if(authorParam != null && !authorParam.isEmpty()){
                     if(whereAdded){
-                        query = query + " AND author=?";
+                        query = query + " and (LOWER(author) LIKE ? OR UPPER(author) LIKE ?)";
                     }
                     else{
                         whereAdded = true;
-                        query = query + " where author=?";
+                        query = query + " where (LOWER(author) LIKE ? OR UPPER(author) LIKE ?)";
                     }   
                 }
                 statement = conn.prepareStatement(query);
                 if(titleParam != null && !titleParam.isEmpty()){
-                    statement.setString(1, titleParam );
-                    if(authorParam != null && !authorParam.isEmpty())statement.setString(2, authorParam );
+                    statement.setString(1, "%" + titleParam.toLowerCase() + "%" );
+                    statement.setString(2, "%" + titleParam.toUpperCase() + "%" );
+                    if(authorParam != null && !authorParam.isEmpty()){
+                    statement.setString(3, "%" + authorParam.toLowerCase() + "%" );
+                    statement.setString(4, "%" + authorParam.toUpperCase() + "%" );
+                    }
                 }
-                else if(authorParam != null && !authorParam.isEmpty())statement.setString(1, authorParam );
+                else if(authorParam != null && !authorParam.isEmpty()){
+                    statement.setString(1, "%" + authorParam.toLowerCase() + "%" );
+                    statement.setString(2, "%" + authorParam.toUpperCase() + "%" );
+                }
 
                 ResultSet rs = statement.executeQuery();
 
