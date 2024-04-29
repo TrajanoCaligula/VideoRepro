@@ -1,0 +1,1 @@
+This folder is reserved t save for the media content the web will handle

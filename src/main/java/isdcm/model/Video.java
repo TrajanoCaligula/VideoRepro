@@ -293,7 +293,7 @@ public class Video {
             Statement stmt = conn.createStatement();
             
             PreparedStatement statement;            
-            String query = "SELECT MAX(ID) AS Max_Id FROM" + TABLENAME ;
+            String query = "SELECT MAX(ID) AS Max_Id FROM " + TABLENAME ;
             statement = conn.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {

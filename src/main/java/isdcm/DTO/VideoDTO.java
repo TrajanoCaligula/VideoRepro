@@ -107,4 +107,7 @@ public class VideoDTO implements Serializable{
     public String getUrl() {
         return videoUrl;
     }
+    public void setURL(String url){
+        this.videoUrl = url;
+    }
 }

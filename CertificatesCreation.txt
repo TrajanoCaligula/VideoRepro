@@ -1,0 +1,8 @@
+"%JAVA_HOME%/bin/keytool" -genkeypair -keysize 2048 -keyalg RSA -alias isdcm -dname "CN=JAUVARO, OU=FIB, O=UPC, L=Barcelona, S=Barcelona, C=ES"
+"%JAVA_HOME%/bin/keytool" -certreq -alias isdcm > certreq-isdcm.csr
+"%JAVA_HOME%/bin/keytool" -gencert -alias isdcm -infile certreq-isdcm.csr -outfile cert-isdcm.pem -rfc
+"%JAVA_HOME%/bin/keytool" -printcert -alias isdcm -file cert-isdcm.pem
+"%JAVA_HOME%/bin/keytool" -importcert -file cert-isdcm.pem -alias isdcm
+"%JAVA_HOME%/bin/keytool" -importcert -file cert-isdcm.pem -alias isdcm
+AJ1234
+"%JAVA_HOME%/bin/keytool" -v -list -keystore .keystore

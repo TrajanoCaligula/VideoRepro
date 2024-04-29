@@ -11,6 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import isdcm.model.*;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 
 
 
@@ -89,6 +95,8 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("USERNAME", user.getUserName());
                         request.getSession().setAttribute("USER_LOGGED", "true");
                         request.getSession().setAttribute("USERID", user.getId());
+                        String jwt = demandJWT(userName, password);
+                        request.getSession().setAttribute("JWT", "This is your JWT: "+jwt);
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
                     else request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
@@ -100,7 +108,39 @@ public class ServLogUser extends HttpServlet {
         request.getRequestDispatcher("/login.jsp").forward(request, response);
 
     }
-
+    
+    private String demandJWT(String userName, String password){
+        
+            MultivaluedMap<String, String> formParams = new MultivaluedHashMap<>();
+            formParams.add("username", userName);
+            formParams.add("password", password);
+            String url = "http://localhost:8080/REST/resources/jakartaee9/login";
+            
+            // Crear un cliente para hacer la llamada
+            Client client = ClientBuilder.newClient();
+            
+            // Hacer la llamada al servicio REST
+            Response restResponse = client.target(url)
+                                         .request()
+                                         .post(Entity.form(formParams));
+            
+            // Obtener el código de estado de la respuesta
+            int statusCode = restResponse.getStatus();
+            String result;
+            // Si la respuesta es exitosa (código 200)
+             if (statusCode == 200) {
+                // Leer el cuerpo de la respuesta
+                String responseBody = restResponse.readEntity(String.class);
+                result = responseBody;
+            } else {
+                // Si la respuesta no es exitosa, manejar el error adecuadamente
+                result = "There was an error creating the jwt";
+            }
+            
+            // Cerrar el cliente
+            client.close();
+            return result;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

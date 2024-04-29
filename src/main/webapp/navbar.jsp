@@ -13,7 +13,7 @@
         <a id="regVid" href="registroVid.jsp">New Video</a> <span id="s2" class="separador">|</span>
         <a id="login" href="login.jsp">Login</a> <span id="s3" class="separador">|</span>
         <a id="regUs" href="registroUsu.jsp">Register</a> <span id="s4" class="separador">|</span>
-        <a id="nombreUsuario" ></a>  <span id="s5" class="separador">|</span>
+        <a id="nombreUsuario" href="userInfo.jsp"></a>  <span id="s5" class="separador">|</span>
         <a id="closeSession" href="javascript:void(0)" onclick="cerrarSesion()">Logout</a>
     </div> 
    

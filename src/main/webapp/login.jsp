@@ -35,6 +35,7 @@
                 alert("<%= request.getAttribute("Success") %>");
             };
         <% } %>
+
         </script>
         <form class="login-form" action="ServLogUser" method="post">
             <h2>Login</h2>

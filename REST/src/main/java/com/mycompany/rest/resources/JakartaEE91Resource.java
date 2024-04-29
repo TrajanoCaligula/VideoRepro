@@ -14,14 +14,20 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.video;
 import DTO.VideoDTO;
-
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 /**
  *
  * @author 
  */
 @Path("jakartaee9")
 public class JakartaEE91Resource {
-    
+        private static final String SECRET_KEY = "AJ123456789"; // Replace with your actual secret key
     /**
      * Sample of GET method
      * @param videoID
@@ -121,5 +127,33 @@ public class JakartaEE91Resource {
             return "error";
         }
     }
+    
+    
+    /**
+ * POST method to login in the application
+ * @param username
+ * @param password
+ * @return
+ */
+ @Path("login")
+ @POST
+ @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+ @Produces(MediaType.APPLICATION_JSON)
+ public Response Login(@FormParam("username") String username, 
+                       @FormParam("password") String password){
+     
+        // Validar credenciales de usuario (aquí debes implementar tu lógica de autenticación)
+
+        // Si las credenciales son válidas, genera un JWT
+        String jwt = Jwts.builder()
+                .setSubject(username) // Nombre de usuario como sub
+                .setIssuedAt(new Date()) // Fecha de emisión del token
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24 horas de validez
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY) // Firma con clave secreta
+                .compact();
+
+        // Devolver el JWT como respuesta
+        return Response.ok().entity(jwt).build();
+ }
 }
 

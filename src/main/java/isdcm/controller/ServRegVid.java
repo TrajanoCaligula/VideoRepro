@@ -14,11 +14,15 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.SecureRandom;
 
 import java.util.Date;
 import java.sql.Time;
@@ -28,6 +32,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -36,12 +47,12 @@ import java.text.ParseException;
 @WebServlet(name = "ServRegVid", urlPatterns = {"/ServRegVid"})
 public class ServRegVid extends HttpServlet {
     private static final Logger logger = Logger.getLogger(ServRegVid.class.getName());
-
+    
     public static boolean inRange(String field, int value) {
         return (field.length() <= value);
     }
     public String processVideoFile(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException, Exception{
         Part videoFilePart = request.getPart("videoFile");
         String uploadLocation = getServletContext().getInitParameter("upload.location");
         int id = new Video().getLastIndex()+1;
@@ -55,6 +66,16 @@ public class ServRegVid extends HttpServlet {
         }catch(IOException e){
             throw e;
         }
+        
+        try{ 
+            File videoFile = new File(uploadLocation+ File.separator + newFileName);
+            SecretKey secretKey = encryptVideoFile(videoFile);
+            saveSecretKey(uploadLocation, secretKey, newFileName);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+       
         return newFileName;
     }
     
@@ -166,9 +187,17 @@ public class ServRegVid extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
-            String fileName = processVideoFile(request, response);
-            String urlVideo = "http://localhost:8080/VideoRepro/uploads/"+ fileName;
-            processRequest(request, response, urlVideo);
+            String fileName;
+            try {
+                fileName = processVideoFile(request, response);
+                String urlVideo = "http://localhost:8080/VideoRepro/uploads/"+ fileName;
+                processRequest(request, response, urlVideo);
+            } catch (Exception ex) {
+                Logger.getLogger(ServRegVid.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("ERROR", "ERROR SAVING THE VIDEO");
+                request.getRequestDispatcher("/listadoBusqueda.jsp").forward(request, response);
+            }
+            
         } else{
             request.setAttribute("errorRegVidFail", "MUST LOG IN TO REGISTER A VIDEO");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -185,5 +214,43 @@ public class ServRegVid extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+   
+
+    private SecretKey encryptVideoFile(File videoFile) throws Exception {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(128);
+        SecretKey secretKey = keyGenerator.generateKey();
+
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+        FileInputStream fis = new FileInputStream(videoFile);
+        File encryptedFile = new File(videoFile.getParent(), "encrypted_" + videoFile.getName());
+        FileOutputStream fos = new FileOutputStream(encryptedFile);
+        CipherOutputStream cos = new CipherOutputStream(fos, cipher);
+
+        byte[] bytes = new byte[1024];
+        int numBytes;
+        while ((numBytes = fis.read(bytes)) != -1) {
+            cos.write(bytes, 0, numBytes);
+        }
+
+        cos.flush();
+        cos.close();
+        fis.close();
+        fos.close();
+
+        return secretKey;
+    }
+
+    private void saveSecretKey(String uploadLocation, SecretKey secretKey, String fileName) throws IOException {
+        File keyFile = new File(uploadLocation + File.separator+fileName + ".key");
+        try (FileOutputStream keyFos = new FileOutputStream(keyFile)) {
+            keyFos.write(secretKey.getEncoded());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

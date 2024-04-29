@@ -9,6 +9,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.net.URL;
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.spec.SecretKeySpec;
 
 @WebServlet(name = "ServWachVid", urlPatterns = {"/ServWachVid"})
 public class ServWatchVid extends HttpServlet {
@@ -44,7 +51,24 @@ public class ServWatchVid extends HttpServlet {
                          vid.getFormat(),
                          vid.getUserName(),
                          vid.getUrl());
+            
+            URL url = new URL(vid.getUrl());
+            String fileName = url.getFile(); // Obtiene la parte del archivo de la URL
+            String[] parts = fileName.split("/"); // Divide la parte del archivo en partes separadas por "/"
+            String finalFileName = parts[parts.length - 1]; // Obtiene el último elemento que es el nombre del archivo
+            
+            decrypt(finalFileName);
+            
+            String decryptedURL = "";
+            for(int i = 0; i < parts.length;++i){
+                if(i == parts.length - 1){
+                    decryptedURL  = decryptedURL+"decrypted_"+parts[i];
+                }
+                else decryptedURL  = decryptedURL+parts[i]+"/";
+            }
+            videoData.setURL(decryptedURL);
             String json = new ObjectMapper().writeValueAsString(videoData);
+           
             if(null != videoData && -1 != vid.getId()){
                 response.setContentType("application/json");
                 response.getWriter().write(json);
@@ -88,15 +112,47 @@ public class ServWatchVid extends HttpServlet {
         else request.getRequestDispatcher("/login.jsp").forward(request, response);
         
     }
+    protected void decrypt(String fileName) {
+        try {
+            String encryptedFileName = "/encrypted_"+ fileName;
+            System.out.println("encryptedFileName:"+encryptedFileName);
+            String uploadLocation = getServletContext().getInitParameter("upload.location");
+            File encryptedFile = new File(uploadLocation + encryptedFileName);
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+            byte[] keyBytes = retrieveKeyBytes(uploadLocation,fileName);
+            SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
+
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+            FileInputStream fis = new FileInputStream(encryptedFile);
+            CipherInputStream cis = new CipherInputStream(fis, cipher);
+            File decryptedFile = new File(encryptedFile.getParent(), "decrypted_" + fileName);
+            FileOutputStream fos = new FileOutputStream(decryptedFile);
+
+            byte[] bytes = new byte[1024];
+            int numBytes;
+            while ((numBytes = cis.read(bytes)) != -1) {
+                fos.write(bytes, 0, numBytes);
+            }
+
+            fos.flush();
+            fos.close();
+            cis.close();
+            fis.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private byte[] retrieveKeyBytes(String uploadLocation, String fileName) throws IOException {
+        File keyFile = new File(uploadLocation + File.separator+fileName+".key");
+        try (FileInputStream keyFis = new FileInputStream(keyFile)) {
+            byte[] keyBytes = new byte[keyFis.available()];
+            keyFis.read(keyBytes);
+            return keyBytes;
+        }
+    }
 
 }
