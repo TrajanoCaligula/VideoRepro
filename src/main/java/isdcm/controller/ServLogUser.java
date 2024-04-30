@@ -96,7 +96,7 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("USER_LOGGED", "true");
                         request.getSession().setAttribute("USERID", user.getId());
                         String jwt = demandJWT(userName, password);
-                        request.getSession().setAttribute("JWT", "This is your JWT: "+jwt);
+                        request.getSession().setAttribute("JWT", jwt);
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
                     else request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");

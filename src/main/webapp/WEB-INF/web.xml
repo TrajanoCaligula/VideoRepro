@@ -15,10 +15,10 @@
         <servlet-name>ServRegVid</servlet-name>
         <servlet-class>isdcm.controller.ServRegVid</servlet-class>
         <multipart-config>
-            <location>/</location> 
-            <max-file-size>20848820</max-file-size> 
-            <max-request-size>418018841</max-request-size> 
-            <file-size-threshold>1048576</file-size-threshold> 
+            <location>/</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
     <servlet>
@@ -29,9 +29,33 @@
         <servlet-name>ServWatchVid</servlet-name>
         <servlet-class>isdcm.controller.ServWatchVid</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>ServREST</servlet-name>
         <servlet-class>isdcm.controller.ServREST</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServDesencrypt</servlet-name>
+        <servlet-class>isdcm.controller.ServDecrypt</servlet-class>
+        <multipart-config>
+            <max-file-size>1048576</max-file-size>
+            <!-- Tamaño máximo del archivo -->
+            <max-request-size>2097152</max-request-size>
+            <!-- Tamaño máximo de la solicitud -->
+            <file-size-threshold>0</file-size-threshold>
+            <!-- Umbral de tamaño del archivo -->
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>ServEncrypt</servlet-name>
+        <servlet-class>isdcm.controller.ServEncrypt</servlet-class>
+        <multipart-config>
+            <max-file-size>1048576</max-file-size>
+            <!-- Tamaño máximo del archivo -->
+            <max-request-size>2097152</max-request-size>
+            <!-- Tamaño máximo de la solicitud -->
+            <file-size-threshold>0</file-size-threshold>
+            <!-- Umbral de tamaño del archivo -->
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServRegUser</servlet-name>
@@ -62,11 +86,19 @@
         <servlet-name>ServREST</servlet-name>
         <url-pattern>/ServREST</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServDesencrypt</servlet-name>
+        <url-pattern>/ServDesencrypt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServEncrypt</servlet-name>
+        <url-pattern>/ServEncrypt</url-pattern>
+    </servlet-mapping>
     <context-param>
         <param-name>upload.location</param-name>
         <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\uploads-->
         <!-- JAUME: <param-value>C:\Users\jaume\Desktop\Proj\VideoRepro\uploads</param-value> -->
         <!-- ALVARO: -->
-        <param-value>D:\GIT\VideoRepro\uploads</param-value> 
+        <param-value>D:\GIT\VideoRepro\uploads</param-value>
     </context-param>
 </web-app>

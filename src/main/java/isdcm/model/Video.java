@@ -252,6 +252,26 @@ public class Video {
         }
         return listVideos;
     }
+    
+   public int getNumVid(String username){
+       int num = 0;
+       
+       try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            
+            PreparedStatement statement;            
+            String sql = "SELECT * FROM " + TABLENAME +" WHERE USERNAME=?";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, String.valueOf(username)); 
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                num++;
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+       return num;
+   }
 
     public boolean addVideo(){
         boolean result = false;

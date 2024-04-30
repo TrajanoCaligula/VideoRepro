@@ -211,7 +211,6 @@ ol.no-numeros {
             height: 600px;
             margin: 0 auto; 
             margin-top: 30px; 
-            word-wrap: break-word;
 }
 .tablaVideoContainer {
         margin: 0 auto; 
@@ -270,4 +269,15 @@ button[type="buttonSearch"] {
 
 button[type="buttonSearch"]:hover {
     background-color: #6fa1a1;
+}
+.tablaUserContainer {
+        margin: 0 auto; 
+        width: 550px; 
+        margin-top: 20px;
+        text-align: left; 
+        word-wrap: break-word; /* Permite que el contenido haga saltos de línea */
+}
+.tablaUserContainerTD {
+        max-width: 100px; /* Cambia el valor según tu preferencia */
+        overflow-wrap: break-word; /* Permitirá que el contenido haga saltos de línea */
 }

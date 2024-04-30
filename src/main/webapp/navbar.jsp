@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="navbar">
+        <a id="encrypt" href="encryptorXML.jsp">EncryptorXML</a> <span id="s7" class="separador">|</span>
         <a id="searchVid" href="listadoBusqueda.jsp">Search Video</a> <span id="s6" class="separador">|</span>
         <a id="listaVid" href="listadoVid.jsp">Video List</a> <span id="s1"class="separador">|</span>
         <a id="regVid" href="registroVid.jsp">New Video</a> <span id="s2" class="separador">|</span>
@@ -53,12 +54,14 @@
     var regUs = document.getElementById('regUs');
     var navuserName = document.getElementById('nombreUsuario');
     var closeSesion = document.getElementById('closeSession');
+    var encrypt = document.getElementById('encrypt');
     var s1 = document.getElementById('s1');
     var s2 = document.getElementById('s2');
     var s3 = document.getElementById('s3');
     var s4 = document.getElementById('s4');
     var s5 = document.getElementById('s5');
     var s6 = document.getElementById('s6');
+    var s7 = document.getElementById('s7');
 
 
     listaVid.style.display = 'inline';
@@ -69,12 +72,14 @@
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
     nombreUsuario.textContent = "";
+    encrypt.style.display = 'inline';
     s1.style.display='inline';
     s2.style.display='inline';
     s3.style.display='inline';
     s4.style.display='inline';
     s5.style.display='inline';
     s6.style.display='inline';
+    s7.style.display='inline';
 
 
 
@@ -87,13 +92,16 @@
     regUs.style.display = 'none';
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
-    nombreUsuario.textContent = 'User: '+userName;
+    nombreUsuario.textContent = 'User: '+userName;    
+    encrypt.style.display = 'inline';
     s6.style.display='inline';
     s1.style.display='inline';
     s2.style.display='inline';
     s3.style.display='none';
     s4.style.display='none';
     s5.style.display='inline';
+    s7.style.display='inline';
+
 
   } else {
     // Si el usuario no está logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
@@ -105,6 +113,8 @@
     navuserName.style.display = 'none';
     closeSesion.style.display ='none';
     nombreUsuario.textContent = "";
+    encrypt.style.display = 'none';
+    s7.style.display='none';
     s6.style.display='none';
     s1.style.display='none';
     s2.style.display='none';
@@ -137,6 +147,10 @@
             case "/listadoBusqueda.jsp":
                 searchVid.style.display = 'none';
                 s6.style.display='none';
+                break;
+            case "/encryptorXML.jsp":
+                encrypt.style.display = 'none';
+                s7.style.display='none';
                 break;
             default:
         }
