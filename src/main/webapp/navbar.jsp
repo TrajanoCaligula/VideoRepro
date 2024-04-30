@@ -152,6 +152,10 @@
                 encrypt.style.display = 'none';
                 s7.style.display='none';
                 break;
+            case "/userInfo.jsp":
+                navuserName.style.display = 'none';
+                s5.style.display='none';
+                break;
             default:
         }
           

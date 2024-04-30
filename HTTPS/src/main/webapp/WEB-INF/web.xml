@@ -8,4 +8,12 @@
             30
         </session-timeout>
     </session-config>
+     <servlet>
+        <servlet-name>ServRegUserHttps</servlet-name>
+        <servlet-class>controller.ServRegUserHttps</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServRegUserHttps</servlet-name>
+        <url-pattern>/ServRegUserHttps</url-pattern>
+    </servlet-mapping>
 </web-app>

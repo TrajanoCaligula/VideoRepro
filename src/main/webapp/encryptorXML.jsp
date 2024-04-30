@@ -68,9 +68,10 @@
                 
         </tr><tr><td>
         <form  action="ServDesencrypt" method="post" enctype="multipart/form-data">
-            <h2>Desencrypt the XML file:</h2>
+            <h2>Decrypt the XML file:</h2>
+            <label>This file has to been encrypted by this web and needs to have the original name that we give to the file</label>
             <label id = "error" style="color: red;">
-                ${requestScope.errorDesEncFormatInvalid}
+                ${requestScope.errorDecFormatInvalid}
             </label>
             <table>
                 <tr>

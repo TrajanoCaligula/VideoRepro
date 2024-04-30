@@ -70,9 +70,11 @@ public class ServEncrypt extends HttpServlet {
                 saveSecretKey(uploadLocation,secretKey, fileName);
 
                 String path =xmlFile.getAbsolutePath();
-                response.getWriter().write("Video encrypted successfully, you can find it in /uploadsXML as: "+ "encrypted_" + fileName +"!");
+                request.setAttribute("Success","Video encrypted successfully, you can find it in /uploadsXML as: "+ "encrypted_" + fileName +"!");
+                request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
+
             }else{
-                 request.setAttribute("Error", "The file is not an XML");
+                request.setAttribute("Error", "The file is not an XML");
                 request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
             }
 

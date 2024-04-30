@@ -116,11 +116,6 @@
                 alert("<%= request.getAttribute("Error") %>");
             };
         <% } %>
-        <% if (request.getAttribute("JWT") != null) { %>
-            window.onload = function() {
-                alert("<%= request.getAttribute("JWT") %>");
-            };
-        <% } %>
         </script>
         <div class="rectangulo-detras-h1"></div>
         <h1 class="h1List">Video List</h1> 

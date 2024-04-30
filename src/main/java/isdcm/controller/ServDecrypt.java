@@ -87,10 +87,10 @@ public class ServDecrypt extends HttpServlet {
                 cis.close();
                 fis.close();
 
-                response.getWriter().write("Video decrypted successfully, you can find it in /uploadsXML as: "+ "decrypted_" + fileName +"!");
-
+                request.setAttribute("Success", "Video decrypted successfully, you can find it in /uploadsXML as: "+ "decrypted_" + fileName +"!");
+                request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
             }else{
-                 request.setAttribute("Error", "The file is not an XML");
+                request.setAttribute("Error", "The file is not an XML");
                 request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
             }
         }catch(IOException e){

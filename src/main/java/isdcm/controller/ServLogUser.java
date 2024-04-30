@@ -96,7 +96,8 @@ public class ServLogUser extends HttpServlet {
                         request.getSession().setAttribute("USER_LOGGED", "true");
                         request.getSession().setAttribute("USERID", user.getId());
                         String jwt = demandJWT(userName, password);
-                        request.getSession().setAttribute("JWT", jwt);
+                        if(jwt.equals("There was an error creating the jwt"))request.setAttribute("Error", jwt);
+                        else request.getSession().setAttribute("JWT", jwt);
                         request.getRequestDispatcher("/listadoVid.jsp").forward(request, response);
                     }
                     else request.setAttribute("errorUserNameInvalid", "USERNAME OR PASSWORD INCORRECT");
@@ -153,8 +154,9 @@ public class ServLogUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false"))
+        if(request.getSession().getAttribute("USER_LOGGED") != null && !request.getSession().getAttribute("USER_LOGGED").toString().equals("false")){
         request.getSession().invalidate();
+        }
         else{
             request.setAttribute("Error", "MUST LOG IN TO LOG OUT");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
