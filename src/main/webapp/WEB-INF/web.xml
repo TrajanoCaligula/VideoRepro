@@ -34,6 +34,14 @@
         <servlet-class>isdcm.controller.ServREST</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ServSun</servlet-name>
+        <servlet-class>isdcm.controller.ServSun</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServBalana</servlet-name>
+        <servlet-class>isdcm.controller.SerBalana</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ServDesencrypt</servlet-name>
         <servlet-class>isdcm.controller.ServDecrypt</servlet-class>
         <multipart-config>
@@ -93,6 +101,14 @@
     <servlet-mapping>
         <servlet-name>ServEncrypt</servlet-name>
         <url-pattern>/ServEncrypt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServSun</servlet-name>
+        <url-pattern>/ServSun</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServBalana</servlet-name>
+        <url-pattern>/ServBalana</url-pattern>
     </servlet-mapping>
     <context-param>
         <param-name>upload.location</param-name>

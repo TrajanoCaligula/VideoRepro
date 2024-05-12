@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="navbar">
+        <a id="sun" href="sunXACML.jsp">Sun XACML Authorizer</a> <span id="s9" class="separador">|</span>
+        <a id="balana" href="balanaXACML.jsp">Balana XACML Authorizer</a> <span id="s8" class="separador">|</span>
         <a id="encrypt" href="encryptorXML.jsp">EncryptorXML</a> <span id="s7" class="separador">|</span>
         <a id="searchVid" href="listadoBusqueda.jsp">Search Video</a> <span id="s6" class="separador">|</span>
         <a id="listaVid" href="listadoVid.jsp">Video List</a> <span id="s1"class="separador">|</span>
@@ -55,6 +57,8 @@
     var navuserName = document.getElementById('nombreUsuario');
     var closeSesion = document.getElementById('closeSession');
     var encrypt = document.getElementById('encrypt');
+    var encrypt = document.getElementById('sun');
+    var encrypt = document.getElementById('balana');
     var s1 = document.getElementById('s1');
     var s2 = document.getElementById('s2');
     var s3 = document.getElementById('s3');
@@ -62,6 +66,8 @@
     var s5 = document.getElementById('s5');
     var s6 = document.getElementById('s6');
     var s7 = document.getElementById('s7');
+    var s8 = document.getElementById('s8');
+    var s9 = document.getElementById('s9');
 
 
     listaVid.style.display = 'inline';
@@ -71,6 +77,8 @@
     regUs.style.display = 'inline';
     navuserName.style.display = 'inline';
     closeSesion.style.display ='inline';
+    sun.style.display = 'inline';
+    balana.style.display = 'inline';
     nombreUsuario.textContent = "";
     encrypt.style.display = 'inline';
     s1.style.display='inline';
@@ -80,6 +88,8 @@
     s5.style.display='inline';
     s6.style.display='inline';
     s7.style.display='inline';
+    s8.style.display='inline';
+    s9.style.display='inline';
 
 
 
@@ -94,6 +104,8 @@
     closeSesion.style.display ='inline';
     nombreUsuario.textContent = 'User: '+userName;    
     encrypt.style.display = 'inline';
+    sun.style.display = 'inline';
+    balana.style.display = 'inline';
     s6.style.display='inline';
     s1.style.display='inline';
     s2.style.display='inline';
@@ -101,7 +113,8 @@
     s4.style.display='none';
     s5.style.display='inline';
     s7.style.display='inline';
-
+    s8.style.display='inline';
+    s9.style.display='inline';
 
   } else {
     // Si el usuario no está logueado, mostramos los enlaces de login y registro y ocultamos el nombre de usuario
@@ -114,6 +127,10 @@
     closeSesion.style.display ='none';
     nombreUsuario.textContent = "";
     encrypt.style.display = 'none';
+    sun.style.display = 'none';
+    balana.style.display = 'none';
+    s9.style.display='none';
+    s8.style.display='none';
     s7.style.display='none';
     s6.style.display='none';
     s1.style.display='none';
@@ -155,6 +172,14 @@
             case "/userInfo.jsp":
                 navuserName.style.display = 'none';
                 s5.style.display='none';
+                break;
+            case "/balanaXACML.jsp":
+                balana.style.display = 'none';
+                s8.style.display='none';
+                break;
+            case "/sunXACML.jsp":
+                sun.style.display = 'none';
+                s9.style.display='none';
                 break;
             default:
         }
