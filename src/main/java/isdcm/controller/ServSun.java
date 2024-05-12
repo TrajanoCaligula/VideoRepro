@@ -43,7 +43,7 @@ public class ServSun extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        /*try {
             Part requestXACML = request.getPart("requestXACML");
             Part policyXACML = request.getPart("policyXACML");
 
@@ -64,14 +64,14 @@ public class ServSun extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
     private boolean isXML(String fileName) {
         // Verificar si el nombre del archivo termina con la extensión ".xml"
         return fileName != null && fileName.toLowerCase().endsWith(".xml");
     }
     private String generateXACMLContextResponse(Result result) throws Exception {
-        Decision decision = result.getDecision();
+    /*    Decision decision = result.getDecision();
         String decisionString = decision.toString(); // Ej: Permit, Deny, Indeterminate
     
         StringBuilder responseBuilder = new StringBuilder();
@@ -85,9 +85,10 @@ public class ServSun extends HttpServlet {
         responseBuilder.append("  </Result>");
         responseBuilder.append("</ResponseContext>");
 
-        return responseBuilder.toString();
+        return responseBuilder.toString();*/
+        return "";
       }
-    private Result evaluateXACMLRequest(Part requestXACML, Part policyXACML) throws Exception {
+    /*private Result evaluateXACMLRequest(Part requestXACML, Part policyXACML) throws Exception {
         
         PDP pdp = PDPFactory.newInstance().getPDP(new File(configPath + "config_rbac.xml"));
         CTX ctx = (CTX) STAXUtil.unmarshal(new File(requestPath + requestXACML.getSubmittedFileName()));
@@ -95,9 +96,9 @@ public class ServSun extends HttpServlet {
 
         // Evalúa la petición XACML usando el motor de evaluación XACML
         Result result = pdp.evaluate(request);
-
+ 
         return result;
-    }
+    }*/
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

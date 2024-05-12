@@ -13,16 +13,39 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.Set;
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.wso2.balana.Balana;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.wso2.balana.Indenter;
+import org.wso2.balana.PDP;
+import org.wso2.balana.PDPConfig;
+import org.wso2.balana.ParsingException;
+import org.wso2.balana.ctx.ResponseCtx;
+import org.wso2.balana.ctx.xacml3.Result;
+import org.wso2.balana.finder.AttributeFinder;
+import org.wso2.balana.finder.AttributeFinderModule;
+import org.wso2.balana.finder.impl.FileBasedPolicyFinderModule;
 /**
  *
  * @author Alvaro
@@ -30,6 +53,26 @@ import javax.crypto.SecretKey;
 @WebServlet(name = "ServEncrypt", urlPatterns = {"/ServEncrypt"})
 public class ServBalana extends HttpServlet {
 
+    private static Balana balana;
+    private static void initBalana() {
+
+        try{
+            // Using file based policy repository. so set the policy location as a system property
+            String policyLocation = "D:\\GIT\\VideoRepro\\uploadsXACML\\XACMLPolicy1.xml";
+            System.setProperty(FileBasedPolicyFinderModule.POLICY_DIR_PROPERTY, policyLocation);
+        } catch (Exception e) {
+            System.err.println("Can not locate policy repository");
+        }
+        // Create default instance of Balana
+        balana = Balana.getInstance();
+    }
+    
+        private static PDP initPDP(){
+        PDPConfig pdpConfig = balana.getPdpConfig();
+
+        return new PDP(new PDPConfig(pdpConfig.getAttributeFinder(), pdpConfig.getPolicyFinder(), null, true));
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,42 +85,23 @@ public class ServBalana extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Part filePart = request.getPart("xmlFile");
-            String fileName = filePart.getSubmittedFileName();
-            String uploadLocation = getServletContext().getInitParameter("upload.location")+"XML";
-                    
-            if(isXML(fileName)){
-                // Crear una ruta completa para el archivo
-                String filePath = uploadLocation + File.separator + fileName;
+            initBalana();
+            PDP pdp = initPDP();        
+            
+            String uploadXACMLLocation = getServletContext().getInitParameter("uploadXACML.location");
+            Part policyXACML = request.getPart("policyXACML");
+            Part requestXACML = request.getPart("requestXACML");
+            
+            String responsePDP = pdp.evaluate(parseFromXMLToString(uploadXACMLLocation+File.separator+"XACMLRequest1.xml"));
+            ResponseCtx responseCtx = ResponseCtx.getInstance(getXacmlResponse(responsePDP));
 
-                // Escribir el contenido del archivo en la ruta especificada
-                try (InputStream inputStream = filePart.getInputStream();
-                     OutputStream outputStream = new FileOutputStream(filePath)) {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
-                    }
-                    System.out.println("Archivo guardado en: " + filePath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // Manejo de errores
-                }
+            System.out.println(responseCtx.encode());
 
-
-                File xmlFile = new File(uploadLocation + File.separator + fileName);
-                SecretKey secretKey = encryptXmlFile(xmlFile);
-                saveSecretKey(uploadLocation,secretKey, fileName);
-
-                String path =xmlFile.getAbsolutePath();
-                request.setAttribute("Success","Video encrypted successfully, you can find it in /uploadsXML as: "+ "encrypted_" + fileName +"!");
-                request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
-
-            }else{
-                request.setAttribute("Error", "The file is not an XML");
-                request.getRequestDispatcher("/encryptorXML.jsp").forward(request, response);
-            }
-
+            // Guardamos en XML el resultado
+            String pathToSave = uploadXACMLLocation+File.separator+"XACMLRESPUESTAAARequest1.xml";
+            OutputStream outputStream = new FileOutputStream(pathToSave);
+            printResult(outputStream, new Indenter(), responseCtx.getResults());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -156,5 +180,65 @@ public class ServBalana extends HttpServlet {
             request.setAttribute("Error", "MUST LOG IN TO ACCES HERE");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+    }
+    
+     public static String parseFromXMLToString(String path) throws Exception {
+        DocumentBuilderFactory builder = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = builder.newDocumentBuilder();
+        Document document = docBuilder.parse(path);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        StringWriter writer = new StringWriter();
+        transformer.transform(new DOMSource(document), new StreamResult(writer));
+        
+        return writer.getBuffer().toString().replaceAll("\n|\r", "");
+    }
+     
+      public static Element getXacmlResponse(String response) {
+        ByteArrayInputStream inputStream;
+        DocumentBuilderFactory dbf;
+        Document doc;
+
+        inputStream = new ByteArrayInputStream(response.getBytes());
+        dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+
+        try {
+            doc = dbf.newDocumentBuilder().parse(inputStream);
+        } catch (Exception e) {
+            System.err.println("DOM of request element can not be created from String");
+            return null;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+               System.err.println("Error in closing input stream of XACML response");
+            }
+        }
+        return doc.getDocumentElement();
+    }
+      
+      public static void printResult(OutputStream output, Indenter indenter, Set results) {
+        // Make a PrintStream for a nicer printing interface
+        PrintStream out = new PrintStream(output);
+
+        // Prepare the indentation string
+        String indent = indenter.makeString();
+
+        // Now write the XML...
+        out.println(indent + "<Response>");
+
+        // Go through all results
+        Iterator it = results.iterator();
+        indenter.in();
+        while (it.hasNext()) {
+            Result result = (Result)(it.next());
+            out.append(result.encode());
+        }
+        indenter.out();
+
+        // Finish the XML for a response
+        out.println(indent + "</Response>");
     }
 }

@@ -36,10 +36,23 @@
     <servlet>
         <servlet-name>ServSun</servlet-name>
         <servlet-class>isdcm.controller.ServSun</servlet-class>
+        <multipart-config>
+            <location>/</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>ServBalana</servlet-name>
-        <servlet-class>isdcm.controller.SerBalana</servlet-class>
+        <servlet-class>isdcm.controller.ServBalana</servlet-class>        
+        <multipart-config>
+            <location>/</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+
     </servlet>
     <servlet>
         <servlet-name>ServDesencrypt</servlet-name>
@@ -117,4 +130,12 @@
         <!-- ALVARO: -->
         <param-value>D:\GIT\VideoRepro\uploads</param-value>
     </context-param>
+    <context-param>
+        <param-name>uploadXACML.location</param-name>
+        <!-- Aqui s'ha de posar la direcció absoluta de \VideoRepro\uploads-->
+        <!-- JAUME: <param-value>C:\Users\jaume\Desktop\Proj\VideoRepro\uploads</param-value> -->
+        <!-- ALVARO: -->
+        <param-value>D:\GIT\VideoRepro\uploadsXACML</param-value>
+    </context-param>
+    
 </web-app>

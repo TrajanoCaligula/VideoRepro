@@ -52,7 +52,7 @@
         </script>
         <table style="background-color: white; border-radius: 10px; padding: 20px;">
             <tr><td>
-            <form action="ServSun" method="post" enctype="multipart/form-data">
+            <form action="ServBalana" method="post" enctype="multipart/form-data">
                 <h1>Balana XACML Authorizer</h1>
                 <h3>Provide a Policy XML file:</h3>
                 <label id = "error" style="color: red;">

@@ -25,4 +25,6 @@
   <!-- JAUME: <property name="alternatedocroot_1" value="from=/uploads/* dir=C:/Users/jaume/Desktop/Proj/VideoRepro" />-->
   <!-- ALVARO: -->
   <property name="alternatedocroot_1" value="from=/uploads/* dir=D:/GIT/VideoRepro" />
+   <property name="alternatedocroot_2" value="from=/uploadsXACML/* dir=D:/GIT/VideoRepro" />
+
 </glassfish-web-app>
