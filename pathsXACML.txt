@@ -1,0 +1,31 @@
+--------BALANA--------
+- Policies:
+
+D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy1.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy2.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy3.xml
+
+- Requests:
+
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest1.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest2.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest3.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest4.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest5.xml
+
+
+--------SUN--------
+
+- Policies:
+
+D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy1.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy2.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy3.xml
+
+- Requests:
+
+D:\GIT\VideoRepro\uploadsSunXACML\Requests\XACMLRequest1.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Requests\XACMLRequest2.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Requests\XACMLRequest3.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Requests\XACMLRequest4.xml
+D:\GIT\VideoRepro\uploadsSunXACML\Requests\XACMLRequest5.xml
