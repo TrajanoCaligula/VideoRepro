@@ -26,6 +26,7 @@ import org.wso2.balana.ctx.ResponseCtx;
 import org.wso2.balana.ctx.xacml3.Result;
 import org.wso2.balana.finder.impl.FileBasedPolicyFinderModule;
 
+
 /**
  *
  * @author Alvaro
@@ -34,7 +35,7 @@ public class BalanaXACML {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML.\n Introduce la dirección de la 'policy' que desea utilizar:\n");
+        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML.\nIntroduce la dirección de la 'policy' que desea utilizar:\n");
         String policyPath = scanner.nextLine();
         System.out.print("Ahora introduzaca el directorio de la 'request' que desea evaluar:\n");
         String requestPath = scanner.nextLine();
@@ -55,13 +56,11 @@ public class BalanaXACML {
         }
         balana = Balana.getInstance();
 
-    }
-    
+    }    
     private static PDP initializePDP(){  
         PDPConfig pdpConfig = balana.getPdpConfig();
         return new PDP(new PDPConfig(pdpConfig.getAttributeFinder(), pdpConfig.getPolicyFinder(), null, true));
     }
-    
     private static void evaluateRequest(String policyPath, String requestPath) {            
         try{            
             String pathconfig = uploadXACMLLocation + File.separator + "Config" + File.separator +  "config_rbac.xml";
@@ -96,7 +95,6 @@ public class BalanaXACML {
             System.err.printf(e.toString());
         }
     }
-    
     public static Element getResponseData(String response) {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(response.getBytes());
         DocumentBuilderFactory docbuild = DocumentBuilderFactory.newInstance();
@@ -111,8 +109,7 @@ public class BalanaXACML {
             return null;
         } 
         return responseDoc.getDocumentElement();
-    }
-      
+    }     
     public static void printResult(OutputStream output, Indenter indenter, Set results) {
         PrintStream out = new PrintStream(output);
         String indent = indenter.makeString();
@@ -126,7 +123,6 @@ public class BalanaXACML {
         indenter.out();
         out.println(indent + "</Response>");
     }
-
     private static String fileContentToString(File file){
         StringBuilder content = new StringBuilder();
         try{
