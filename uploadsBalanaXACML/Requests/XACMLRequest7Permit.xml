@@ -25,7 +25,7 @@
   </Attributes>
 
 <Attributes Category="urn:oasis:names:tc:xacml:3.0:level">
-    <Attribute AttributeId="levelSuscription" IncludeInResult="true">
+    <Attribute AttributeId="level" IncludeInResult="true">
       <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">6</AttributeValue>
     </Attribute>
   </Attributes>
