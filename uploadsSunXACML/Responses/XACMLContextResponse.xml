@@ -1,9 +1,8 @@
 <Response>
-  <Result ResourceID="urn:mvideo:Mavericksv.mp4">
-    <Decision>Indeterminate</Decision>
+  <Result ResourceID="urn:bbc:mdocum:Planets.mp4">
+    <Decision>Deny</Decision>
     <Status>
-      <StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:processing-error"/>
-      <StatusMessage>too many applicable top-level policies</StatusMessage>
+      <StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"/>
     </Status>
   </Result>
 </Response>

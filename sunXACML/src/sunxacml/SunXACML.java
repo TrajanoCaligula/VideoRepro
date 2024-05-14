@@ -43,7 +43,7 @@ import org.w3c.dom.NodeList;
  */
 public class SunXACML {
     private static final String PATH_PROJECT = "D:\\GIT\\VideoRepro";
-    private static final String configFilePath = "D:\\GIT\\VideoRepro";
+    private static final String configFilePath = "D:\\GIT\\VideoRepro\\uploadsSunXACML\\Config\\config_rbac.xml";
     /**
      * @param args the command line arguments
      */
