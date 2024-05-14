@@ -8,11 +8,9 @@
 	<attributeFinderModule class="com.sun.xacml.finder.impl.SelectorModule"/>
 	<policyFinderModule class="com.sun.xacml.finder.impl.FilePolicyModule">
 		<list>		  
-		 <string>support/policy/XACMLPolicy1.xml</string>
-		<!--		 
-			Sample policies
-		 <string>support/policy/XACMLPolicy2.xml</string>
-		 <string>support/policy/XACMLPolicy3.xml</string> 		-->
+		 <string>D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy1.xml</string>
+		 <string>D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy2.xml</string>
+		 <string>D:\GIT\VideoRepro\uploadsSunXACML\Policies\XACMLPolicy3.xml</string>
 		</list>
 	</policyFinderModule>
   </pdp>

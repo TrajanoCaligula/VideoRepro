@@ -68,10 +68,12 @@ public class BalanaXACML {
             initializeBalana(policyPath, pathconfig);
             PDP pdp = initializePDP();  
             File requestFile = new File(requestPath);
+            
+            String data = fileContentToString(requestFile);
 
             long startTime = System.currentTimeMillis();
 
-            String responsePDP = pdp.evaluate(fileContentToString(requestFile));
+            String responsePDP = pdp.evaluate(data);
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;

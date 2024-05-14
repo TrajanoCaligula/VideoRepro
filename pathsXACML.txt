@@ -4,6 +4,9 @@
 D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy1.xml
 D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy2.xml
 D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy3.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy4.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Policies\XACMLPolicy5.xml
+
 
 - Requests:
 
@@ -12,6 +15,11 @@ D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest2.xml
 D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest3.xml
 D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest4.xml
 D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest5.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest6Permit.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest6Deny.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest7Permit.xml
+D:\GIT\VideoRepro\uploadsBalanaXACML\Requests\XACMLRequest7Deny.xml
+
 
 
 --------SUN--------

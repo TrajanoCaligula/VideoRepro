@@ -25,11 +25,17 @@ import java.io.FileReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -37,42 +43,76 @@ import java.util.Set;
  */
 public class SunXACML {
     private static final String PATH_PROJECT = "D:\\GIT\\VideoRepro";
+    private static final String configFilePath = "D:\\GIT\\VideoRepro";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML.\nIntroduce la dirección de la 'policy' que desea utilizar:\n");
-        String policyPath = scanner.nextLine();
+        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML y la 'policy'especioficada en este\n");
         System.out.print("Ahora introduzaca el directorio de la 'request' que desea evaluar:\n");
         String requestPath = scanner.nextLine();
         scanner.close();
-        PDP pdp = buildPDP(policyPath);
+        PDP pdp = buildPDP();
         RequestCtx request = loadRequestContextFromFile(requestPath);
+        long startTime = System.currentTimeMillis();
+        
         ResponseCtx response = pdp.evaluate(request);
-        saveResponse(response);
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+           
+        saveResponse(response);            
+        
+        System.out.print("Success, The authorization has been executed correctly. The executionm time for teh evaluation was: "+elapsedTime+" ms");
+
 
     }
     
-    private static PDP buildPDP(String policyPath){
+private static PDP buildPDP() {
+    try {
+        // Crea un analizador de XML
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        
+        // Lee el archivo XML de configuración
+        Document doc = dBuilder.parse(new File(configFilePath));
+        doc.getDocumentElement().normalize();
+        
+        // Obtiene la lista de rutas de políticas desde el archivo XML
+        NodeList policyPaths = doc.getElementsByTagName("string");
+        
+        // Crea un FilePolicyModule para cargar las políticas
         FilePolicyModule policyModule = new FilePolicyModule();
-        policyModule.addPolicy(policyPath);
-
+        
+        // Agrega cada ruta de política al FilePolicyModule
+        for (int i = 0; i < policyPaths.getLength(); i++) {
+            Node node = policyPaths.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                String policyPath = node.getTextContent().trim();
+                policyModule.addPolicy(policyPath);
+            }
+        }
+        
+        // Configura otros módulos necesarios
         CurrentEnvModule envModule = new CurrentEnvModule();
         PolicyFinder policyFinder = new PolicyFinder();
-        Set policyModules = new HashSet();
+        Set<FilePolicyModule> policyModules = new HashSet<>();
         policyModules.add(policyModule);
         policyFinder.setModules(policyModules);
-
-        AttributeFinder attrFinder = new AttributeFinder();
-        List attrModules = new ArrayList();
-        attrModules.add(envModule);
-        attrFinder.setModules(attrModules);
         
-        PDP pdp = new PDP(new PDPConfig(attrFinder, policyFinder, null));
-        return pdp;
+        AttributeFinder attrFinder = new AttributeFinder();
+        attrFinder.setModules(Collections.singletonList(envModule));
+        
+        // Crea y devuelve el PDP
+        PDPConfig pdpConfig = new PDPConfig(attrFinder, policyFinder, null);
+        return new PDP(pdpConfig);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
     }
+}
 
     
     private static RequestCtx loadRequestContextFromFile(String requestFilePath) {
