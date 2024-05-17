@@ -68,14 +68,13 @@ import org.w3c.dom.NodeList;
 public class SunXACML {
     private static final String PATH_PROJECT = "D:\\GIT\\VideoRepro";
     private static final String configFilePath = "D:\\GIT\\VideoRepro\\uploadsSunXACML\\Config\\config_rbac.xml";
-    private static final String pathSign= "D:\\GIT\\VideoRepro\\uploadsSunXACML\\Responses\\XACMLContextResponseSigned.xml";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML y la 'policy'especioficada en este\n");
+        System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsSunXACML y la 'policy'especioficada en este\n");
         System.out.print("Ahora introduzaca el directorio de la 'request' que desea evaluar:\n");
         String requestPath = scanner.nextLine();
         scanner.close();
@@ -90,9 +89,10 @@ public class SunXACML {
            
         saveResponse(response);            
         
-        System.out.print("Success, The authorization has been executed correctly. The executionm time for teh evaluation was: "+elapsedTime+" ms");
-        
-        signXML(PATH_PROJECT+ File.separator + "uploadsSunXACML" +File.separator + "Responses" + File.separator + "XACMLContextResponse.xml",pathSign);
+        System.out.print("Success, The authorization has been executed correctly. The execution time for the evaluation was: "+elapsedTime+" ms");
+        String pathResponse = PATH_PROJECT+ File.separator + "uploadsSunXACML" +File.separator + "Responses" + File.separator + "XACMLContextResponse.xml";
+        String pathSign= "D:\\GIT\\VideoRepro\\uploadsSunXACML\\Responses\\XACMLContextResponseSigned.xml";
+        signXML(pathResponse,pathSign);
 
 
     }

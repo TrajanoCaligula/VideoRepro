@@ -74,7 +74,9 @@ import org.w3c.dom.NodeList;
  * @author Alvaro
  */
 public class BalanaXACML {
-
+    private static Balana balana;
+    private static final String uploadXACMLLocation = "D:\\GIT\\VideoRepro\\uploadsBalanaXACML";
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Esta aplicación utiliza la configuracion del directorio uploadsBalanaXACML.\nIntroduce la dirección de la 'policy' que desea utilizar:\n");
@@ -85,12 +87,9 @@ public class BalanaXACML {
         evaluateRequest(policyPath,requestPath); 
         String response= uploadXACMLLocation+File.separator+"Responses"+File.separator+"XACMLContextResponse.xml";
         String sign= uploadXACMLLocation+File.separator+"Responses"+File.separator+"XACMLContextResponseSigned.xml";
-        String pathKey = "D:\\GIT\\VideoRepro\\HTTPS\\.keystore";
         signXML(response,sign);
     }
-    
-    private static Balana balana;
-    private static final String uploadXACMLLocation = "D:\\GIT\\VideoRepro\\uploadsBalanaXACML";
+
     
     private static void initializeBalana(String policy, String config) {       
         try{       
