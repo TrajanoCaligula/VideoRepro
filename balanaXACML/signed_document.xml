@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Response>
+<Result><Decision>Permit</Decision><Status><StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"/></Status><Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">bobRay</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">play</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:date"><Attribute AttributeId="accessDate" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#date">2023-03-21</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:mvideo:Mavericksv.mp4</AttributeValue></Attribute>
+</Attributes></Result><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><DigestValue>s0lGWfZAvLMeeo1lywRVJwUYPd4D9ilWbOXbAssNIFA=</DigestValue></Reference></SignedInfo><SignatureValue>saoB91A0q32oKN7kIZ3GzeGB00GwqZd5kRqrzvOSIs3p0PSZohl4xBmqF5QYQ3XRMVOeFRYR5lw4&#13;
+2LIfaqaUJNU4StP2Rh5I1nhO5fOxf4xuaGsdIi+Q3IKUGfiWqTENeF53C7h0OwgSBS8vQJFLDgBK&#13;
+8Vgn8JFRYOAkskNhmKKe2e/BLCzCbpDxK4w19gw3BPPRuDeKgN6urPwQCqCKJ3sA+WIufREI9AQD&#13;
+TGjG4kL5y/sDofeoNHHxw9sUnnATEzI7lKf9AdkdzxKg4RggGquUFqo4amcb+rAn4Qz6+zhGn4Ck&#13;
+dSmF/jfBEz/5lweeA5EhCIZkjFzCyn9N7PQC3w==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>svtI6JUZBUaTwCwYhY8envu38KsVBfLQMzn8E5DWRMqk4kHIOUBL+PNghYCLE6CwulGgTPj7ZTh6&#13;
+PE13n+wkrt2j81zRoHsXVyvRo/YH1HINhG6nDg3P6yN9VA8uQwrm2QUXhGNP79Mn6gIrg1rgG9YS&#13;
+XkEwKDO4ZaRi+oFNr0hw57dX5Q7f1YvyZz+v3x2x9liLpquyjgdIWQu6WeD62tzRvcN5SHnQnm4Q&#13;
+MbdplS2lm1rNtQIFdMYOsFf+hy6giTQhRPti2eqCx69ZqN3DFAbN1NIn29Bn4sHginTKRBdvYmPF&#13;
+MTrIgIgafS88SIuxezAMJH1tSEYZ4EvnjN5dIQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue></KeyInfo></Signature></Response>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Response>
+<Result><Decision>Permit</Decision><Status><StatusCode Value="urn:oasis:names:tc:xacml:1.0:status:ok"/></Status><Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">bobRay</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">play</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:date"><Attribute AttributeId="accessDate" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#date">2023-03-21</AttributeValue></Attribute>
+</Attributes><Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"><Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="true">
+<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">urn:mvideo:Mavericksv.mp4</AttributeValue></Attribute>
+</Attributes></Result><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>uhSD/Ub41+qDCY9JVwxCMpA5EZo=</DigestValue></Reference></SignedInfo><SignatureValue>qPCfluRILoULbadCeWdDdILRX51xOmT95XTd+hwYacx3kGSPflClbVHiiYjZZMm7Y4nX4hF9kQ0Y&#13;
+5bqBB+XhjbWgfQQ1KUNITVrG1PWXhS9W2v3U4beNHmURyghfnrE7vN0/TWhfnX33s9ahVpnYkazT&#13;
+7dTpkY8uNzWkhBr0DefNZWfrqjk1Bvdw0ydgoXXo+OlSPxtUjU/ntk9sdKxBjLTs4jVUHyVodxdL&#13;
+N7t3tMsef1P3MyHtbvI0GIsm+VHw2wQae0TrnVOLcLymAl3/5rDnyoJREP0SO4zdGSPktuKbICy/&#13;
+aRsFilo9jKkGia/c5r+VoWtcT/mVZIlM17FNlA==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=JAUVARO,OU=FIB,O=UPC,L=Barcelona,ST=Barcelona,C=ES</X509SubjectName><X509Certificate>MIIDaTCCAlGgAwIBAgIIUVl2RR37YqswDQYJKoZIhvcNAQELBQAwYzELMAkGA1UEBhMCRVMxEjAQ&#13;
+BgNVBAgTCUJhcmNlbG9uYTESMBAGA1UEBxMJQmFyY2Vsb25hMQwwCgYDVQQKEwNVUEMxDDAKBgNV&#13;
+BAsTA0ZJQjEQMA4GA1UEAxMHSkFVVkFSTzAeFw0yNDA0MjgyMTM1MDRaFw0yNDA3MjcyMTM1MDRa&#13;
+MGMxCzAJBgNVBAYTAkVTMRIwEAYDVQQIEwlCYXJjZWxvbmExEjAQBgNVBAcTCUJhcmNlbG9uYTEM&#13;
+MAoGA1UEChMDVVBDMQwwCgYDVQQLEwNGSUIxEDAOBgNVBAMTB0pBVVZBUk8wggEiMA0GCSqGSIb3&#13;
+DQEBAQUAA4IBDwAwggEKAoIBAQDFAC9BbO+nBwq9FtxrRCPJyld4Xk+CAPSB1p92j/PORGF/1DdA&#13;
+l8MERTW+TheVwFQU8ty6jlkwu2AWjdowOVW4lyBrf0ZGuSB51fKehSBJEXxjLbDiQlOGtV7TQvpV&#13;
+qip6RJc9TD8tLdl62H2KP8WS3wBLwJ0dSxxsB8RCzNTX35USM5Fgohhf7CT+cVc7sIaMgyqDC79z&#13;
+2ww0uRMbjMPQVm8cNIMvkllOSRdt/RjnN0pdpu0vodRtXTUwG3v2GcecsHQ4QI7k8bHFA7IBccTb&#13;
+YcGbx2lzUdyIX+ulsNu7arFjzRRI4POOnWc4TBLVxuXH1/CiUydowfekehH90NTbAgMBAAGjITAf&#13;
+MB0GA1UdDgQWBBRDyWJ3yZr8hSvRhhC6H9QJULoVHjANBgkqhkiG9w0BAQsFAAOCAQEAIo02KIss&#13;
+8ZQX31iB6EscUl7W4boB7tUrqxRDJYvZyYUZzeAzRbkp5WdFnJLdqYrFwO21I7Kao9aValp0oRbr&#13;
+6/0uHoXBtE09LklKuxUbCYFFlexJyqJL5SCXmCtIOU4SPeYt3MDnjaj7/FKF1dufmGYmjJnlp7xA&#13;
+pfVYm02g+8hFi0SHORN0CzZq8I92RUlNL3UQIUfGRWgDwNhxGa497rJ4igN38GRuW99UF/kJfO67&#13;
+t+e82oWTDJ6wRfX+jXgOmoQ/Q2eLeeVaghzhICxmGBgWh09iwQfcAwPIImXNZYB0xIMSBVL7hbF1&#13;
+t5RpK1WXJgNTaW6tTzlxPYm5DZkqpw==</X509Certificate></X509Data></KeyInfo></Signature></Response>
